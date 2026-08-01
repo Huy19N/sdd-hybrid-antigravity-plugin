@@ -36,7 +36,7 @@ describe what you want ("I want to build X", "ready to start building",
 ### Antigravity CLI (`agy`) — global, applies to every project (recommended)
 
 ```bash
-agy plugin install https://github.com/<your-username>/sdd-hybrid
+agy plugin install https://github.com/<Huy19N>/sdd-hybrid
 ```
 
 This stages the plugin under `~/.gemini/antigravity-cli/plugins/sdd-hybrid/`.
@@ -48,19 +48,19 @@ the same install command again.
 
 ```bash
 mkdir -p .agents/plugins
-git clone https://github.com/<your-username>/sdd-hybrid .agents/plugins/sdd-hybrid
+git clone https://github.com/<Huy19N>/sdd-hybrid .agents/plugins/sdd-hybrid
 ```
 
 Or as a submodule, so each project tracks a specific commit:
 
 ```bash
-git submodule add https://github.com/<your-username>/sdd-hybrid .agents/plugins/sdd-hybrid
+git submodule add https://github.com/<Huy19N>/sdd-hybrid .agents/plugins/sdd-hybrid
 ```
 
 ### Antigravity IDE — global (applies to every workspace)
 
 ```bash
-git clone https://github.com/<your-username>/sdd-hybrid ~/.gemini/config/plugins/sdd-hybrid
+git clone https://github.com/<Huy19N>/sdd-hybrid ~/.gemini/config/plugins/sdd-hybrid
 ```
 
 > Note: the IDE's global path (`~/.gemini/config/plugins/`) is different from
