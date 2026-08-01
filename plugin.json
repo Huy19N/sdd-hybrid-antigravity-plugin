@@ -1,0 +1,5 @@
+{
+  "$schema": "https://antigravity.google/schemas/v1/plugin.json",
+  "name": "sdd-hybrid",
+  "description": "Spec-driven development workflow: Brainstorm -> Constitution -> Plan -> Build -> Review -> Security (OWASP Top 10:2025). A project-wide constitution gates every step, and a security review gates every push to CI/CD."
+}
