@@ -1,6 +1,6 @@
 ---
 name: sdd-brainstorm
-description: Use when the user proposes a new feature, product, or project idea and no docs/sdd/<feature>/brainstorm.md exists yet for it. Refines a rough idea into a validated problem statement and approach through Socratic questioning, before any constitution, spec, or planning work begins. This is step 1 of 6 in the SDD-Hybrid workflow (Brainstorm -> Constitution -> Plan -> Build -> Review -> Security). Do not use for bug fixes (use systematic-debugging) or for small, already fully-specified tasks.
+description: Use when the user proposes a new feature, product, or project idea and no docs/sdd/<feature>/brainstorm.md exists yet for it. Refines a rough idea into a validated problem statement and approach through Socratic questioning, enhanced by automatic deep research (market, competitors, UX trends). This is step 1 of 6 in the SDD-Hybrid workflow (Brainstorm -> Constitution -> Plan -> Build -> Review -> Security). Do not use for bug fixes (use systematic-debugging) or for small, already fully-specified tasks.
 ---
 
 # SDD Brainstorm (step 1 of 6)
@@ -17,18 +17,29 @@ being solved and *why* — before anything gets constrained (constitution) or pl
   don't start from scratch.
 
 ## Process
-1. **Do not propose solutions yet.** Ask about, one topic at a time (don't dump all
-   questions at once):
+1. **Deep Research (auto).** Before asking the user anything, automatically invoke
+   the `sdd-deep-research` sub-skill:
+   - Read the user's initial idea description.
+   - Run structured research: market analysis, competitor landscape, UX/design
+     trends in the domain, and technical feasibility notes.
+   - The research output informs your Socratic questions — making them sharper
+     and more relevant than generic brainstorming prompts.
+   - The research findings will be included in the final brainstorm.md as a
+     dedicated `## Research Findings` section.
+2. **Do not propose solutions yet.** Using insights from the research, ask about
+   one topic at a time (don't dump all questions at once):
    - What problem/pain does this solve, and for whom?
    - What does success look like? How will we know it worked?
    - What's explicitly OUT of scope for this iteration?
    - What constraints already exist (deadline, existing systems, data, users)?
    - What alternatives or prior art did the user already consider or reject, and why?
-2. Once the shape is clear, draft 2-3 candidate approaches at a high level (not
+   - (Reference specific competitors or trends from the research to prompt deeper
+     thinking, e.g., "Competitor X does this differently — is that relevant?")
+3. Once the shape is clear, draft 2-3 candidate approaches at a high level (not
    implementation detail) and lay out trade-offs.
-3. Present the draft **in short sections**, not one giant wall of text. Get explicit
+4. Present the draft **in short sections**, not one giant wall of text. Get explicit
    sign-off section by section — don't assume silence means agreement.
-4. Iterate until the user confirms the document is accurate.
+5. Iterate until the user confirms the document is accurate.
 
 ## Output
 Write to: `docs/sdd/<feature-slug>/brainstorm.md`
@@ -41,6 +52,15 @@ Write to: `docs/sdd/<feature-slug>/brainstorm.md`
 ## Non-goals (explicitly out of scope)
 ## Users / context
 ## Constraints
+
+## Research Findings
+### Market Overview
+### Competitor Landscape
+| Competitor | Value Prop | Strengths | Gaps | Pricing |
+|---|---|---|---|---|
+### UX/Design Trends in [Industry]
+### Technical Notes
+
 ## Approaches considered
 | Approach | Pros | Cons | Chosen? |
 |---|---|---|---|

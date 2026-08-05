@@ -3,6 +3,9 @@
 Spec-driven development workflow for AI coding agents, built as an **Antigravity
 plugin**: `Brainstorm → Constitution → Plan → Build → Review → Security`.
 
+Now with **UI/UX design automation**: 20 design templates, automatic asset
+generation, background removal, and ReactBits component integration.
+
 Combines:
 - **[obra/superpowers](https://github.com/obra/superpowers)**-style engineering
   discipline — bite-sized tasks, TDD, code review, subagent execution.
@@ -10,6 +13,8 @@ Combines:
   a project-wide, binding rule set every step must respect.
 - An **OWASP Top 10:2025** security gate that must pass before anything is
   pushed, PR'd, or sent to CI/CD.
+- **20 UI/UX design templates** with auto-selection, asset generation, and
+  premium animated components from [ReactBits](https://www.reactbits.dev/).
 
 Install this plugin once, and every new project you start gets the same
 disciplined flow — no copy-pasting prompts between projects.
@@ -18,9 +23,14 @@ disciplined flow — no copy-pasting prompts between projects.
 
 ```
 1. sdd-brainstorm       docs/sdd/<feature>/brainstorm.md
+   └── sdd-deep-research   (auto: market/competitor/UX research)
 2. sdd-constitution     docs/sdd/constitution.md            (once per project)
 3. sdd-plan             docs/sdd/<feature>/plan.md
+   └── Design Template Selection (auto: 2-3 suggestions from 20 templates)
 4. sdd-build            code, plan.md tasks checked off
+   ├── sdd-asset-generator  (auto: generate images via generate_image tool)
+   ├── sdd-bg-remover       (auto: remove backgrounds if template requires)
+   └── ReactBits copy       (auto: copy components from reactbits.dev)
 5. sdd-review-code      docs/sdd/<feature>/review-report.md   (correctness)
 6. sdd-security-review  docs/sdd/<feature>/security-report.md (OWASP Top 10:2025)
                          -> only a "Cleared" verdict here unlocks push/PR/CI-CD
@@ -30,6 +40,52 @@ Each skill is a `SKILL.md` under `skills/`. The agent picks the right one
 automatically based on its `description` — you don't need slash commands, just
 describe what you want ("I want to build X", "ready to start building",
 "review this before I push").
+
+## Design Templates (20 available)
+
+When planning a UI-focused project, the agent automatically scans your
+`brainstorm.md` and suggests the **2-3 most relevant templates** from the library:
+
+| # | Template | Category | Key Features |
+|---|---|---|---|
+| 1 | Product Carousel | product-store | Transparent cutout images, color-shifting bg, depth carousel |
+| 2 | SaaS Landing | saas | Aurora gradient, shiny text, pricing toggle |
+| 3 | Creative Portfolio | portfolio | Masonry grid, serif typography, blur text |
+| 4 | Restaurant & Food | food-beverage | Parallax food gallery, circular gallery, menu tabs |
+| 5 | Fashion E-Commerce | fashion | Morph slider, lookbook layout, quick-view cards |
+| 6 | Tech / AI Startup | tech-startup | Dot field particles, glitch text, blob cursor |
+| 7 | Real Estate | real-estate | Bento grid properties, search hero, grid distortion |
+| 8 | Education / LMS | education | Progress rings, split flap counter, gamification |
+| 9 | Healthcare & Clinic | healthcare | Color bends bg, glass icons, booking form |
+| 10 | Event & Conference | event | Line waves bg, countdown, scrambled text |
+| 11 | Fitness & Gym | fitness | Neon green, pixel trail, text pressure |
+| 12 | Travel & Tourism | travel | Morph slider hero, ripple distortion, booking |
+| 13 | Music & Streaming | music | Magic rings, particle text, mini player |
+| 14 | Crypto & Fintech | crypto-fintech | Aurora bg, blob cursor, live data tables |
+| 15 | Photography Studio | photography | Circular gallery, magnet lines, minimal |
+| 16 | Automotive | automotive | Grid distortion, shiny text, transparent vehicles |
+| 17 | Pet Care | pet-care | Sticker peel, animated list, rounded playful |
+| 18 | Coworking Space | coworking | Magic bento, tilted cards, industrial warm |
+| 19 | Wedding Planner | wedding | Falling text, circular gallery, romantic serif |
+| 20 | News & Magazine | news-blog | Split flap ticker, infinite menu, editorial grid |
+
+Each template includes:
+- Full React + TypeScript + Vite + Tailwind CSS prompt
+- Color palette (sourced from [Coolors](https://coolors.co/palettes/popular))
+- Google Fonts configuration
+- ReactBits component references
+- Required assets list for auto-generation
+- Responsive layout specifications (mobile/tablet/desktop)
+
+## Sub-skills (auto-invoked)
+
+These skills are called automatically — you never need to trigger them manually:
+
+| Sub-skill | Called by | Purpose |
+|---|---|---|
+| `sdd-deep-research` | `sdd-brainstorm` | Market analysis, competitor landscape, UX trends, technical feasibility |
+| `sdd-asset-generator` | `sdd-build` | Generate product photos, hero banners, icons via `generate_image` tool |
+| `sdd-bg-remover` | `sdd-build` | Remove image backgrounds using Python `rembg` library |
 
 ## Install
 
@@ -68,31 +124,76 @@ git clone https://github.com/Huy19N/sdd-hybrid-antigravity-plugin ~/.gemini/conf
 > `agy plugin install`). Pick the one matching whichever you actually use — if
 > you use both, install both ways.
 
+### Optional: Background removal dependency
+
+If you plan to use templates that require transparent images (product stores,
+food, fashion, automotive, pet care), install the Python dependency:
+
+```bash
+pip install rembg Pillow
+```
+
+For GPU-accelerated processing:
+```bash
+pip install rembg[gpu] Pillow
+```
+
 ## Using it in a new project
 
 1. Open the project in Antigravity (CLI or IDE) with the plugin installed.
 2. Just describe the idea: *"I want to build a notification system for..."*
-   → `sdd-brainstorm` kicks in and asks clarifying questions.
+   → `sdd-brainstorm` kicks in, runs deep research, then asks clarifying questions.
 3. First time in this project? Right after brainstorm is approved, run the
    constitution step once: *"let's set up the project constitution."*
-4. Approve `brainstorm.md` → plan → build → review → security, in order. Each
-   skill tells you explicitly what the next one is when it finishes.
-5. Only after `sdd-security-review` says **Cleared** should you push or open a PR.
+4. When planning, the agent will automatically suggest 2-3 design templates
+   matching your project — pick one and it becomes part of the plan.
+5. During build, assets are generated automatically, backgrounds removed if needed,
+   and ReactBits components are copied and configured in your project.
+6. Only after `sdd-security-review` says **Cleared** should you push or open a PR.
 
 ## Repo layout
 
 ```
 sdd-hybrid/
-├── plugin.json                     # Antigravity plugin manifest
+├── plugin.json                            # Antigravity plugin manifest
 ├── rules/
-│   └── sdd-workflow.md             # always-loaded: step order + hard gates
+│   └── sdd-workflow.md                    # always-loaded: step order + hard gates
 ├── skills/
-│   ├── sdd-brainstorm/SKILL.md
-│   ├── sdd-constitution/SKILL.md
-│   ├── sdd-plan/SKILL.md
-│   ├── sdd-build/SKILL.md
-│   ├── sdd-review-code/SKILL.md
-│   └── sdd-security-review/SKILL.md
+│   ├── sdd-brainstorm/SKILL.md            # Step 1: idea → brainstorm.md
+│   ├── sdd-constitution/SKILL.md          # Step 2: project-wide rules
+│   ├── sdd-plan/
+│   │   ├── SKILL.md                       # Step 3: brainstorm → plan.md
+│   │   └── templates/                     # 20 UI/UX design templates
+│   │       ├── template-index.md          # Quick-reference index
+│   │       ├── 01-product-carousel.md
+│   │       ├── 02-saas-landing.md
+│   │       ├── 03-portfolio-creative.md
+│   │       ├── 04-restaurant-food.md
+│   │       ├── 05-fashion-ecommerce.md
+│   │       ├── 06-tech-startup.md
+│   │       ├── 07-real-estate.md
+│   │       ├── 08-education-lms.md
+│   │       ├── 09-healthcare-clinic.md
+│   │       ├── 10-event-conference.md
+│   │       ├── 11-fitness-gym.md
+│   │       ├── 12-travel-tourism.md
+│   │       ├── 13-music-streaming.md
+│   │       ├── 14-crypto-fintech.md
+│   │       ├── 15-photography-studio.md
+│   │       ├── 16-automotive.md
+│   │       ├── 17-pet-care.md
+│   │       ├── 18-coworking-space.md
+│   │       ├── 19-wedding-planner.md
+│   │       └── 20-news-magazine.md
+│   ├── sdd-build/SKILL.md                 # Step 4: plan → code
+│   ├── sdd-review-code/SKILL.md           # Step 5: correctness review
+│   ├── sdd-security-review/SKILL.md       # Step 6: OWASP security gate
+│   ├── sdd-deep-research/SKILL.md         # Sub-skill: market/UX research
+│   ├── sdd-asset-generator/SKILL.md       # Sub-skill: image generation
+│   └── sdd-bg-remover/                    # Sub-skill: background removal
+│       ├── SKILL.md
+│       └── scripts/
+│           └── remove_bg.py
 ├── LICENSE
 └── README.md
 ```
@@ -103,26 +204,31 @@ Superpowers has brainstorming but nothing binding downstream of it. Spec-kit has
 a constitution but no equivalent brainstorming step. Here:
 
 - `brainstorm.md` is **per feature** — the idea, scope, and approach for one
-  piece of work.
+  piece of work. Now enhanced with **automatic deep research** (market data,
+  competitor analysis, UX trends).
 - `constitution.md` is **per project, created once** — non-negotiable rules
   (testing standards, tech constraints, security requirements, architecture
-  principles) that every later step must be checked against. `sdd-plan` checks
-  a draft plan against it, `sdd-build` stops on any violation instead of routing
-  around it, and `sdd-review-code` / `sdd-security-review` check the final code
-  against it again, since small violations can drift in across several tasks
-  even if each one individually passed its own check.
+  principles) that every later step must be checked against.
+
+## Why design templates
+
+AI coding agents often produce generic-looking UIs. By embedding 20 curated
+design templates into the workflow:
+
+- **Consistency**: Every project gets a premium, well-designed starting point.
+- **Speed**: No time wasted debating colors, fonts, or layout — pick a template
+  and build.
+- **Quality**: Templates reference ReactBits components for professional-grade
+  animations and interactions.
+- **Automation**: Assets are generated, backgrounds removed, and components
+  configured automatically during the build step.
 
 ## Why OWASP Top 10:2025 as a hard gate before CI/CD
 
 Neither superpowers nor spec-kit has a dedicated security step — code review
 checks logic, not exploitability. `sdd-security-review` runs after
 `sdd-review-code` and walks the diff against the current OWASP Top 10:2025
-list (SSRF folded into Broken Access Control; Software Supply Chain Failures
-and Mishandling of Exceptional Conditions are new since the 2021 list), plus
-whatever your `constitution.md` states under "Security requirements". A
-Critical or High finding blocks the branch from being pushed — `sdd-review-code`
-is explicitly not allowed to offer merge/PR/push options itself, only
-`sdd-security-review` can, and only after a clean or explicitly-accepted verdict.
+list, plus whatever your `constitution.md` states under "Security requirements".
 
 ## Customizing
 
@@ -130,6 +236,9 @@ is explicitly not allowed to offer merge/PR/push options itself, only
   the frontmatter controls when the agent picks it up, so keep it specific.
 - Edit `rules/sdd-workflow.md` to change the step order or add project-specific
   hard rules that should apply to every session, not just when a skill triggers.
+- Add new design templates to `skills/sdd-plan/templates/` — follow the existing
+  template format with YAML frontmatter (id, name, category, tags, color_palette,
+  reactbits_components, best_for) and update `template-index.md`.
 - If you rely on other superpowers skills too (`test-driven-development`,
   `systematic-debugging`, `using-git-worktrees`, `subagent-driven-development`),
   install that plugin alongside this one — `sdd-build` and `sdd-review-code`
