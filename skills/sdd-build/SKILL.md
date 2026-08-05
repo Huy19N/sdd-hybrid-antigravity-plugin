@@ -1,6 +1,6 @@
 ---
 name: sdd-build
-description: Use when the user has approved docs/sdd/<feature>/plan.md and says to start building or implementing. Executes the plan task-by-task under strict TDD, checks every task against docs/sdd/constitution.md, auto-generates visual assets if a design template was selected, and updates plan.md as tasks complete. This is step 4 of 6 in the SDD-Hybrid workflow. Do not use to start work with no approved plan.md — redirect to sdd-plan first.
+description: Use when the user has approved docs/sdd/<feature>/plan.md and says to start building or implementing. Executes the plan task-by-task under strict TDD, checks every task against docs/sdd/constitution.md and business rules from docs/sdd/BRD.md (if exists), tracks functional requirement completion from docs/sdd/PRD.md (if exists), auto-generates visual assets if a design template was selected, and updates plan.md as tasks complete. This is step 4 of 6 in the SDD-Hybrid workflow. Do not use to start work with no approved plan.md — redirect to sdd-plan first.
 ---
 
 # SDD Build (step 4 of 6)
@@ -23,6 +23,11 @@ If either is missing, stop and point the user to `sdd-plan` / `sdd-constitution`
    touching anything. (If the superpowers `using-git-worktrees` skill is installed,
    use it here.)
 2. Read `plan.md` and `constitution.md` fully before starting task 1.
+   - Also read `docs/sdd/BRD.md` (Section 5: Business Rules) and
+     `docs/sdd/PRD.md` (Section 2: Functional Requirements) **if they exist**.
+     These enable business rule compliance checking and requirement tracking
+     during the build. If they don't exist, skip these checks — the build
+     works fine without them.
 
 3. **Asset Preparation (auto, if UI design exists).**
    If `plan.md` contains a `## Design Template` section:
@@ -54,8 +59,25 @@ If either is missing, stop and point the user to `sdd-plan` / `sdd-constitution`
    d. **Constitution check**: does this task's implementation violate any principle
       in `constitution.md`? If yes, stop — do not route around it silently. Surface
       it to the user, citing the specific principle.
-   e. Mark the task `[x]` in `plan.md` and commit, referencing the task in the
+   e. **Business Rule compliance check** (only when BRD.md exists): does this
+      task's code violate any BR-xxx from BRD Section 5? Check the specific
+      business rules mapped to this task (from the Requirement Traceability
+      section). If violated, stop — treat it the same as a constitution
+      violation. Report:
+      > "⚠️ Task N vi phạm **BR-xxx**: [rule description]. Code hiện tại
+      > [specific violation]. Cần fix trước khi tiếp tục."
+   f. Mark the task `[x]` in `plan.md` and commit, referencing the task in the
       commit message.
+   g. **Update Requirement Traceability** (only when plan.md has the section):
+      update the status of FR-xxx/BR-xxx IDs mapped to this task from
+      `⬜ Pending` to `✅ Done`.
+   h. **Show progress** after each task:
+      ```
+      📊 Progress: Task N/M done
+         FR Coverage: X/Y (Z%) — ✅ FR-001, FR-002 | ⬜ FR-003, FR-004
+         BR Compliance: X/Y checked, 0 violations
+      ```
+      Skip this output if BRD/PRD don't exist.
 5. If a task turns out to need something the plan didn't anticipate, stop and
    re-plan that task with the user rather than improvising silently.
 6. Prefer dispatching each task to a fresh subagent with a two-stage review (spec
@@ -68,7 +90,10 @@ If either is missing, stop and point the user to `sdd-plan` / `sdd-constitution`
 - No task's implementation code is written before its test.
 - No task is marked done without actually running its verification step.
 - No constitution violation is "fixed later" — it blocks that task, full stop.
+- No business rule violation is "fixed later" — it blocks that task, same as constitution.
 - Asset generation and ReactBits setup must complete before UI build tasks begin.
+- If Requirement Traceability section exists in plan.md, FR/BR status must be
+  updated after every task completion — don't leave it stale.
 
 ## Handoff
 When all tasks in `plan.md` are checked off and tests are green, say:

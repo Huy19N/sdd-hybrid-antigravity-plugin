@@ -1,7 +1,9 @@
 # sdd-hybrid
 
 Spec-driven development workflow for AI coding agents, built as an **Antigravity
-plugin**: `Brainstorm → Constitution → Plan → Build → Review → Security`.
+plugin** with two phases:
+- **Phase A** (BA/SA): `BRD → PRD → Event Storming → Architecture Design`
+- **Phase B** (Dev): `Brainstorm → Constitution → Plan → Build → Review → Security`
 
 Now with **UI/UX design automation**: 20 design templates, automatic asset
 generation, background removal, and ReactBits component integration.
@@ -22,6 +24,19 @@ disciplined flow — no copy-pasting prompts between projects.
 ## The workflow
 
 ```
+Phase A: BA/SA Document Chain (project-level, done once)
+─────────────────────────────────────────────────────────
+A1. sdd-create-brd      docs/sdd/BRD.md
+    (Problem, Vision, Stakeholders, Scope, Business Rules, Constraints/Risks)
+A2. sdd-create-prd      docs/sdd/PRD.md
+    (Business Capabilities, Functional Requirements, NFRs)
+A3. sdd-create-es       docs/sdd/ES.md
+    (Domain Events, Actors & Commands, Policies, Aggregates)
+A4. sdd-create-add      docs/sdd/ADD.md
+    (Tech Stack, Domain Entities, Components, Contracts, ADRs)
+
+Phase B: Feature Development Cycle (per feature)
+─────────────────────────────────────────────────────────
 1. sdd-brainstorm       docs/sdd/<feature>/brainstorm.md
    └── sdd-deep-research   (auto: market/competitor/UX research)
 2. sdd-constitution     docs/sdd/constitution.md            (once per project)
@@ -34,6 +49,10 @@ disciplined flow — no copy-pasting prompts between projects.
 5. sdd-review-code      docs/sdd/<feature>/review-report.md   (correctness)
 6. sdd-security-review  docs/sdd/<feature>/security-report.md (OWASP Top 10:2025)
                          -> only a "Cleared" verdict here unlocks push/PR/CI-CD
+
+Utility:
+─────────────────────────────────────────────────────────
+❓ sdd-help              Show workflow, check status, recommend next step
 ```
 
 Each skill is a `SKILL.md` under `skills/`. The agent picks the right one
@@ -77,6 +96,21 @@ Each template includes:
 - Required assets list for auto-generation
 - Responsive layout specifications (mobile/tablet/desktop)
 
+## BA/SA Document Chain (Phase A)
+
+For new projects, start with the BA/SA document chain to establish a solid
+foundation before feature development:
+
+| Step | Skill | Output | What it captures |
+|------|-------|--------|------------------|
+| A1 | `sdd-create-brd` | `BRD.md` | Problem, Vision, Stakeholders, Scope, Business Rules, Risks |
+| A2 | `sdd-create-prd` | `PRD.md` | Business Capabilities, Functional Requirements (Gherkin), NFRs |
+| A3 | `sdd-create-es` | `ES.md` | Domain Events, Actors & Commands, Policies, Aggregates |
+| A4 | `sdd-create-add` | `ADD.md` | Tech Stack, Domain Entities, Components, Interface Contracts, ADRs |
+
+Each step uses Socratic questioning to guide the user through structured discovery.
+All documents are stored at `docs/sdd/` (project-level, not per-feature).
+
 ## Sub-skills (auto-invoked)
 
 These skills are called automatically — you never need to trigger them manually:
@@ -86,6 +120,21 @@ These skills are called automatically — you never need to trigger them manuall
 | `sdd-deep-research` | `sdd-brainstorm` | Market analysis, competitor landscape, UX trends, technical feasibility |
 | `sdd-asset-generator` | `sdd-build` | Generate product photos, hero banners, icons via `generate_image` tool |
 | `sdd-bg-remover` | `sdd-build` | Remove image backgrounds using Python `rembg` library |
+
+## Requirement Traceability (Phase A → Phase B)
+
+When Phase A documents (BRD.md, PRD.md) exist, Phase B steps automatically
+gain traceability features:
+
+| Phase B Step | Traceability Feature | Without Phase A |
+|-------------|---------------------|-----------------|
+| `sdd-plan` | Maps each task to FR-xxx/BR-xxx IDs, detects coverage gaps | Works normally |
+| `sdd-build` | Checks BR compliance per task, tracks FR completion, shows progress | Works normally |
+| `sdd-review-code` | Full BR Compliance + FR Coverage analysis tables | Works normally |
+| `sdd-traceability-report` | On-demand FR/BR coverage dashboard | Reports "no data" |
+
+**Phase A is optional** — Phase B works standalone without any traceability.
+But when Phase A documents exist, the traceability features activate automatically.
 
 ## Install
 
@@ -159,10 +208,16 @@ sdd-hybrid/
 ├── rules/
 │   └── sdd-workflow.md                    # always-loaded: step order + hard gates
 ├── skills/
-│   ├── sdd-brainstorm/SKILL.md            # Step 1: idea → brainstorm.md
-│   ├── sdd-constitution/SKILL.md          # Step 2: project-wide rules
+│   ├── sdd-create-brd/SKILL.md            # Phase A1: → BRD.md
+│   ├── sdd-create-prd/SKILL.md            # Phase A2: → PRD.md
+│   ├── sdd-create-es/SKILL.md             # Phase A3: → ES.md
+│   ├── sdd-create-add/SKILL.md            # Phase A4: → ADD.md
+│   ├── sdd-help/SKILL.md                  # Utility: workflow guide
+│   ├── sdd-traceability-report/SKILL.md   # Utility: FR/BR coverage dashboard
+│   ├── sdd-brainstorm/SKILL.md            # Phase B1: idea → brainstorm.md
+│   ├── sdd-constitution/SKILL.md          # Phase B2: project-wide rules
 │   ├── sdd-plan/
-│   │   ├── SKILL.md                       # Step 3: brainstorm → plan.md
+│   │   ├── SKILL.md                       # Phase B3: brainstorm → plan.md
 │   │   └── templates/                     # 20 UI/UX design templates
 │   │       ├── template-index.md          # Quick-reference index
 │   │       ├── 01-product-carousel.md
@@ -185,9 +240,9 @@ sdd-hybrid/
 │   │       ├── 18-coworking-space.md
 │   │       ├── 19-wedding-planner.md
 │   │       └── 20-news-magazine.md
-│   ├── sdd-build/SKILL.md                 # Step 4: plan → code
-│   ├── sdd-review-code/SKILL.md           # Step 5: correctness review
-│   ├── sdd-security-review/SKILL.md       # Step 6: OWASP security gate
+│   ├── sdd-build/SKILL.md                 # Phase B4: plan → code
+│   ├── sdd-review-code/SKILL.md           # Phase B5: correctness review
+│   ├── sdd-security-review/SKILL.md       # Phase B6: OWASP security gate
 │   ├── sdd-deep-research/SKILL.md         # Sub-skill: market/UX research
 │   ├── sdd-asset-generator/SKILL.md       # Sub-skill: image generation
 │   └── sdd-bg-remover/                    # Sub-skill: background removal

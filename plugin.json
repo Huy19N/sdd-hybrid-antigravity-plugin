@@ -1,5 +1,5 @@
 {
   "$schema": "https://antigravity.google/schemas/v1/plugin.json",
   "name": "sdd-hybrid",
-  "description": "Spec-driven development workflow with UI/UX design automation: Brainstorm (with deep research) -> Constitution -> Plan (with 20 design template selection) -> Build (with auto asset generation, background removal, and ReactBits integration) -> Review -> Security (OWASP Top 10:2025). A project-wide constitution gates every step, and a security review gates every push to CI/CD."
+  "description": "Spec-driven development workflow with BA/SA document chain, requirement traceability, and UI/UX design automation. Phase A: BRD (Business Requirements) -> PRD (Product Requirements) -> ES (Event Storming) -> ADD (Architecture Design). Phase B: Brainstorm (with deep research) -> Constitution -> Plan (with 20 design template selection + FR/BR traceability) -> Build (with auto asset generation, background removal, ReactBits integration, and business rule compliance checking) -> Review (with FR coverage analysis) -> Security (OWASP Top 10:2025). Includes sdd-help for workflow guidance and sdd-traceability-report for on-demand FR/BR coverage dashboard. Phase A is optional — Phase B works standalone. A project-wide constitution gates every step, and a security review gates every push to CI/CD."
 }

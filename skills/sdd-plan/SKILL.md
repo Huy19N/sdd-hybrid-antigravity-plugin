@@ -1,6 +1,6 @@
 ---
 name: sdd-plan
-description: Use when both docs/sdd/constitution.md and a feature's docs/sdd/<feature>/brainstorm.md exist and are approved, and the user is ready to move from idea to an executable engineering plan. Produces plan.md with a short spec, constitution-compliance check, UI/UX design template selection (if applicable), and a bite-sized task breakdown. This is step 3 of 6 in the SDD-Hybrid workflow. Do not use before brainstorm and constitution exist — redirect to those first.
+description: Use when both docs/sdd/constitution.md and a feature's docs/sdd/<feature>/brainstorm.md exist and are approved, and the user is ready to move from idea to an executable engineering plan. Produces plan.md with a short spec, constitution-compliance check, requirement traceability (if BRD.md/PRD.md exist), UI/UX design template selection (if applicable), and a bite-sized task breakdown. This is step 3 of 6 in the SDD-Hybrid workflow. Do not use before brainstorm and constitution exist — redirect to those first.
 ---
 
 # SDD Plan (step 3 of 6)
@@ -19,7 +19,12 @@ exact files, explicit verification) instead of loose task lists.
   not, point the user to `sdd-brainstorm`.
 
 ## Process
-1. **Read both files in full**: `constitution.md` and the feature's `brainstorm.md`.
+1. **Read all source files in full**:
+   - `constitution.md` and the feature's `brainstorm.md` (required).
+   - `docs/sdd/PRD.md` and `docs/sdd/BRD.md` (if they exist). Extract the list of
+     Functional Requirements (FR-xxx), Business Rules (BR-xxx), and NFRs (NFR-xxx).
+     These will be used for requirement traceability in the plan. If these files
+     don't exist, skip traceability — the plan works fine without them.
 2. **Clarify before planning.** If brainstorm.md has open questions, or there's
    ambiguity that would force you to guess at implementation, ask the user now —
    numbered, specific questions. Never silently assume.
@@ -66,14 +71,25 @@ exact files, explicit verification) instead of loose task lists.
    - State the test that proves the task is done (TDD-first: the test-writing task
      comes before the implementation task).
    - Leave the codebase in a working, testable state when done.
+   - **If PRD.md exists**: each task must reference the FR-xxx and/or BR-xxx IDs it
+     implements. A task with no requirement reference is allowed only for
+     infrastructure/setup work.
    - If a design template was selected, include tasks for:
      - Setting up the template's fonts (Google Fonts links in index.html)
      - Installing/copying ReactBits components from reactbits.dev
      - Building each layout section defined in the template
      - Integrating generated assets (these will be created by `sdd-asset-generator`
        during build)
-8. Present the draft **in sections** (spec -> template -> compliance check -> tasks)
-   for the user to validate — don't dump the whole thing and assume approval.
+8. **Requirement Traceability** (only when PRD.md/BRD.md exist):
+   - Build a traceability table mapping every FR-xxx and BR-xxx to the task(s)
+     that implement them. Initial status for all: `⬜ Pending`.
+   - Check for **gaps**: any FR-xxx or BR-xxx from PRD/BRD that has no task
+     covering it. Flag these explicitly — the user must either add tasks or
+     mark them as out-of-scope for this feature with justification.
+   - Calculate coverage summary: FRs covered X/Y, BRs covered X/Y.
+9. Present the draft **in sections** (spec -> template -> compliance check ->
+   traceability -> tasks) for the user to validate — don't dump the whole thing
+   and assume approval.
 
 ## Output
 Write to: `docs/sdd/<feature-slug>/plan.md`
@@ -112,12 +128,25 @@ Source: brainstorm.md (v?), constitution.md (v?)
 ## Technical approach
 
 ## Tasks
-- [ ] Task 1 — <file path(s)> — <test that proves this is done> — <exact steps>
+- [ ] Task 1 — <file path(s)> — <FR-xxx, BR-xxx> — <test that proves this is done> — <exact steps>
 - [ ] Task 2 — ...
+
+## Requirement Traceability
+| FR/BR ID | Title | Task(s) | Status |
+|----------|-------|---------|--------|
+| FR-001   | ...   | Task 1, Task 3 | ⬜ Pending |
+| BR-002   | ...   | Task 2 | ⬜ Pending |
+
+## Coverage Summary
+- FRs covered: X/Y (Z%)
+- BRs covered: X/Y (Z%)
+- ⚠️ Uncovered: <list any gaps, or "None — full coverage">
 ```
 
 If no design template was selected (non-UI project), omit the `## Design Template`
 section entirely.
+If PRD.md/BRD.md don't exist, omit the `## Requirement Traceability` and
+`## Coverage Summary` sections entirely — the plan works without them.
 
 ## Handoff
 When the user approves the plan, say:

@@ -6,7 +6,34 @@ skills below applies before doing anything else — including before asking
 clarifying questions or exploring the codebase. If there is even a small chance a
 step applies, use it. This is not optional.
 
-## The six steps, in order
+## Phase A: BA/SA Document Chain (project-level, done once)
+
+These four steps produce the foundational project documents. Run them **once per
+project** before starting feature development. Each step requires the output of
+the previous step.
+
+```
+A1. sdd-create-brd    → docs/sdd/BRD.md
+    (Problem, Vision, Stakeholders, Scope, Business Rules, Constraints/Risks)
+                       ↓
+A2. sdd-create-prd    → docs/sdd/PRD.md
+    (Business Capabilities, Functional Requirements, Non-Functional Requirements)
+                       ↓
+A3. sdd-create-es     → docs/sdd/ES.md
+    (Domain Events, Actors & Commands, Policies, Aggregates)
+                       ↓
+A4. sdd-create-add    → docs/sdd/ADD.md
+    (Technology Stack, Domain Entities, Architecture Components, Interface Contracts, ADRs)
+```
+
+### Phase A hard rules
+- Each step requires the previous step's output: PRD needs BRD, ES needs BRD+PRD,
+  ADD needs BRD+PRD+ES.
+- All four documents are **project-wide** (not per-feature), stored at `docs/sdd/`.
+- Once created, these documents can be **amended** but never silently overwritten.
+- Do not auto-proceed between steps — always wait for user confirmation.
+
+## Phase B: Feature Development Cycle (per feature, six steps)
 
 1. **sdd-brainstorm** — turn a rough idea into `docs/sdd/<feature-slug>/brainstorm.md`.
    - Auto-invokes: **sdd-deep-research** (market/competitor/UX research) before
@@ -29,6 +56,15 @@ step applies, use it. This is not optional.
 6. **sdd-security-review** — OWASP Top 10:2025 gate. **Nothing gets pushed, PR'd,
    or sent to CI/CD before this step returns a "Cleared" verdict.**
 
+## Utility skills
+
+- **sdd-help** — show the complete workflow, check document status, and recommend
+  the next step. Can be triggered anytime by saying "help", "hướng dẫn", or
+  "bước tiếp theo".
+- **sdd-traceability-report** — show FR/BR coverage dashboard. Triggered by
+  "tiến độ", "coverage", "traceability", or "FR nào xong rồi". Requires
+  PRD.md to exist.
+
 ## Sub-skills (auto-invoked, never trigger manually)
 
 These skills are called automatically by their parent skills. Do not trigger them
@@ -50,14 +86,20 @@ directly — they have no standalone use:
 - `constitution.md` is project-wide (one file, amended over time). `brainstorm.md`,
   `plan.md`, `review-report.md`, and `security-report.md` are per-feature, under
   `docs/sdd/<feature-slug>/`.
+- `BRD.md`, `PRD.md`, `ES.md`, and `ADD.md` are project-wide (one file each),
+  stored at `docs/sdd/`. They follow a strict chain: BRD → PRD → ES → ADD.
 - Design template selection is mandatory for UI-focused projects. For non-UI projects
   (CLI, API, library), skip template selection entirely.
 - When template selection suggests 2-3 templates, always wait for the user to choose
   one — never auto-select.
+- When `BRD.md` and `PRD.md` exist, `sdd-plan`, `sdd-build`, and `sdd-review-code`
+  MUST cross-reference them for requirement traceability and business rule compliance.
+  When they don't exist, these steps work normally without traceability — Phase A
+  is recommended but not required for Phase B to function.
 
 ## Small tasks and bug fixes
 
-For a small, already fully-specified task, or for a bug fix, the full six-step
-flow is overkill — use judgment. Bug fixes should still go through systematic
+For a small, already fully-specified task, or for a bug fix, the full workflow
+is overkill — use judgment. Bug fixes should still go through systematic
 debugging if that skill is available, and any code change should still pass
 `sdd-review-code` and `sdd-security-review` before it's pushed.
