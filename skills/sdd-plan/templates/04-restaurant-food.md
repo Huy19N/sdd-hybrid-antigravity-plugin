@@ -1,7 +1,12 @@
 ---
 id: restaurant-food
 name: "Restaurant & Food"
+version: 2
+changelog:
+  - "v2: added Ambiance Scene Annotation section (hand-drawn hover doodle overlay), uses shared interaction _shared/interactions/hand-drawn-annotation.md"
 category: food-beverage
+uses_shared_interactions:
+  - hand-drawn-annotation
 tags:
   - restaurant
   - food
@@ -29,6 +34,7 @@ best_for: "Nhà hàng, quán café, trà sữa, bakery, dịch vụ F&B — cầ
 fonts:
   display: "Cormorant Garamond"
   body: "Outfit"
+  handwritten: "Caveat"
 ---
 
 # Template: Restaurant & Food
@@ -46,11 +52,12 @@ evokes comfort and craftsmanship.
 ```html
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Outfit:wght@300;400;500;600;700&family=Caveat:wght@500;600;700&display=swap" rel="stylesheet" />
 ```
 
 - **Display font**: `'Cormorant Garamond', serif` — headings, menu item names
 - **Body font**: `'Outfit', sans-serif` — descriptions, prices, nav
+- **Handwritten font**: `'Caveat', cursive` — annotation labels only (section 3B)
 
 ## Color Palette
 
@@ -89,6 +96,23 @@ evokes comfort and craftsmanship.
 - 4-6 featured items
 - Cursor interaction: dishes rotate with mouse movement
 - Below gallery: "View Full Menu" CTA
+
+### 3B. Ambiance Scene Annotation (NEW v2)
+Full-bleed atmospheric interior photo (dining room, counter, or bakery display)
+with **hand-drawn hover annotations** — hover over highlighted zones in the
+photo to reveal a wobbly white outline + curved connector line + handwritten
+label, doodle/sticker style. See full technical spec:
+`_shared/interactions/hand-drawn-annotation.md`.
+- Section title (small, top-left of photo): "Không gian của chúng tôi" / "Our
+  Space" — Outfit font, uppercase, tracking-wide.
+- 4-6 hotspots placed over genuinely interesting elements in the photo (a
+  pastry display case, a reading corner, a signature lamp, table setting) —
+  each with a short handwritten label (1-3 từ, VD: "Bánh mới ra lò", "Góc đọc
+  sách", "Ánh sáng ấm").
+- On mobile: tap-to-reveal instead of hover, auto-dismiss after 3s.
+- This section replaces a plain static "gallery photo" with an interactive one
+  — use it as an alternative to, or right before, the Gallery/Instagram Grid
+  section if you want the interior story told once instead of twice.
 
 ### 4. About / Story Section
 - Two-column: large atmospheric photo (left) + story text (right)
@@ -162,6 +186,7 @@ Build a restaurant/café website in React + TypeScript + Vite + Tailwind CSS, us
 1. **Fixed nav** — transparent → cream on scroll. Center logo (italic serif). Left/right nav links. "Reserve a Table" accent CTA. Mobile hamburger.
 2. **Hero** — Split: large serif headline + CTAs (left 40%), transparent-bg hero dish on a colored circle with parallax (right 60%). Warm white bg with faint grain.
 3. **Featured Dishes** — "Signature Dishes" with circular gallery component. 4-6 dishes with transparent-bg images, names, prices. Rotates with mouse interaction.
+3B. **Ambiance Scene Annotation** — full-bleed interior photo with 4-6 hover hotspots. Each hotspot: wobbly white SVG outline draws in around the zone (500ms), then a curved connector line draws out (400ms), then a handwritten-font label fades in (Caveat). See `_shared/interactions/hand-drawn-annotation.md` for exact SVG/animation spec. Tap-to-reveal on mobile, auto-dismiss 3s.
 4. **About** — Two-column: atmospheric photo (left, parallax) + story text (right). Serif pull-quote in terracotta.
 5. **Menu** — Tab navigation (Appetizers/Mains/Desserts/Drinks). Animated tab indicator. Each item: serif name + description + price. Stagger animation on tab switch. Cream bg.
 6. **Gallery** — Masonry grid, hover zoom + overlay. Sticker peel effect on select images.
@@ -177,6 +202,7 @@ Build a restaurant/café website in React + TypeScript + Vite + Tailwind CSS, us
 - `hero-dish` — Main signature dish (transparent background)
 - `dish-01` through `dish-06` — Featured menu items (transparent background)
 - `restaurant-interior` — Atmospheric interior/ambiance photo
+- `ambiance-scene` — Wide interior/counter photo with 4-6 distinct visual zones for hover annotation hotspots (does NOT need background removal — this is a full photographic scene, not a cutout)
 - `food-gallery-01` through `food-gallery-06` — Food photography for gallery
 - `herb-illustrations` — Small decorative herb/spice illustrations (optional)
 

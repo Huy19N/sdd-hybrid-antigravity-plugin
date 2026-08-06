@@ -16,7 +16,7 @@ step applies, use it. This is not optional.
 3. **sdd-plan** — turn an approved brainstorm into `docs/sdd/<feature-slug>/plan.md`
    (spec + constitution compliance check + bite-sized tasks).
    - Includes: **Design Template Selection** — scans brainstorm.md, scores against
-     20 UI/UX templates, presents top 2-3 for user to choose. Skipped for non-UI
+     22 UI/UX templates, presents top 2-3 for user to choose. Skipped for non-UI
      projects.
 4. **sdd-build** — execute the plan task-by-task under TDD, gated by the constitution.
    - Auto-invokes (when plan.md has `## Design Template` section):

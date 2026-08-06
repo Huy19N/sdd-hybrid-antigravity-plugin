@@ -26,7 +26,7 @@ exact files, explicit verification) instead of loose task lists.
 
 3. **Design Template Selection** (only when the project has UI components):
    a. Read `skills/sdd-plan/templates/template-index.md` to get an overview of all
-      20 available design templates.
+      22 available design templates.
    b. Analyze `brainstorm.md` to extract: project type, industry/domain, target
       audience, mood/tone, and any visual preferences mentioned.
    c. **Scoring**: Match keywords from the brainstorm against each template's
@@ -41,6 +41,11 @@ exact files, explicit verification) instead of loose task lists.
    e. **Wait for user to choose 1 template** before proceeding.
    f. Once chosen, read the full template file from `templates/<file>.md` and
       incorporate the design specification into the plan.
+   f2. If the chosen template has a `uses_shared_interactions` field in its
+       frontmatter, also read each referenced file from
+       `templates/_shared/interactions/<name>.md` — these contain reusable
+       interaction specs (SVG animations, hotspot logic) that the template
+       depends on but does not duplicate inline.
    g. **Tech stack check against constitution**:
       - If `constitution.md` allows React + TypeScript + Vite + Tailwind CSS
         → plan includes full code generation from the template prompt.
