@@ -1,7 +1,12 @@
 ---
 id: coworking-space
 name: "Coworking Space"
+version: 2
+changelog:
+  - "v2: added Amenity Scene Annotation section (hand-drawn hover doodle overlay) directly on the hero interior photo, uses shared interaction _shared/interactions/hand-drawn-annotation.md"
 category: coworking
+uses_shared_interactions:
+  - hand-drawn-annotation
 tags:
   - coworking
   - office
@@ -73,6 +78,18 @@ Note: Using Outfit as proxy for Cabinet Grotesk.
 - Location + "Book a Tour" + "View Spaces" CTAs
 - Amenity icons strip below: WiFi, Coffee, Meeting Rooms, Printer, 24/7
 
+### 2B. Amenity Scene Annotation (NEW v2)
+Nâng cấp trực tiếp ảnh interior ở Hero: thay vì chỉ có strip icon tiện ích bên
+dưới, thêm **hand-drawn hover annotation** ngay trên chính ảnh interior đó —
+hover vào từng khu vực thật trong ảnh để hiện label. Full spec:
+`_shared/interactions/hand-drawn-annotation.md`.
+- 4-6 hotspot, VD: "Góc pha cà phê miễn phí", "Phòng họp kính cách âm", "Bàn
+  in 24/7", "Khu làm việc yên tĩnh"
+- Có thể dùng thay thế hoàn toàn cho amenity icon strip, hoặc giữ cả hai (icon
+  strip cho scan nhanh, annotation cho khám phá sâu hơn) — tuỳ mức độ chi tiết
+  ảnh hero có sẵn
+- Mobile: tap-to-reveal, tự tắt sau 3s
+
 ### 3. Our Spaces — Magic Bento Grid
 - Varying-size cards showing different space types
 - Hot Desk, Dedicated Desk, Private Office, Meeting Room, Event Space
@@ -110,12 +127,12 @@ Build a coworking space website in React + TypeScript + Vite + Tailwind CSS, usi
 
 **Key elements:** Magic Bento grid for space showcases, Tilted Card pricing tiers, amenity icon grid, warm mustard-and-stone palette, interior photography focus.
 
-**Sections:** Nav → Hero (interior photo + CTAs) → Spaces (Magic Bento) → Amenities (icon grid) → Pricing (tilted cards) → Community (events + testimonials) → Location → Footer.
+**Sections:** Nav → Hero (interior photo + CTAs, with 4-6 hover hotspots: wobbly SVG outline draws in 500ms → connector draws out 400ms → handwritten `Caveat` label fades in, see `_shared/interactions/hand-drawn-annotation.md`; tap-to-reveal on mobile) → Spaces (Magic Bento) → Amenities (icon grid) → Pricing (tilted cards) → Community (events + testimonials) → Location → Footer.
 
 **Color system:** Stone white `#FAFAF9`, mustard `#CA8A04`, warm gray `#78716C`, emerald `#059669`, dark stone `#292524`.
 
 ## Required Assets
-- `hero-interior` — Main coworking space interior photo
+- `hero-interior` — Main coworking space interior photo (also used as the Amenity Scene Annotation background — needs 4-6 distinct visible zones, does NOT need background removal)
 - `space-hotdesk`, `space-dedicated`, `space-private`, `space-meeting`, `space-event` — Space type photos
 - `community-01` through `community-03` — People working / community event photos
 

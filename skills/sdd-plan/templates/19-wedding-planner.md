@@ -1,7 +1,12 @@
 ---
 id: wedding-planner
 name: "Wedding & Event Planning"
+version: 2
+changelog:
+  - "v2: added Venue Scene Annotation section (hand-drawn hover doodle overlay), uses shared interaction _shared/interactions/hand-drawn-annotation.md"
 category: wedding-event
+uses_shared_interactions:
+  - hand-drawn-annotation
 tags:
   - wedding
   - event-planning
@@ -85,6 +90,17 @@ breathes romance and sophistication.
 - Elegant icon for each event type
 - Dress code note
 
+### 4B. Venue Scene Annotation (NEW v2)
+Một ảnh không gian venue thật (sảnh chính, khu tiệc ngoài trời, bàn tiệc) với
+**hand-drawn hover annotation** — cảm giác như đang xem một cuốn sổ tay đám
+cưới được chú thích bằng tay. Full spec:
+`_shared/interactions/hand-drawn-annotation.md`.
+- 4-6 hotspot, VD: "Sảnh chính 200 khách", "Khu tiệc ngoài trời", "Góc chụp
+  ảnh cưới", "Bàn tiệc chính"
+- Label dùng font `Caveat` — rất hợp với tông lãng mạn/thủ công của template
+  này, gần như không cần điều chỉnh gì so với spec chung
+- Mobile: tap-to-reveal, tự tắt sau 3s
+
 ### 5. Gallery — Circular Gallery
 - Engagement photos in circular gallery
 - Click to view full-size
@@ -117,13 +133,14 @@ Build a wedding/event planning website in React + TypeScript + Vite + Tailwind C
 
 **Key elements:** Falling Text for couple's names, Circular Gallery for photos, relationship timeline, RSVP form, floral/botanical decorative elements (CSS borders), rose-champagne-sage palette.
 
-**Sections:** Nav (monogram center) → Hero (couple photo + falling text names) → Our Story (timeline) → Details (ceremony/reception cards) → Gallery (circular) → Wedding Party → Registry → RSVP Form → Footer.
+**Sections:** Nav (monogram center) → Hero (couple photo + falling text names) → Our Story (timeline) → Details (ceremony/reception cards), including a Venue Scene Annotation photo with 4-6 hover hotspots (wobbly SVG outline draws in 500ms → connector draws out 400ms → handwritten `Caveat` label fades in, see `_shared/interactions/hand-drawn-annotation.md`; tap-to-reveal on mobile) → Gallery (circular) → Wedding Party → Registry → RSVP Form → Footer.
 
 **Color system:** Warm white `#FFFBF7`, rose `#BE185D`, champagne `#F5E6CC`, sage `#6B8E6B`, walnut text `#3D2B1F`.
 
 ## Required Assets
 - `hero-couple` — Engagement/couple photo (fullscreen)
 - `story-01` through `story-04` — Relationship milestone photos
+- `annotation-scene` — 1 wide venue photo (main hall/outdoor area/reception table) with 4-6 distinct visible zones for hover hotspots (does NOT need background removal)
 - `gallery-01` through `gallery-08` — Engagement photos
 - `party-01` through `party-08` — Bridesmaids/groomsmen photos
 

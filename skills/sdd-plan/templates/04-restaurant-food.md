@@ -34,7 +34,6 @@ best_for: "Nhà hàng, quán café, trà sữa, bakery, dịch vụ F&B — cầ
 fonts:
   display: "Cormorant Garamond"
   body: "Outfit"
-  handwritten: "Caveat"
 ---
 
 # Template: Restaurant & Food
@@ -52,12 +51,11 @@ evokes comfort and craftsmanship.
 ```html
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Outfit:wght@300;400;500;600;700&family=Caveat:wght@500;600;700&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
 ```
 
 - **Display font**: `'Cormorant Garamond', serif` — headings, menu item names
 - **Body font**: `'Outfit', sans-serif` — descriptions, prices, nav
-- **Handwritten font**: `'Caveat', cursive` — annotation labels only (section 3B)
 
 ## Color Palette
 

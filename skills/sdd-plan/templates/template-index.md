@@ -17,7 +17,7 @@ frontmatter field and read the referenced file under `_shared/interactions/`
 
 | Shared interaction | File | Used by |
 |---|---|---|
-| Hand-Drawn Scene Annotation | `_shared/interactions/hand-drawn-annotation.md` | `restaurant-food` (v2), `scene-doodle-annotation`, `shoppable-lifestyle-scene` |
+| Hand-Drawn Scene Annotation | `_shared/interactions/hand-drawn-annotation.md` | `restaurant-food` (v2), `real-estate` (v2), `pet-care` (v2), `wedding-planner` (v2), `coworking-space` (v2), `automotive` (v2), `scene-doodle-annotation`, `shoppable-lifestyle-scene` |
 
 ## Versioning
 Templates carry a `version` field. Check a template's `changelog` (frontmatter)
@@ -33,7 +33,7 @@ for what changed between versions before reusing an old generated page as-is.
 | 4 | `restaurant-food` **(v2)** | Restaurant & Food | food-beverage | restaurant, food, cafe, tea, coffee, menu, dining, bubble-tea | Nhà hàng, quán café, trà sữa, dịch vụ F&B có menu và gallery ảnh đồ ăn — **v2 thêm section Ambiance Scene Annotation (hand-drawn hover)** | ✅ |
 | 5 | `fashion-ecommerce` | Fashion E-Commerce | fashion | fashion, clothing, apparel, lookbook, style, boutique, accessories | Cửa hàng thời trang, lookbook, editorial product display | ✅ |
 | 6 | `tech-startup` | Tech / AI Startup | tech-startup | tech, ai, startup, saas, innovation, machine-learning, api | Công ty công nghệ/AI startup, dark theme, futuristic design | ❌ |
-| 7 | `real-estate` | Real Estate | real-estate | real-estate, property, housing, apartment, rental, listing | Bất động sản, listing property, virtual tour, booking | ❌ |
+| 7 | `real-estate` **(v2)** | Real Estate | real-estate | real-estate, property, housing, apartment, rental, listing | Bất động sản, listing property, virtual tour, booking — **v2 thêm Property Scene Annotation (hand-drawn hover)** | ❌ |
 | 8 | `education-lms` | Education / LMS | education | education, learning, course, lms, school, training, tutorial | Nền tảng học tập, khóa học online, LMS | ❌ |
 | 9 | `healthcare-clinic` | Healthcare & Clinic | healthcare | healthcare, clinic, hospital, doctor, medical, wellness, booking | Phòng khám, bệnh viện, dịch vụ y tế, đặt lịch khám | ❌ |
 | 10 | `event-conference` | Event & Conference | event | event, conference, summit, workshop, meetup, festival, ticket | Sự kiện, hội nghị, concert, festival, bán vé | ❌ |
@@ -42,10 +42,10 @@ for what changed between versions before reusing an old generated page as-is.
 | 13 | `music-streaming` | Music & Entertainment | music-entertainment | music, streaming, audio, podcast, entertainment, artist, album | Nền tảng âm nhạc, streaming, artist portfolio, podcast | ❌ |
 | 14 | `crypto-fintech` | Crypto & Fintech | crypto-fintech | crypto, fintech, blockchain, trading, defi, wallet, finance | Sàn giao dịch crypto, ứng dụng tài chính, fintech dashboard | ❌ |
 | 15 | `photography-studio` | Photography Studio | photography | photography, studio, gallery, photographer, photo, visual | Studio chụp ảnh, photographer portfolio, photo gallery | ❌ |
-| 16 | `automotive` | Automotive | automotive | automotive, car, vehicle, motorcycle, dealership, showroom | Ô tô, xe máy, showroom, car dealership | ✅ |
-| 17 | `pet-care` | Pet Care | pet-care | pet, veterinary, animal, dog, cat, pet-shop, grooming | Thú cưng, pet shop, dịch vụ thú y, pet grooming | ✅ |
-| 18 | `coworking-space` | Coworking Space | coworking | coworking, office, workspace, rental, community, flex-space | Không gian làm việc chung, cho thuê văn phòng | ❌ |
-| 19 | `wedding-planner` | Wedding & Event Planning | wedding-event | wedding, event-planning, bridal, ceremony, celebration | Đám cưới, tổ chức sự kiện, wedding planner | ❌ |
+| 16 | `automotive` **(v2)** | Automotive | automotive | automotive, car, vehicle, motorcycle, dealership, showroom | Ô tô, xe máy, showroom, car dealership — **v2 thêm Interior Feature Annotation (hand-drawn hover)** | ✅ |
+| 17 | `pet-care` **(v2)** | Pet Care | pet-care | pet, veterinary, animal, dog, cat, pet-shop, grooming | Thú cưng, pet shop, dịch vụ thú y, pet grooming — **v2 thêm Grooming Salon Scene Annotation (hand-drawn hover)** | ✅ |
+| 18 | `coworking-space` **(v2)** | Coworking Space | coworking | coworking, office, workspace, rental, community, flex-space | Không gian làm việc chung, cho thuê văn phòng — **v2 thêm Amenity Scene Annotation trên ảnh hero (hand-drawn hover)** | ❌ |
+| 19 | `wedding-planner` **(v2)** | Wedding & Event Planning | wedding-event | wedding, event-planning, bridal, ceremony, celebration | Đám cưới, tổ chức sự kiện, wedding planner — **v2 thêm Venue Scene Annotation (hand-drawn hover)** | ❌ |
 | 20 | `news-magazine` | News & Magazine | news-blog | news, blog, magazine, editorial, article, media, journalism | Trang tin tức, blog, tạp chí online, editorial | ❌ |
 | 21 | `scene-doodle-annotation` | Scene Doodle Annotation | lifestyle-scene | doodle, hand-drawn, annotation, hotspot, interactive-scene, bakery, cafe, boutique, interior, storytelling | Bakery/café/boutique/thương hiệu nội thất muốn kể chuyện không gian bằng ảnh thật + hover annotation viết tay thay vì text | ❌ (ảnh scene giữ nguyên) |
 | 22 | `shoppable-lifestyle-scene` | Shoppable Lifestyle Scene | shoppable-scene | ecommerce, shop-the-look, lifestyle, hotspot, product-scene, organic, grocery, home-decor, interactive-scene | Cửa hàng thực phẩm hữu cơ/grocery/home-decor — "mua ngay trong khung cảnh" thay vì grid sản phẩm, hover hiện mini product card | ❌ (ảnh scene giữ nguyên, ảnh product card có thể tách nền) |

@@ -1,7 +1,12 @@
 ---
 id: pet-care
 name: "Pet Care"
+version: 2
+changelog:
+  - "v2: added Grooming Salon Scene Annotation section (hand-drawn hover doodle overlay), uses shared interaction _shared/interactions/hand-drawn-annotation.md"
 category: pet-care
+uses_shared_interactions:
+  - hand-drawn-annotation
 tags:
   - pet
   - veterinary
@@ -92,6 +97,18 @@ is friendly and approachable. The whole design feels like a warm hug for pet lov
 - Mission statement
 - Warm, inviting imagery
 
+### 5B. Grooming Salon Scene Annotation (NEW v2)
+Một ảnh không gian salon/phòng khám thật (khu tắm gội, phòng chờ, phòng khám)
+với **hand-drawn hover annotation** — hover vào từng khu vực để hiện label
+viết tay giới thiệu. Full spec:
+`_shared/interactions/hand-drawn-annotation.md`.
+- 4-6 hotspot, VD: "Khu tắm gội", "Góc chờ có nước uống", "Phòng khám riêng",
+  "Kệ đồ chơi cho bé"
+- Giữ đúng phong cách playful/rounded của template — label dùng font viết tay
+  `Caveat` như spec chung, không cần đổi để hợp tông (viết tay tự nhiên hợp
+  với style ấm áp của pet-care)
+- Mobile: tap-to-reveal, tự tắt sau 3s
+
 ### 6. Testimonials
 - Pet owner + pet photos together
 - "Our pet loves it here!" quotes
@@ -112,7 +129,7 @@ Build a pet care website in React + TypeScript + Vite + Tailwind CSS, using `luc
 
 **Key elements:** Rounded-2xl everything, Sticker Peel on pet/service cards, Animated List for services, transparent-bg pet cutout images, paw print decorative elements, warm peach-sage palette, playful but trustworthy.
 
-**Sections:** Nav (pill style) → Hero (split with pet cutout) → Services (animated list) → Adoption Grid (sticker peel cards) → About → Testimonials → Blog → CTA → Footer.
+**Sections:** Nav (pill style) → Hero (split with pet cutout) → Services (animated list) → Adoption Grid (sticker peel cards) → About, including a Grooming Salon Scene Annotation photo with 4-6 hover hotspots (wobbly SVG outline draws in 500ms → connector draws out 400ms → handwritten `Caveat` label fades in, see `_shared/interactions/hand-drawn-annotation.md`; tap-to-reveal on mobile) → Testimonials → Blog → CTA → Footer.
 
 **Color system:** Warm cream bg `#FFF8F0`, sage `#9CAF88`, peach `#FFDAB9`, orange accent `#E8845C`, cocoa text `#4A3728`.
 
@@ -120,6 +137,7 @@ Build a pet care website in React + TypeScript + Vite + Tailwind CSS, using `luc
 - `hero-pet` — Happy pet (transparent background)
 - `pet-adopt-01` through `pet-adopt-06` — Adoptable pets (transparent background)
 - `team-01` through `team-03` — Team member + pet photos
+- `annotation-scene` — 1 wide salon/clinic interior photo with 4-6 distinct visible zones for hover hotspots (does NOT need background removal)
 - `service-icons` — Cute service icons (grooming, vet, hotel, training, walking)
 
 ## ReactBits Components Used
