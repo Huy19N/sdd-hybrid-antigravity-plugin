@@ -19,6 +19,15 @@ frontmatter field and read the referenced file under `_shared/interactions/`
 |---|---|---|
 | Hand-Drawn Scene Annotation | `_shared/interactions/hand-drawn-annotation.md` | `restaurant-food` (v2), `real-estate` (v2), `pet-care` (v2), `wedding-planner` (v2), `coworking-space` (v2), `automotive` (v2), `scene-doodle-annotation`, `shoppable-lifestyle-scene` |
 
+## Distinctive modules (optional, for visual differentiation)
+Beyond the mandatory shared interactions above, `_shared/` also contains a
+larger library of **optional, mixable design modules** (3D tilt frames, glass
+surfaces, a 360° product viewer, magnetic cursors, and more) that can be
+layered onto **any** template to keep two projects on the same base template
+from looking identical. See `_shared/module-index.md` for the full catalog and
+selection process — this is a required read during `sdd-plan`, not optional
+for the agent to skip.
+
 ## Versioning
 Templates carry a `version` field. Check a template's `changelog` (frontmatter)
 for what changed between versions before reusing an old generated page as-is.

@@ -45,7 +45,21 @@ exact files, explicit verification) instead of loose task lists.
        frontmatter, also read each referenced file from
        `templates/_shared/interactions/<name>.md` — these contain reusable
        interaction specs (SVG animations, hotspot logic) that the template
-       depends on but does not duplicate inline.
+       depends on but does not duplicate inline. These are **mandatory** —
+       the template does not fully work without them.
+   f3. **Distinctive modules (optional, for visual differentiation)**: Read
+       `templates/_shared/module-index.md`. Cross-reference `brainstorm.md`
+       (product type, mood, any reference sites mentioned) against the module
+       catalog. Build **2-3 different module combinations** (1-3 modules
+       each, each combination with a distinct "personality" — not small
+       variations of the same idea) and present them to the user with a short
+       reason each fits. **Do not silently auto-apply a single "best"
+       combination** — two different projects on the same base template
+       should not converge on the same look, which is the entire point of
+       this step. Wait for the user to pick one, mix their own, or skip
+       module selection entirely (a template alone is a valid choice too).
+       Once chosen, read the full file for each selected module and fold its
+       spec into the plan.
    g. **Tech stack check against constitution**:
       - If `constitution.md` allows React + TypeScript + Vite + Tailwind CSS
         → plan includes full code generation from the template prompt.
@@ -77,6 +91,11 @@ exact files, explicit verification) instead of loose task lists.
      - Building each layout section defined in the template
      - Integrating generated assets (these will be created by `sdd-asset-generator`
        during build)
+   - If distinctive modules were selected, include a separate task per module
+     for implementing its spec (each module file has its own condensed
+     "Prompt" section ready to hand to a subagent) — keep module tasks
+     separate from base-template section tasks so they can be reviewed
+     independently.
 8. Present the draft **in sections** (spec -> template -> compliance check -> tasks)
    for the user to validate — don't dump the whole thing and assume approval.
 
@@ -109,6 +128,11 @@ Source: brainstorm.md (v?), constitution.md (v?)
 - Required Assets:
   - `<asset-name>` — `<description>` — `<needs bg removal?>`
 - Stack Note: `<"Full code generation" or "Design-only (stack outside React/TS/Vite/Tailwind)">`
+
+## Distinctive Modules (optional)
+- Combination presented: `<A / B / C>` — chosen: `<which one, or "custom mix", or "none">`
+- Modules:
+  - `<module id>` — `templates/_shared/<category>/<file>.md` — `<where applied in this project>`
 
 ## Constitution compliance check
 | Principle | Status | Notes |
