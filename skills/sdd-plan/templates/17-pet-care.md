@@ -70,6 +70,8 @@ is friendly and approachable. The whole design feels like a warm hug for pet lov
 - Paw print logo icon + brand name (Baloo 2)
 - Services / Shop / Adoption / Blog
 - "Book Grooming" sage CTA with rounded-full
+  - Wrap với `HandDrawnButton` border-only (biến thể `button-hover` từ
+    `_shared/interactions/hand-drawn-annotation.md`)
 
 ### 2. Hero
 - Split: text (left) + transparent-bg happy pet image (right)
@@ -119,6 +121,8 @@ viết tay giới thiệu. Full spec:
 - Cute thumbnails, category badges
 
 ### 8. CTA — "Give Your Pet the Best Care" + booking form
+- CTA button đơn lẻ → `HandDrawnButton` với `showCallout` + label (VD: "Đặt
+  lịch chỉ 1 phút!") + `rounded="pill"`
 ### 9. Footer — playful, rounded elements, paw print decorations
 
 ## Prompt
@@ -129,7 +133,7 @@ Build a pet care website in React + TypeScript + Vite + Tailwind CSS, using `luc
 
 **Key elements:** Rounded-2xl everything, Sticker Peel on pet/service cards, Animated List for services, transparent-bg pet cutout images, paw print decorative elements, warm peach-sage palette, playful but trustworthy.
 
-**Sections:** Nav (pill style) → Hero (split with pet cutout) → Services (animated list) → Adoption Grid (sticker peel cards) → About, including a Grooming Salon Scene Annotation photo with 4-6 hover hotspots (wobbly SVG outline draws in 500ms → connector draws out 400ms → handwritten `Caveat` label fades in, see `_shared/interactions/hand-drawn-annotation.md`; tap-to-reveal on mobile) → Testimonials → Blog → CTA → Footer.
+**Sections:** Nav (pill style, "Book Grooming" CTA wrapped with `HandDrawnButton` border-only) → Hero (split with pet cutout) → Services (animated list) → Adoption Grid (sticker peel cards) → About, including a Grooming Salon Scene Annotation photo with 4-6 hover hotspots (`scene-hotspot` variant: wobbly SVG outline draws in 500ms → connector draws out 400ms → handwritten `Caveat` label fades in, see `_shared/interactions/hand-drawn-annotation.md`; tap-to-reveal on mobile) → Testimonials → Blog → CTA (`HandDrawnButton` with callout) → Footer.
 
 **Color system:** Warm cream bg `#FFF8F0`, sage `#9CAF88`, peach `#FFDAB9`, orange accent `#E8845C`, cocoa text `#4A3728`.
 

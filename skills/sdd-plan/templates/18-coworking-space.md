@@ -71,6 +71,8 @@ Note: Using Outfit as proxy for Cabinet Grotesk.
 - Clean, minimal, white bg
 - Logo + Spaces / Pricing / Community / Contact
 - "Book a Tour" mustard CTA
+  - Wrap với `HandDrawnButton` border-only (biến thể `button-hover` từ
+    `_shared/interactions/hand-drawn-annotation.md`)
 
 ### 2. Hero
 - Large interior photo of the coworking space
@@ -127,7 +129,7 @@ Build a coworking space website in React + TypeScript + Vite + Tailwind CSS, usi
 
 **Key elements:** Magic Bento grid for space showcases, Tilted Card pricing tiers, amenity icon grid, warm mustard-and-stone palette, interior photography focus.
 
-**Sections:** Nav → Hero (interior photo + CTAs, with 4-6 hover hotspots: wobbly SVG outline draws in 500ms → connector draws out 400ms → handwritten `Caveat` label fades in, see `_shared/interactions/hand-drawn-annotation.md`; tap-to-reveal on mobile) → Spaces (Magic Bento) → Amenities (icon grid) → Pricing (tilted cards) → Community (events + testimonials) → Location → Footer.
+**Sections:** Nav ("Book a Tour" CTA wrapped with `HandDrawnButton` border-only) → Hero (interior photo + CTAs, with 4-6 hover hotspots: `scene-hotspot` variant — wobbly SVG outline draws in 500ms → connector draws out 400ms → handwritten `Caveat` label fades in, see `_shared/interactions/hand-drawn-annotation.md`; tap-to-reveal on mobile) → Spaces (Magic Bento) → Amenities (icon grid) → Pricing (tilted cards) → Community (events + testimonials) → Location → Footer.
 
 **Color system:** Stone white `#FAFAF9`, mustard `#CA8A04`, warm gray `#78716C`, emerald `#059669`, dark stone `#292524`.
 

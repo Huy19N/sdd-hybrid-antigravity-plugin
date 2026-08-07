@@ -86,6 +86,9 @@ copywriting hay ảnh sản phẩm dàn dựng.
   `_shared/interactions/hand-drawn-annotation.md`
 - Góc dưới trái: tiêu đề thương hiệu (Fraunces, lớn) + 1 dòng tagline
 - Góc dưới phải: nút "Khám phá thực đơn" / CTA chính
+  - `HandDrawnButton` với `showCallout` + label (VD: "Xem menu →") vì đây
+    là nút đơn lẻ nổi bật (biến thể `button-hover` từ
+    `_shared/interactions/hand-drawn-annotation.md`)
 - Gợi ý nhỏ ở góc trên: text mờ "Di chuột để khám phá" (`hidden sm:block`,
   fade out sau lần hover đầu tiên — chỉ xuất hiện 1 lần để hướng dẫn user)
 
@@ -157,7 +160,8 @@ hotspot zone via `stroke-dashoffset` animation + `feTurbulence`/
 connector path draws outward from the zone (400ms, starts 150ms after outline);
 (3) a handwritten-font (`Caveat`) label fades + scales in at the connector's
 end (250ms, starts 500ms after hover). Only one hotspot active at a time.
-Bottom-left: brand title (Fraunces) + tagline. Bottom-right: CTA button.
+Bottom-left: brand title (Fraunces) + tagline. Bottom-right: CTA button
+wrapped with `HandDrawnButton` + callout (biến thể `button-hover`, nút đơn lẻ).
 One-time hint text "Di chuột để khám phá" that fades out after first hover.
 
 **Mobile:** tap instead of hover, auto-dismiss the active hotspot after 3s.

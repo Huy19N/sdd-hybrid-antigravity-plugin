@@ -17,7 +17,7 @@ frontmatter field and read the referenced file under `_shared/interactions/`
 
 | Shared interaction | File | Used by |
 |---|---|---|
-| Hand-Drawn Scene Annotation | `_shared/interactions/hand-drawn-annotation.md` | `restaurant-food` (v2), `real-estate` (v2), `pet-care` (v2), `wedding-planner` (v2), `coworking-space` (v2), `automotive` (v2), `scene-doodle-annotation`, `shoppable-lifestyle-scene` |
+| Hand-Drawn Scene Annotation **(v2)** | `_shared/interactions/hand-drawn-annotation.md` | **`scene-hotspot`**: `restaurant-food` (v2), `real-estate` (v2), `pet-care` (v2), `wedding-planner` (v2), `coworking-space` (v2), `automotive` (v2), `scene-doodle-annotation`, `shoppable-lifestyle-scene` · **`button-hover`**: tất cả 8 template trên (CTA buttons) + dùng được cho mọi template khác có CTA |
 
 ## Distinctive modules (optional, for visual differentiation)
 Beyond the mandatory shared interactions above, `_shared/` also contains a

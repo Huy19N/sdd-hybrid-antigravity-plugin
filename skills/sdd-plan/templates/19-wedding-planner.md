@@ -75,6 +75,9 @@ breathes romance and sophistication.
 - Falling Text animation: couple's names fall into place
 - Date + venue below names
 - "RSVP" button (rose, elegant rounded)
+  - `HandDrawnButton` với `showCallout` + label "Chỉ mất 30 giây!" (biến thể
+    `button-hover` từ `_shared/interactions/hand-drawn-annotation.md`) — nút
+    đơn lẻ nổi bật nên dùng callout
 - Subtle floral/botanical decorative border (CSS or SVG)
 
 ### 3. Our Story
@@ -133,7 +136,7 @@ Build a wedding/event planning website in React + TypeScript + Vite + Tailwind C
 
 **Key elements:** Falling Text for couple's names, Circular Gallery for photos, relationship timeline, RSVP form, floral/botanical decorative elements (CSS borders), rose-champagne-sage palette.
 
-**Sections:** Nav (monogram center) → Hero (couple photo + falling text names) → Our Story (timeline) → Details (ceremony/reception cards), including a Venue Scene Annotation photo with 4-6 hover hotspots (wobbly SVG outline draws in 500ms → connector draws out 400ms → handwritten `Caveat` label fades in, see `_shared/interactions/hand-drawn-annotation.md`; tap-to-reveal on mobile) → Gallery (circular) → Wedding Party → Registry → RSVP Form → Footer.
+**Sections:** Nav (monogram center) → Hero (couple photo + falling text names, RSVP CTA wrapped with `HandDrawnButton` + callout) → Our Story (timeline) → Details (ceremony/reception cards), including a Venue Scene Annotation photo with 4-6 hover hotspots (`scene-hotspot` variant: wobbly SVG outline draws in 500ms → connector draws out 400ms → handwritten `Caveat` label fades in, see `_shared/interactions/hand-drawn-annotation.md`; tap-to-reveal on mobile) → Gallery (circular) → Wedding Party → Registry → RSVP Form → Footer.
 
 **Color system:** Warm white `#FFFBF7`, rose `#BE185D`, champagne `#F5E6CC`, sage `#6B8E6B`, walnut text `#3D2B1F`.
 

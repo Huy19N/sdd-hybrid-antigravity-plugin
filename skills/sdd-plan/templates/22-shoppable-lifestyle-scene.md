@@ -97,6 +97,8 @@ Dùng chung Layer 1 + Layer 2 (outline + connector) từ
 - Fixed top, nền `background` với border-bottom mỏng
 - Logo trái, nav links giữa, icon giỏ hàng phải (có badge số lượng, animate
   khi có item mới)
+- Nút nav CTA (nếu có) wrap với `HandDrawnButton` border-only (biến thể
+  `button-hover` từ `_shared/interactions/hand-drawn-annotation.md`)
 
 ### 2. Hero — Shoppable Scene
 - Full-viewport hoặc `80vh`, ảnh lifestyle thật (bàn ăn bày biện, kệ bếp, góc

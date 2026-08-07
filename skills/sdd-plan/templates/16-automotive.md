@@ -70,7 +70,9 @@ precise, and premium.
 ### 3. Hero
 - Transparent-bg vehicle image, large, centered
 - Shiny Text brand/model name above
-- "Configure Yours" + "Book Test Drive" buttons
+- "Configure Yours" + "Book Test Drive" buttons — cả hai wrapped với
+  `HandDrawnButton` border-only (2 nút cạnh nhau → không callout, biến thể
+  `button-hover` từ `_shared/interactions/hand-drawn-annotation.md`)
 - Grid Distortion behind
 - Specs bar: HP / 0-60 / Top Speed / Price
 
@@ -120,7 +122,7 @@ Build an automotive/car showcase website in React + TypeScript + Vite + Tailwind
 
 **Key elements:** Grid Distortion metallic background, Shiny Text for brand name, transparent-bg vehicle images, spec bars with large numbers, chrome/racing-red accents, cinematic dark atmosphere.
 
-**Sections:** Nav → Hero (vehicle + shiny brand + specs bar + grid distortion) → Model Lineup (scroll) → Specs Comparison (table) → Gallery + 360° CTA, including an Interior Feature Annotation photo with 4-6 hover hotspots in yellow `#FACC15` (wobbly SVG outline draws in 500ms → connector draws out 400ms → handwritten `Caveat` white label fades in, see `_shared/interactions/hand-drawn-annotation.md`; tap-to-reveal on mobile) → Configurator Teaser → Test Drive Booking → Footer.
+**Sections:** Nav → Hero (vehicle + shiny brand + specs bar + grid distortion, CTAs wrapped with `HandDrawnButton` border-only) → Model Lineup (scroll) → Specs Comparison (table) → Gallery + 360° CTA, including an Interior Feature Annotation photo with 4-6 hover hotspots in yellow `#FACC15` (`scene-hotspot` variant: wobbly SVG outline draws in 500ms → connector draws out 400ms → handwritten `Caveat` white label fades in, see `_shared/interactions/hand-drawn-annotation.md`; tap-to-reveal on mobile) → Configurator Teaser → Test Drive Booking (`HandDrawnButton` with callout "Lái thử miễn phí!") → Footer.
 
 **Color system:** Dark bg `#111111`, racing red `#DC2626`, chrome `#C0C0C0`, yellow accent `#FACC15`.
 

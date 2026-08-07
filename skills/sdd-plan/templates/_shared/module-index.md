@@ -24,7 +24,7 @@ chọn module" bên dưới.
 
 | id | Tên | Loại | Tags | Hợp với | Ghi chú |
 |---|---|---|---|---|---|
-| `hand-drawn-annotation` | Hand-Drawn Scene Annotation | interaction | doodle, hand-drawn, hotspot, storytelling | Template có ảnh không gian thật (F&B, real-estate, pet-care, wedding, coworking, automotive) | Đã tích hợp sẵn trong 6 template làm phần bắt buộc — vẫn có thể dùng thêm ở template khác |
+| `hand-drawn-annotation` | Hand-Drawn Scene Annotation **(v2)** | interaction | doodle, hand-drawn, hotspot, storytelling, button-hover | `scene-hotspot`: Template có ảnh không gian thật (F&B, real-estate, pet-care, wedding, coworking, automotive). `button-hover`: **mọi** template có CTA button | Đã tích hợp sẵn trong 8 template (6 bắt buộc scene-hotspot + 2 scene-dedicated). Button-hover áp thêm cho CTA buttons, thuần CSS không cần JS state |
 | `3d-motion-frame` | 3D Motion Frame | surface | 3d, tilt, parallax, glare | Product/feature/portfolio/pricing card | Cần cursor — hạn chế trên mobile |
 | `glassmorphism` | Glassmorphism | surface | glass, frosted, blur, modern | Nav, card nổi trên ảnh, modal | Cẩn thận contrast khi đặt trên ảnh phức tạp |
 | `product-360-drag-rotate` | 360° Drag-Rotate Product Viewer | viewer | 360, product-viewer, drag-rotate | Sản phẩm cần "xem mọi góc": giày, đồng hồ, figurine, xe, nội thất | 2 cách triển khai (ảnh tuần tự / true 3D) — đọc kỹ trước khi chọn |

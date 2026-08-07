@@ -71,6 +71,8 @@ typography with a warm serif display font balances approachability with authorit
 - Dark gradient overlay for text readability
 - Centered search form:
   - Location input + Property type dropdown + Price range + "Search" button
+    wrapped with `HandDrawnButton` border-only (biến thể `button-hover` từ
+    `_shared/interactions/hand-drawn-annotation.md`)
   - Glassmorphism form container
 - Below: "500+ Properties Listed" stat
 
@@ -114,6 +116,8 @@ từng chi tiết thật trong phòng để "khám phá" thay vì đọc mô t�
 
 ### 7. CTA
 - "Find Your Dream Home" + search bar
+- CTA button: `HandDrawnButton` với `showCallout` + label (VD: "Chỉ 2 phút!")
+  vì đây là nút đơn lẻ nổi bật
 - Forest green background, white text
 
 ### 8. Footer
@@ -126,7 +130,7 @@ Build a real estate website in React + TypeScript + Vite + Tailwind CSS, using `
 
 **Fonts:** Fraunces (display serif, 400-900) and Source Sans 3 (body, 300-700).
 
-**Sections:** Hero with property search form (glassmorphism overlay on large image with grid distortion) → Featured Properties (Magic Bento grid with varying card sizes) → Property Categories (horizontal cards) → Why Choose Us (3-column stats) → Premium Listing spotlight, including a Property Scene Annotation room photo with 4-6 hover hotspots (wobbly SVG outline draws in 500ms → connector draws out 400ms → handwritten label fades in, see `_shared/interactions/hand-drawn-annotation.md`; tap-to-reveal on mobile) → Testimonials → CTA → Footer.
+**Sections:** Hero with property search form (glassmorphism overlay on large image with grid distortion, search button wrapped with `HandDrawnButton` border-only) → Featured Properties (Magic Bento grid with varying card sizes) → Property Categories (horizontal cards) → Why Choose Us (3-column stats) → Premium Listing spotlight, including a Property Scene Annotation room photo with 4-6 hover hotspots (`scene-hotspot` variant: wobbly SVG outline draws in 500ms → connector draws out 400ms → handwritten label fades in, see `_shared/interactions/hand-drawn-annotation.md`; tap-to-reveal on mobile) → Testimonials → CTA (`HandDrawnButton` with callout) → Footer.
 
 **Color system:** White bg, warm gray sections `#F5F5F0`, forest green `#2D5016`, gold accent `#B8860B`, dark text `#1C1C1C`.
 

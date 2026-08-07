@@ -3,8 +3,9 @@
 Spec-driven development workflow for AI coding agents, built as an **Antigravity
 plugin**: `Brainstorm → Constitution → Plan → Build → Review → Security`.
 
-Now with **UI/UX design automation**: 20 design templates, automatic asset
-generation, background removal, and ReactBits component integration.
+Now with **UI/UX design automation**: 22 design templates, 8 shared design
+modules, automatic asset generation, background removal, and ReactBits component
+integration.
 
 Combines:
 - **[obra/superpowers](https://github.com/obra/superpowers)**-style engineering
@@ -13,8 +14,9 @@ Combines:
   a project-wide, binding rule set every step must respect.
 - An **OWASP Top 10:2025** security gate that must pass before anything is
   pushed, PR'd, or sent to CI/CD.
-- **20 UI/UX design templates** with auto-selection, asset generation, and
-  premium animated components from [ReactBits](https://www.reactbits.dev/).
+- **22 UI/UX design templates** with auto-selection, 8 mixable design modules,
+  asset generation, and premium animated components from
+  [ReactBits](https://www.reactbits.dev/).
 
 Install this plugin once, and every new project you start gets the same
 disciplined flow — no copy-pasting prompts between projects.
@@ -26,7 +28,8 @@ disciplined flow — no copy-pasting prompts between projects.
    └── sdd-deep-research   (auto: market/competitor/UX research)
 2. sdd-constitution     docs/sdd/constitution.md            (once per project)
 3. sdd-plan             docs/sdd/<feature>/plan.md
-   └── Design Template Selection (auto: 2-3 suggestions from 20 templates)
+   └── Design Template Selection (auto: 2-3 suggestions from 22 templates)
+       + Distinctive Module Selection (2-3 combos from 8 shared modules)
 4. sdd-build            code, plan.md tasks checked off
    ├── sdd-asset-generator  (auto: generate images via generate_image tool)
    ├── sdd-bg-remover       (auto: remove backgrounds if template requires)
@@ -41,7 +44,7 @@ automatically based on its `description` — you don't need slash commands, just
 describe what you want ("I want to build X", "ready to start building",
 "review this before I push").
 
-## Design Templates (20 available)
+## Design Templates (22 available)
 
 When planning a UI-focused project, the agent automatically scans your
 `brainstorm.md` and suggests the **2-3 most relevant templates** from the library:
@@ -68,6 +71,8 @@ When planning a UI-focused project, the agent automatically scans your
 | 18 | Coworking Space | coworking | Magic bento, tilted cards, industrial warm |
 | 19 | Wedding Planner | wedding | Falling text, circular gallery, romantic serif |
 | 20 | News & Magazine | news-blog | Split flap ticker, infinite menu, editorial grid |
+| 21 | Scene Doodle Annotation | lifestyle-scene | Hand-drawn SVG hover annotations on scene photo |
+| 22 | Shoppable Lifestyle Scene | shoppable-scene | Shop-the-look hotspots, mini product cards on scene |
 
 Each template includes:
 - Full React + TypeScript + Vite + Tailwind CSS prompt
@@ -76,6 +81,28 @@ Each template includes:
 - ReactBits component references
 - Required assets list for auto-generation
 - Responsive layout specifications (mobile/tablet/desktop)
+
+**Hand-drawn button hover** (v2): Templates 04, 07, 16, 17, 18, 19, 21, 22 also
+apply a wobbly hand-drawn SVG border to CTA buttons on hover/focus — pure CSS,
+no JS state needed. The `button-hover` variant from
+`_shared/interactions/hand-drawn-annotation.md` is compatible with **all**
+templates' CTA buttons.
+
+## Shared Design Modules (8 available)
+
+After picking a template, the agent suggests **2-3 module combos** from 8
+mixable design modules to differentiate your project visually:
+
+| Module | Type | Purpose |
+|---|---|---|
+| Hand-Drawn Annotation (v2) | interaction | Scene hotspots + button hover border |
+| 3D Motion Frame | surface | Tilt/parallax/glare on cards |
+| Glassmorphism | surface | Frosted glass overlays |
+| 360° Drag-Rotate Viewer | viewer | Product 360° inspection |
+| Magnetic Cursor | interaction | Cursor attracted to buttons |
+| Scroll Velocity Marquee | interaction | Kinetic text strip |
+| Grain & Noise Overlay | surface | Premium grain texture |
+| Liquid Blob Background | surface | Organic blob morphing bg |
 
 ## Sub-skills (auto-invoked)
 
@@ -163,28 +190,26 @@ sdd-hybrid/
 │   ├── sdd-constitution/SKILL.md          # Step 2: project-wide rules
 │   ├── sdd-plan/
 │   │   ├── SKILL.md                       # Step 3: brainstorm → plan.md
-│   │   └── templates/                     # 20 UI/UX design templates
+│   │   └── templates/                     # 22 UI/UX design templates
 │   │       ├── template-index.md          # Quick-reference index
+│   │       ├── _shared/                   # Shared design modules
+│   │       │   ├── module-index.md         # Module catalog & selection guide
+│   │       │   ├── interactions/           # Hover/scroll behaviors
+│   │       │   │   ├── hand-drawn-annotation.md  # v2: scene-hotspot + button-hover
+│   │       │   │   ├── magnetic-cursor.md
+│   │       │   │   └── scroll-velocity-marquee.md
+│   │       │   ├── surfaces/              # Visual textures & materials
+│   │       │   │   ├── 3d-motion-frame.md
+│   │       │   │   ├── glassmorphism.md
+│   │       │   │   ├── grain-noise-overlay.md
+│   │       │   │   └── liquid-blob-background.md
+│   │       │   └── viewers/               # Complex interactive components
+│   │       │       └── product-360-drag-rotate.md
 │   │       ├── 01-product-carousel.md
-│   │       ├── 02-saas-landing.md
-│   │       ├── 03-portfolio-creative.md
-│   │       ├── 04-restaurant-food.md
-│   │       ├── 05-fashion-ecommerce.md
-│   │       ├── 06-tech-startup.md
-│   │       ├── 07-real-estate.md
-│   │       ├── 08-education-lms.md
-│   │       ├── 09-healthcare-clinic.md
-│   │       ├── 10-event-conference.md
-│   │       ├── 11-fitness-gym.md
-│   │       ├── 12-travel-tourism.md
-│   │       ├── 13-music-streaming.md
-│   │       ├── 14-crypto-fintech.md
-│   │       ├── 15-photography-studio.md
-│   │       ├── 16-automotive.md
-│   │       ├── 17-pet-care.md
-│   │       ├── 18-coworking-space.md
-│   │       ├── 19-wedding-planner.md
-│   │       └── 20-news-magazine.md
+│   │       ├── ...
+│   │       ├── 20-news-magazine.md
+│   │       ├── 21-scene-doodle-annotation.md
+│   │       └── 22-shoppable-lifestyle-scene.md
 │   ├── sdd-build/SKILL.md                 # Step 4: plan → code
 │   ├── sdd-review-code/SKILL.md           # Step 5: correctness review
 │   ├── sdd-security-review/SKILL.md       # Step 6: OWASP security gate
@@ -212,8 +237,8 @@ a constitution but no equivalent brainstorming step. Here:
 
 ## Why design templates
 
-AI coding agents often produce generic-looking UIs. By embedding 20 curated
-design templates into the workflow:
+AI coding agents often produce generic-looking UIs. By embedding 22 curated
+design templates + 8 mixable design modules into the workflow:
 
 - **Consistency**: Every project gets a premium, well-designed starting point.
 - **Speed**: No time wasted debating colors, fonts, or layout — pick a template
@@ -222,6 +247,9 @@ design templates into the workflow:
   animations and interactions.
 - **Automation**: Assets are generated, backgrounds removed, and components
   configured automatically during the build step.
+- **Differentiation**: Shared modules (3D tilt, glassmorphism, 360° viewer,
+  magnetic cursor, etc.) ensure two projects on the same base template still
+  look distinctly different.
 
 ## Why OWASP Top 10:2025 as a hard gate before CI/CD
 

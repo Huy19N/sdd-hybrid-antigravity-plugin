@@ -78,12 +78,17 @@ evokes comfort and craftsmanship.
 - Mobile: centered logo + hamburger
 - `transition: background-color 300ms`
 - CTA button: "Reserve a Table" in accent color
+  - Wrap with `HandDrawnButton` (biến thể `button-hover` từ
+    `_shared/interactions/hand-drawn-annotation.md`) — viền nét vẽ tay vẽ dần
+    quanh nút khi hover/focus, thuần CSS, không cần JS state
 
 ### 2. Hero Section
 - Split layout: text (left 40%) + food image (right 60%)
 - Left: Large serif headline, tagline, "View Menu" + "Reserve" buttons
 - Right: Large transparent-bg hero dish floating on a subtle colored circle
   - Subtle parallax: dish moves slightly on scroll
+- CTAs ("View Menu" + "Reserve") wrapped with `HandDrawnButton` (biến thể `button-hover`)
+  (2 nút cạnh nhau → không dùng callout, chỉ border)
   - Decorative elements: small herb/spice illustrations scattered
 - Background: warm white with faint grain texture
 
@@ -181,10 +186,10 @@ Build a restaurant/café website in React + TypeScript + Vite + Tailwind CSS, us
 **Fonts:** Load Cormorant Garamond (display, 400-700) and Outfit (body, 300-700) from Google Fonts.
 
 **Sections:**
-1. **Fixed nav** — transparent → cream on scroll. Center logo (italic serif). Left/right nav links. "Reserve a Table" accent CTA. Mobile hamburger.
-2. **Hero** — Split: large serif headline + CTAs (left 40%), transparent-bg hero dish on a colored circle with parallax (right 60%). Warm white bg with faint grain.
+1. **Fixed nav** — transparent → cream on scroll. Center logo (italic serif). Left/right nav links. "Reserve a Table" accent CTA wrapped with `HandDrawnButton` border-only (see `_shared/interactions/hand-drawn-annotation.md` biến thể `button-hover`). Mobile hamburger.
+2. **Hero** — Split: large serif headline + CTAs (left 40%), transparent-bg hero dish on a colored circle with parallax (right 60%). Warm white bg with faint grain. Hero CTAs ("View Menu" + "Reserve") wrapped with `HandDrawnButton` border-only (2 nút cạnh nhau → không callout).
 3. **Featured Dishes** — "Signature Dishes" with circular gallery component. 4-6 dishes with transparent-bg images, names, prices. Rotates with mouse interaction.
-3B. **Ambiance Scene Annotation** — full-bleed interior photo with 4-6 hover hotspots. Each hotspot: wobbly white SVG outline draws in around the zone (500ms), then a curved connector line draws out (400ms), then a handwritten-font label fades in (Caveat). See `_shared/interactions/hand-drawn-annotation.md` for exact SVG/animation spec. Tap-to-reveal on mobile, auto-dismiss 3s.
+3B. **Ambiance Scene Annotation** — full-bleed interior photo with 4-6 hover hotspots (biến thể `scene-hotspot`). Each hotspot: wobbly white SVG outline draws in around the zone (500ms), then a curved connector line draws out (400ms), then a handwritten-font label fades in (Caveat). See `_shared/interactions/hand-drawn-annotation.md` for exact SVG/animation spec. Tap-to-reveal on mobile, auto-dismiss 3s.
 4. **About** — Two-column: atmospheric photo (left, parallax) + story text (right). Serif pull-quote in terracotta.
 5. **Menu** — Tab navigation (Appetizers/Mains/Desserts/Drinks). Animated tab indicator. Each item: serif name + description + price. Stagger animation on tab switch. Cream bg.
 6. **Gallery** — Masonry grid, hover zoom + overlay. Sticker peel effect on select images.
