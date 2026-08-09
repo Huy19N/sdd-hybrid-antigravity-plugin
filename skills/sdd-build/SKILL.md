@@ -33,9 +33,22 @@ If either is missing, stop and point the user to `sdd-plan` / `sdd-constitution`
       Output to `public/assets/generated/`.
 
    b. **Auto-invoke `sdd-bg-remover`** (conditional): Check if the chosen template
-      has `requires_transparent_images: true` in its frontmatter. If yes, run the
-      background removal script on all product/item images that need it.
-      Output to `public/assets/no-bg/`.
+      has `requires_transparent_images: true` in its frontmatter. If yes:
+      - Read each asset's description from the `sdd-asset-generator` inventory to
+        choose the starting `--tier` (see `sdd-bg-remover` SKILL.md step 3 for
+        the tier selection table: `standard` for smooth/simple edges, `high` for
+        multi-object scenes, `fine-detail` for spiky/furry/lacy subjects). Default
+        to `standard` if unsure — auto-escalation will handle the rest.
+      - Run `remove_bg.py` using `--files` to target **only** those listed as
+        `Needs BG Removal? = Yes` in the asset inventory — do not process hero
+        banners, icons, scene photos, or background textures.
+      - Handle exit codes:
+        - `0` → all clean, proceed to next step.
+        - `2` → some files flagged "NEEDS REVIEW" after max escalation — log them,
+          surface to user, but continue the build (note files may need manual
+          touch-up later).
+        - `1` → hard failure — surface error to user, ask how to proceed.
+      - Output to `public/assets/no-bg/`.
 
    c. **Copy ReactBits components**: If the template lists ReactBits components:
       - Visit each component's URL on `reactbits.dev`.

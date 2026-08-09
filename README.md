@@ -112,7 +112,7 @@ These skills are called automatically — you never need to trigger them manuall
 |---|---|---|
 | `sdd-deep-research` | `sdd-brainstorm` | Market analysis, competitor landscape, UX trends, technical feasibility |
 | `sdd-asset-generator` | `sdd-build` | Generate product photos, hero banners, icons via `generate_image` tool |
-| `sdd-bg-remover` | `sdd-build` | Remove image backgrounds using Python `rembg` library |
+| `sdd-bg-remover` | `sdd-build` | Remove image backgrounds using `rembg` with tiered model selection (isnet → birefnet), auto-escalation, and alpha cleanup |
 
 ## Install
 
@@ -154,16 +154,19 @@ git clone https://github.com/Huy19N/sdd-hybrid-antigravity-plugin ~/.gemini/conf
 ### Optional: Background removal dependency
 
 If you plan to use templates that require transparent images (product stores,
-food, fashion, automotive, pet care), install the Python dependency:
+food, fashion, automotive, pet care), install the Python dependencies:
 
 ```bash
-pip install rembg Pillow
+pip install rembg Pillow numpy scipy
 ```
 
 For GPU-accelerated processing:
 ```bash
-pip install rembg[gpu] Pillow
+pip install rembg[gpu] Pillow numpy scipy
 ```
+
+> `numpy` is required; `scipy` is optional but strongly recommended — it enables
+> connected-component alpha cleanup for cleaner edges.
 
 ## Using it in a new project
 

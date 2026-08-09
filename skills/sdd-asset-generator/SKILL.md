@@ -80,11 +80,19 @@ subtle and elegant, suitable for web background, high resolution"
 After all assets are generated, create a brief inventory:
 ```markdown
 ## Generated Assets
-| File | Type | Description | Needs BG Removal? |
-|---|---|---|---|
-| hero-banner.webp | hero-banner | ... | No |
-| product-01.webp | product-photo | ... | Yes |
+| File | Type | Description | Needs BG Removal? | Suggested Tier |
+|---|---|---|---|---|
+| hero-banner.webp | hero-banner | ... | No | — |
+| product-01.webp | product-photo | Smooth bottle on white bg | Yes | standard |
+| product-02.webp | product-photo | Spiky durian with husk detail | Yes | fine-detail |
 ```
+
+The `Suggested Tier` column helps `sdd-build` pass the right `--tier` to
+`sdd-bg-remover` (see its SKILL.md step 3 for the full tier guide). Use:
+- `standard` — smooth/simple edges (bottles, boxes, flat objects)
+- `high` — complex/multi-object scenes (product in a gift box)
+- `fine-detail` — spiky, furry, or lacy edges (durian, plush toys, lace)
+- `—` — not applicable (no BG removal needed)
 
 Return this inventory to `sdd-build` so it knows:
 - Which files are ready to use directly.
