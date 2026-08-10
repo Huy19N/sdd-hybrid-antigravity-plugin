@@ -3,9 +3,9 @@
 Spec-driven development workflow for AI coding agents, built as an **Antigravity
 plugin**: `Brainstorm → Constitution → Plan → Build → Review → Security`.
 
-Now with **UI/UX design automation**: 22 design templates, 8 shared design
-modules, automatic asset generation, background removal, and ReactBits component
-integration.
+Now with **UI/UX design automation**: 22 design templates, 9 shared design
+modules, automatic asset generation, video generation (Veo 3.1), background
+removal, and ReactBits component integration.
 
 Combines:
 - **[obra/superpowers](https://github.com/obra/superpowers)**-style engineering
@@ -14,8 +14,8 @@ Combines:
   a project-wide, binding rule set every step must respect.
 - An **OWASP Top 10:2025** security gate that must pass before anything is
   pushed, PR'd, or sent to CI/CD.
-- **22 UI/UX design templates** with auto-selection, 8 mixable design modules,
-  asset generation, and premium animated components from
+- **22 UI/UX design templates** with auto-selection, 9 mixable design modules,
+  asset generation, video generation, and premium animated components from
   [ReactBits](https://www.reactbits.dev/).
 
 Install this plugin once, and every new project you start gets the same
@@ -29,10 +29,11 @@ disciplined flow — no copy-pasting prompts between projects.
 2. sdd-constitution     docs/sdd/constitution.md            (once per project)
 3. sdd-plan             docs/sdd/<feature>/plan.md
    └── Design Template Selection (auto: 2-3 suggestions from 22 templates)
-       + Distinctive Module Selection (2-3 combos from 8 shared modules)
+       + Distinctive Module Selection (2-3 combos from 9 shared modules)
 4. sdd-build            code, plan.md tasks checked off
    ├── sdd-asset-generator  (auto: generate images via generate_image tool)
    ├── sdd-bg-remover       (auto: remove backgrounds if template requires)
+   ├── sdd-video-generator  (auto: generate video via Veo 3.1 if plan requires)
    └── ReactBits copy       (auto: copy components from reactbits.dev)
 5. sdd-review-code      docs/sdd/<feature>/review-report.md   (correctness)
 6. sdd-security-review  docs/sdd/<feature>/security-report.md (OWASP Top 10:2025)
@@ -88,9 +89,9 @@ no JS state needed. The `button-hover` variant from
 `_shared/interactions/hand-drawn-annotation.md` is compatible with **all**
 templates' CTA buttons.
 
-## Shared Design Modules (8 available)
+## Shared Design Modules (9 available)
 
-After picking a template, the agent suggests **2-3 module combos** from 8
+After picking a template, the agent suggests **2-3 module combos** from 9
 mixable design modules to differentiate your project visually:
 
 | Module | Type | Purpose |
@@ -103,6 +104,7 @@ mixable design modules to differentiate your project visually:
 | Scroll Velocity Marquee | interaction | Kinetic text strip |
 | Grain & Noise Overlay | surface | Premium grain texture |
 | Liquid Blob Background | surface | Organic blob morphing bg |
+| Scroll-Scrubbing Video | viewer | Apple-style scroll-controlled video playback |
 
 ## Sub-skills (auto-invoked)
 
@@ -113,6 +115,7 @@ These skills are called automatically — you never need to trigger them manuall
 | `sdd-deep-research` | `sdd-brainstorm` | Market analysis, competitor landscape, UX trends, technical feasibility |
 | `sdd-asset-generator` | `sdd-build` | Generate product photos, hero banners, icons via `generate_image` tool |
 | `sdd-bg-remover` | `sdd-build` | Remove image backgrounds using `rembg` with tiered model selection (isnet → birefnet), auto-escalation, and alpha cleanup |
+| `sdd-video-generator` | `sdd-build` | Generate video assets using Gemini API + Veo 3.1 (tiered: lite/fast/standard) |
 
 ## Install
 
@@ -168,6 +171,18 @@ pip install rembg[gpu] Pillow numpy scipy
 > `numpy` is required; `scipy` is optional but strongly recommended — it enables
 > connected-component alpha cleanup for cleaner edges.
 
+### Optional: Video generation dependency
+
+If you plan to use modules that require video assets (e.g., `scroll-scrubbing-video`),
+install the Gemini API client:
+
+```bash
+pip install google-genai
+```
+
+You'll also need a `GEMINI_API_KEY` (get one at https://aistudio.google.com/apikey)
+and optionally `ffmpeg` on PATH (for frame extraction in scroll-scrubbing mode).
+
 ## Using it in a new project
 
 1. Open the project in Antigravity (CLI or IDE) with the plugin installed.
@@ -207,7 +222,8 @@ sdd-hybrid/
 │   │       │   │   ├── grain-noise-overlay.md
 │   │       │   │   └── liquid-blob-background.md
 │   │       │   └── viewers/               # Complex interactive components
-│   │       │       └── product-360-drag-rotate.md
+│   │       │       ├── product-360-drag-rotate.md
+│   │       │       └── scroll-scrubbing-video.md
 │   │       ├── 01-product-carousel.md
 │   │       ├── ...
 │   │       ├── 20-news-magazine.md
@@ -218,10 +234,15 @@ sdd-hybrid/
 │   ├── sdd-security-review/SKILL.md       # Step 6: OWASP security gate
 │   ├── sdd-deep-research/SKILL.md         # Sub-skill: market/UX research
 │   ├── sdd-asset-generator/SKILL.md       # Sub-skill: image generation
-│   └── sdd-bg-remover/                    # Sub-skill: background removal
+│   ├── sdd-bg-remover/                    # Sub-skill: background removal
+│   │   ├── SKILL.md
+│   │   └── scripts/
+│   │       └── remove_bg.py
+│   └── sdd-video-generator/               # Sub-skill: video generation
 │       ├── SKILL.md
 │       └── scripts/
-│           └── remove_bg.py
+│           ├── generate_video.py
+│           └── extract_frames.py
 ├── LICENSE
 └── README.md
 ```

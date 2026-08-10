@@ -11,7 +11,7 @@ template nào để tạo sự khác biệt, tránh việc 2 project cùng chọ
 Đây là cách hệ thống này giải quyết vấn đề "trùng template = trùng giao
 diện": không giới hạn ở việc chọn 1 trong 22 template, mà là chọn 1 template
 **rồi tổ hợp thêm 1-3 module** trong thư viện dưới đây. Thư viện càng lớn
-(hiện 7 module, sẽ tăng theo thời gian), số tổ hợp khả dĩ càng nhiều.
+(hiện 9 module, sẽ tăng theo thời gian), số tổ hợp khả dĩ càng nhiều.
 
 **Quan trọng — không tự động chọn 1 tổ hợp "tốt nhất" duy nhất.** Nếu agent
 luôn chọn đúng 1 tổ hợp "hợp lý nhất" cho một loại brainstorm nhất định, thì
@@ -32,6 +32,7 @@ chọn module" bên dưới.
 | `scroll-velocity-marquee` | Scroll Velocity Marquee | interaction | marquee, scroll, kinetic-typography | Dải tagline/logo giữa 2 section | Tối đa 1 dải/trang |
 | `grain-noise-overlay` | Grain & Noise Overlay | surface | grain, noise, texture, premium | Hầu hết mọi hero/section màu đặc | Mặc định static, animate tốn hiệu năng |
 | `liquid-blob-background` | Liquid Blob Background | surface | blob, organic, morph | Hero SaaS/tech/healthcare/education | Tông "mềm", khác Aurora/Grid Distortion đã có |
+| `scroll-scrubbing-video` | Scroll-Scrubbing Video | viewer | video, scroll, scrubbing, pinned-section, cinematic | Hero section hoặc section giới thiệu sản phẩm — kiểu Apple product page | Cần video nguồn (từ `sdd-video-generator` hoặc có sẵn). Khuyến nghị Cách B (canvas + frame sequence) cho độ mượt tốt nhất |
 
 Chi tiết kỹ thuật đầy đủ nằm trong file riêng của từng module, theo cấu trúc:
 ```
@@ -46,7 +47,8 @@ _shared/
 │   ├── grain-noise-overlay.md
 │   └── liquid-blob-background.md
 └── viewers/          # component tương tác độc lập, phức tạp hơn 1 hiệu ứng đơn
-    └── product-360-drag-rotate.md
+    ├── product-360-drag-rotate.md
+    └── scroll-scrubbing-video.md
 ```
 
 ## Quy trình chọn module (dùng trong `sdd-plan`)
@@ -80,3 +82,7 @@ _shared/
   nên nhồi thêm module khác (VD: `3d-motion-frame`) ngay trên chính viewer đó,
   chỉ nên kết hợp ở các phần khác của trang (VD: `magnetic-cursor` cho nút "+"
   cạnh viewer thì được, nhưng đừng tilt cả viewer).
+- `scroll-scrubbing-video` chiếm toàn bộ viewport (100vh pinned) trong khi cuộn
+  qua — không nên đặt chung section với `product-360-drag-rotate` (cả hai đều
+  chiếm vai trò "trung tâm"). Có thể kết hợp `grain-noise-overlay` lên phía
+  trên video. Cần video nguồn từ `sdd-video-generator` hoặc video có sẵn.

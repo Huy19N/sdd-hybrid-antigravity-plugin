@@ -23,6 +23,8 @@ step applies, use it. This is not optional.
      → **sdd-asset-generator** — creates visual assets via `generate_image` tool.
      → **sdd-bg-remover** — removes image backgrounds (only when template requires
        `requires_transparent_images: true`).
+     → **sdd-video-generator** — generates video assets via Gemini API + Veo 3.1
+       (only when plan.md has video asset requirements).
      → **ReactBits component copy** — visits reactbits.dev, copies component code,
        configures in project.
 5. **sdd-review-code** — full correctness/logic review after all tasks are done.
@@ -39,6 +41,7 @@ directly — they have no standalone use:
 | `sdd-deep-research` | `sdd-brainstorm` | Always — first step of brainstorming |
 | `sdd-asset-generator` | `sdd-build` | When plan.md has `## Design Template` |
 | `sdd-bg-remover` | `sdd-build` | When template has `requires_transparent_images: true` |
+| `sdd-video-generator` | `sdd-build` | When plan.md has video asset requirements |
 
 ## Hard rules
 

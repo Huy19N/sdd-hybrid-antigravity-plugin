@@ -57,7 +57,22 @@ If either is missing, stop and point the user to `sdd-plan` / `sdd-constitution`
       - Install any peer dependencies required.
       - Configure the component with the template's color palette.
 
-   d. Only after all assets and components are ready, proceed to build tasks.
+   c2. **Auto-invoke `sdd-video-generator`** (conditional): Check if `plan.md`
+       contains a video asset requirement — either from the template's
+       `Required Assets` listing `.mp4` files, or from a selected module like
+       `scroll-scrubbing-video` that needs a source video. If yes:
+       - Read the asset description to compose the Veo prompt (following
+         `sdd-video-generator` SKILL.md step 3 prompt framework, using
+         `brainstorm.md` + `constitution.md` for tone/palette context).
+       - Choose `--tier` based on importance: `fast` for most cases,
+         `standard` for hero/key cinematic video.
+       - If the module `scroll-scrubbing-video` was selected with canvas
+         frame-sequence approach (Cách B), also run `extract_frames.py`
+         after the video is generated to produce WebP frame sequence.
+       - Output to `public/assets/video/`.
+
+   d. Only after all assets (images, backgrounds, **videos**) and components
+      are ready, proceed to build tasks.
 
 4. **For every task, in order:**
    a. Write the failing test first (RED). Run it — confirm it fails for the

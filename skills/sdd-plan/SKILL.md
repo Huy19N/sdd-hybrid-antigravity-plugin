@@ -127,6 +127,7 @@ Source: brainstorm.md (v?), constitution.md (v?)
   - `<Component>` — `<url>` — `<where used>`
 - Required Assets:
   - `<asset-name>` — `<description>` — `<needs bg removal?>`
+  - `<video-name>.mp4` — `<description>` — `<tier: fast/standard>` (nếu cần sdd-video-generator)
 - Stack Note: `<"Full code generation" or "Design-only (stack outside React/TS/Vite/Tailwind)">`
 
 ## Distinctive Modules (optional)
