@@ -89,8 +89,8 @@ exact files, explicit verification) instead of loose task lists.
      - Setting up the template's fonts (Google Fonts links in index.html)
      - Installing/copying ReactBits components from reactbits.dev
      - Building each layout section defined in the template
-     - Integrating generated assets (these will be created by `sdd-asset-generator`
-       during build)
+     - Integrating generated assets (images will be created by `sdd-asset-generator`,
+       videos by `sdd-video-generator` during build)
    - If distinctive modules were selected, include a separate task per module
      for implementing its spec (each module file has its own condensed
      "Prompt" section ready to hand to a subagent) — keep module tasks
