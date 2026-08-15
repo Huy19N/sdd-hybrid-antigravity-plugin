@@ -169,6 +169,31 @@ Prompt Recipe:
 
 ---
 
+## Module-Specific Art Asset Generation (Đồng bộ hóa với Shared Modules)
+
+Khi `plan.md` liệt kê các module đặc thù từ `_shared/`, áp dụng quy chuẩn prompt sau:
+
+### 1. Module `interactive-split-slider` (CẶP ẢNH SONG SINH DUAL-STATE)
+- **Quy tắc**: Phải sinh **2 bức ảnh** (`split-before.webp` và `split-after.webp`) có cùng góc máy (cùng tiêu cự, tỷ lệ khung hình, khoảng cách camera và góc nhìn), chỉ thay đổi trạng thái hoặc thời điểm:
+  - *Ví dụ Day/Night cho Bất động sản / Quán cafe*:
+    - Ảnh 1 (Day): `"Sunlit modern architecture with floor-to-ceiling glass, bright morning sunbeams, 24mm architectural lens, natural bright daylight."`
+    - Ảnh 2 (Night): `"Same modern architecture angle, moody blue hour night scene, warm amber interior lights glowing through glass, dusk atmosphere, 24mm architectural lens."`
+  - *Ví dụ Raw/Finished cho Sản phẩm thủ công / F&B*:
+    - Ảnh 1 (Raw): `"Uncut raw cocoa pods and raw organic ingredients styled on dark stone, macro 100mm f/2.8."`
+    - Ảnh 2 (Finished): `"Exquisite artisanal dark chocolate bonbons with golden leaf flakes in the exact same staging and camera angle, macro 100mm f/2.8."`
+
+### 2. Module `holographic-shimmer` (CHẤT LIỆU CHROME & THỦY TINH TÁN SẮC)
+- **Quy tắc**: Tạo vật thể/sản phẩm có bề mặt chrome bóng, thủy tinh hữu cơ mờ gân sóng hoặc kim loại đánh bóng. Nền tối màu (Obsidian / Dark Charcoal) để lớp phủ gradient cầu vồng CSS tỏa sáng rực rỡ mà không bị bão hòa màu trắng.
+
+### 3. Module `ambient-glow-cursor` (ĐỘ TƯƠNG PHẢN & ÁNH SÁNG VEN RIM-LIGHT)
+- **Quy tắc**: Sinh ảnh icon 3D hoặc banner có ánh sáng viền (*Fresnel rim-light*) sắc sảo, tông màu chủ đạo hài hòa với màu của vệt sáng spotlight (`--glow-color`).
+
+### 4. Module `circular-badge-stamp` (BỐ CỤC THOÁNG CHỜ CON DẤU)
+- **Quy tắc**: Bố cục sản phẩm theo quy tắc 1/3 (lệch trái hoặc lệch phải), chừa khoảng trống âm tự nhiên (*negative space*) ở góc đối diện để con dấu xoay SVG ngự trị tự nhiên.
+
+
+---
+
 ## Asset Inventory Specification
 
 After all assets are generated in `public/assets/generated/`, output the structured table:

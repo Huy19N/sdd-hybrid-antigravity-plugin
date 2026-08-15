@@ -3,9 +3,9 @@
 Spec-driven development workflow for AI coding agents, built as an **Antigravity
 plugin**: `Brainstorm → Constitution → Plan → Build → Review → Security`.
 
-Now with **UI/UX design automation**: 22 design templates, 9 shared design
-modules, automatic asset generation, video generation (Veo 3.1), background
-removal, and ReactBits component integration.
+Now with **UI/UX design automation**: 22 design templates, 13 shared design
+modules, automatic asset generation (Art Director v2), video generation (Veo 3.1),
+background removal, and ReactBits component integration.
 
 Combines:
 - **[obra/superpowers](https://github.com/obra/superpowers)**-style engineering
@@ -14,8 +14,8 @@ Combines:
   a project-wide, binding rule set every step must respect.
 - An **OWASP Top 10:2025** security gate that must pass before anything is
   pushed, PR'd, or sent to CI/CD.
-- **22 UI/UX design templates** with auto-selection, 9 mixable design modules,
-  asset generation, video generation, and premium animated components from
+- **22 UI/UX design templates** with auto-selection, 13 mixable design modules,
+  asset generation (Art Director v2), video generation, and premium animated components from
   [ReactBits](https://www.reactbits.dev/).
 
 Install this plugin once, and every new project you start gets the same
@@ -29,7 +29,7 @@ disciplined flow — no copy-pasting prompts between projects.
 2. sdd-constitution     docs/sdd/constitution.md            (once per project)
 3. sdd-plan             docs/sdd/<feature>/plan.md
    └── Design Template Selection (auto: 2-3 suggestions from 22 templates)
-       + Distinctive Module Selection (2-3 combos from 9 shared modules)
+       + Distinctive Module Selection (2-3 combos from 13 shared modules)
 4. sdd-build            code, plan.md tasks checked off
    ├── sdd-asset-generator  (auto: generate images via generate_image tool)
    ├── sdd-bg-remover       (auto: remove backgrounds if template requires)
@@ -89,15 +89,19 @@ no JS state needed. The `button-hover` variant from
 `_shared/interactions/hand-drawn-annotation.md` is compatible with **all**
 templates' CTA buttons.
 
-## Shared Design Modules (9 available)
+## Shared Design Modules (13 available)
 
-After picking a template, the agent suggests **2-3 module combos** from 9
+After picking a template, the agent suggests **2-3 module combos** from 13
 mixable design modules to differentiate your project visually:
 
 | Module | Type | Purpose |
 |---|---|---|
 | Hand-Drawn Annotation (v2) | interaction | Scene hotspots + button hover border |
 | 3D Motion Frame | surface | Tilt/parallax/glare on cards |
+| Holographic Shimmer | surface | Iridescent rainbow chromatic foil on cards |
+| Ambient Glow Cursor | surface | Radial spotlight follower & border glow |
+| Circular Badge Stamp | interaction | Rotating kinetic SVG text stamp ("Artisanal Quality") |
+| Interactive Split Slider | viewer | Dual-state before/after comparison drag slider |
 | Glassmorphism | surface | Frosted glass overlays |
 | 360° Drag-Rotate Viewer | viewer | Product 360° inspection |
 | Magnetic Cursor | interaction | Cursor attracted to buttons |
@@ -213,15 +217,19 @@ sdd-hybrid/
 │   │       ├── _shared/                   # Shared design modules
 │   │       │   ├── module-index.md         # Module catalog & selection guide
 │   │       │   ├── interactions/           # Hover/scroll behaviors
+│   │       │   │   ├── circular-badge-stamp.md   # Rotating kinetic SVG stamp
 │   │       │   │   ├── hand-drawn-annotation.md  # v2: scene-hotspot + button-hover
 │   │       │   │   ├── magnetic-cursor.md
 │   │       │   │   └── scroll-velocity-marquee.md
 │   │       │   ├── surfaces/              # Visual textures & materials
 │   │       │   │   ├── 3d-motion-frame.md
+│   │       │   │   ├── ambient-glow-cursor.md    # Spotlight cursor & border glow
 │   │       │   │   ├── glassmorphism.md
 │   │       │   │   ├── grain-noise-overlay.md
+│   │       │   │   ├── holographic-shimmer.md    # Iridescent chromatic foil
 │   │       │   │   └── liquid-blob-background.md
 │   │       │   └── viewers/               # Complex interactive components
+│   │       │       ├── interactive-split-slider.md # Dual-state comparison slider
 │   │       │       ├── product-360-drag-rotate.md
 │   │       │       └── scroll-scrubbing-video.md
 │   │       ├── 01-product-carousel.md

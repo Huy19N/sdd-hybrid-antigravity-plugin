@@ -58,8 +58,13 @@ exact files, explicit verification) instead of loose task lists.
        should not converge on the same look, which is the entire point of
        this step. Wait for the user to pick one, mix their own, or skip
        module selection entirely (a template alone is a valid choice too).
-       Once chosen, read the full file for each selected module and fold its
-       spec into the plan.
+       Once chosen, read the full file for each selected module, fold its spec
+       into the plan, and **ensure any asset requirements specified by the
+       module** (e.g. dual-state image pair for `interactive-split-slider`,
+       chrome assets for `holographic-shimmer`, storytelling wide-angle scene
+       for `hand-drawn-annotation`, or source video for `scroll-scrubbing-video`)
+       are automatically added to the `Required Assets` manifest for
+       `sdd-asset-generator` / `sdd-video-generator`.
    g. **Tech stack check against constitution**:
       - If `constitution.md` allows React + TypeScript + Vite + Tailwind CSS
         → plan includes full code generation from the template prompt.
@@ -128,6 +133,7 @@ Source: brainstorm.md (v?), constitution.md (v?)
 - Required Assets:
   - `<asset-name>` — `<description>` — `<needs bg removal?>`
   - `<video-name>.mp4` — `<description>` — `<tier: fast/standard>` (nếu cần sdd-video-generator)
+  - `<module-asset-name>` — `<description per module spec (e.g. split-before/after, holographic chrome, scene annotation)>` — `<needs bg removal?>`
 - Stack Note: `<"Full code generation" or "Design-only (stack outside React/TS/Vite/Tailwind)">`
 
 ## Distinctive Modules (optional)

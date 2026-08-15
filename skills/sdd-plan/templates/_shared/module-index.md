@@ -1,88 +1,90 @@
-# Shared Module Index — Distinctive Design Modules
+# Shared Module Index — Distinctive Design Modules (Haute-Design Catalog)
 
 Khác với `templates/` (22 bộ giao diện đầy đủ theo ngành), thư mục `_shared/`
 chứa các **module riêng biệt, độc lập chủ đề** — có thể ghép vào bất kỳ
 template nào để tạo sự khác biệt, tránh việc 2 project cùng chọn template
-`pet-care` ra kết quả giống hệt nhau.
+`product-store` hay `restaurant-food` ra kết quả giống hệt nhau.
 
-## Nguyên tắc cốt lõi — đọc trước khi chọn module
+## Nguyên tắc cốt lõi — Haute-Design & Tương thích Asset
 
-**Một template + 2-3 module khác nhau = 2-3 website trông khác nhau rõ rệt.**
-Đây là cách hệ thống này giải quyết vấn đề "trùng template = trùng giao
-diện": không giới hạn ở việc chọn 1 trong 22 template, mà là chọn 1 template
-**rồi tổ hợp thêm 1-3 module** trong thư viện dưới đây. Thư viện càng lớn
-(hiện 9 module, sẽ tăng theo thời gian), số tổ hợp khả dĩ càng nhiều.
+**Một template + 2-3 module khác nhau = 2-3 tác phẩm giao diện độc bản hoàn toàn.**
+Đây là giải pháp triệt để cho bài toán "trùng template = trùng giao diện". Thư
+viện hiện có **13 module sáng tạo cao cấp**, mang lại hàng trăm tổ hợp thị giác
+khác biệt.
 
-**Quan trọng — không tự động chọn 1 tổ hợp "tốt nhất" duy nhất.** Nếu agent
-luôn chọn đúng 1 tổ hợp "hợp lý nhất" cho một loại brainstorm nhất định, thì
-những project có brainstorm tương tự nhau (VD: 2 quán pet-care khác nhau) vẫn
-sẽ hội tụ về cùng 1 tổ hợp — quay lại đúng vấn đề ban đầu. Agent **phải**
-trình bày 2-3 tổ hợp khác nhau và để user chọn, xem chi tiết ở mục "Quy trình
-chọn module" bên dưới.
+**Đồng bộ hóa 100% với `sdd-asset-generator`**: Mỗi module khi được lựa chọn sẽ
+tự động gửi yêu cầu asset đặc thù (ví dụ: cặp ảnh so sánh cho `interactive-split-slider`,
+ảnh 3D chrome cho `holographic-shimmer`, đại cảnh cho `hand-drawn-annotation`) để
+tạo nên một tổng thể thị giác nhất quán và nghệ thuật.
 
-## Danh mục module
+---
 
-| id | Tên | Loại | Tags | Hợp với | Ghi chú |
+## Danh mục 13 Module Sáng Tạo
+
+| id | Tên | Loại | Tags | Hợp với | Yêu cầu Asset từ `sdd-asset-generator` |
 |---|---|---|---|---|---|
-| `hand-drawn-annotation` | Hand-Drawn Scene Annotation **(v2)** | interaction | doodle, hand-drawn, hotspot, storytelling, button-hover | `scene-hotspot`: Template có ảnh không gian thật (F&B, real-estate, pet-care, wedding, coworking, automotive). `button-hover`: **mọi** template có CTA button | Đã tích hợp sẵn trong 8 template (6 bắt buộc scene-hotspot + 2 scene-dedicated). Button-hover áp thêm cho CTA buttons, thuần CSS không cần JS state |
-| `3d-motion-frame` | 3D Motion Frame | surface | 3d, tilt, parallax, glare | Product/feature/portfolio/pricing card | Cần cursor — hạn chế trên mobile |
-| `glassmorphism` | Glassmorphism | surface | glass, frosted, blur, modern | Nav, card nổi trên ảnh, modal | Cẩn thận contrast khi đặt trên ảnh phức tạp |
-| `product-360-drag-rotate` | 360° Drag-Rotate Product Viewer | viewer | 360, product-viewer, drag-rotate | Sản phẩm cần "xem mọi góc": giày, đồng hồ, figurine, xe, nội thất | 2 cách triển khai (ảnh tuần tự / true 3D) — đọc kỹ trước khi chọn |
-| `magnetic-cursor` | Magnetic Cursor | interaction | magnetic, cursor, button-hover | Nút CTA, icon nhỏ (≤120px) | Không dùng cho element lớn |
-| `scroll-velocity-marquee` | Scroll Velocity Marquee | interaction | marquee, scroll, kinetic-typography | Dải tagline/logo giữa 2 section | Tối đa 1 dải/trang |
-| `grain-noise-overlay` | Grain & Noise Overlay | surface | grain, noise, texture, premium | Hầu hết mọi hero/section màu đặc | Mặc định static, animate tốn hiệu năng |
-| `liquid-blob-background` | Liquid Blob Background | surface | blob, organic, morph | Hero SaaS/tech/healthcare/education | Tông "mềm", khác Aurora/Grid Distortion đã có |
-| `scroll-scrubbing-video` | Scroll-Scrubbing Video | viewer | video, scroll, scrubbing, pinned-section, cinematic | Hero section hoặc section giới thiệu sản phẩm — kiểu Apple product page | Cần video nguồn (từ `sdd-video-generator` hoặc có sẵn). Khuyến nghị Cách B (canvas + frame sequence) cho độ mượt tốt nhất |
+| `hand-drawn-annotation` | Hand-Drawn Scene Annotation **(v2)** | interaction | doodle, hand-drawn, hotspot, storytelling, button-hover | `scene-hotspot`: Bối cảnh không gian thật (F&B, bất động sản, pet-care, wedding, tiệm bánh). `button-hover`: Mọi nút CTA | Ảnh đại cảnh góc rộng (24mm/35mm) có nhiều chi tiết phân tầng để gắn hotspot |
+| `holographic-shimmer` | Holographic Iridescent Shimmer | surface | holographic, iridescent, foil, chrome, luxury | Thẻ sản phẩm bản giới hạn, thẻ thành viên VIP, badge công nghệ, giải thưởng | Ảnh 3D Liquid Chrome hoặc vật thể kim loại/thủy tinh bóng bẩy trên nền tối |
+| `ambient-glow-cursor` | Ambient Glow Cursor Spotlight | surface | ambient-glow, spotlight, cursor-follower, dark-mode | Hero SaaS, Bento grid feature cards, fintech dashboard, dark portfolio | Ảnh icon 3D hoặc banner nền tối có ánh sáng viền (*rim-light*) tương phản |
+| `circular-badge-stamp` | Rotating Circular Badge Stamp | interaction | circular-text, rotating-stamp, badge, artisan, emblem | Quán cafe, thời trang thủ công, sản phẩm organic, studio kiến trúc, di sản | Ảnh sản phẩm có khoảng trống bố cục (*negative space*) để đặt con dấu xoay |
+| `interactive-split-slider` | Interactive Dual-State Split Slider | viewer | split-slider, before-after, dual-state, comparison | Kiến trúc/nội thất (ngày/đêm), thời trang, spa, xe hơi, đồ ăn (nguyên liệu/món) | **CẶP 2 ẢNH ĐỒNG BỘ** (cùng góc máy, cùng chủ thể nhưng khác trạng thái/ánh sáng) |
+| `3d-motion-frame` | 3D Motion Frame | surface | 3d, tilt, parallax, glare | Product card, feature card, portfolio piece, pricing card | Ảnh sản phẩm chụp studio bục đá travertine hoặc render 3D có chiều sâu |
+| `glassmorphism` | Glassmorphism & Frosted Acrylic | surface | glass, frosted, blur, modern, acrylic | Nav bar, card nổi trên ảnh, modal, floating widgets | Nền có ánh sáng màu sắc hoặc ảnh texture phức tạp để làm nổi vân mờ kính |
+| `product-360-drag-rotate` | 360° Drag-Rotate Product Viewer | viewer | 360, product-viewer, drag-rotate | Giày dép, đồng hồ, xe hơi, nội thất, đồ gốm sứ thủ công | Chuỗi ảnh xoay 360 độ hoặc render 3D quay quanh trục |
+| `magnetic-cursor` | Magnetic Cursor | interaction | magnetic, cursor, button-hover | Nút CTA, icon nhỏ (≤120px), link điều hướng | Không yêu cầu asset riêng |
+| `scroll-velocity-marquee` | Scroll Velocity Marquee | interaction | marquee, scroll, kinetic-typography | Dải tagline, thương hiệu đối tác, quote triết lý giữa 2 section | Không yêu cầu asset riêng |
+| `grain-noise-overlay` | Grain & Noise Overlay | surface | grain, noise, texture, premium, film | Hầu hết mọi hero/section màu đặc, phong cách Kinfolk/Editorial | Giúp tăng độ mịn màng xúc giác cho mọi ảnh render và nền màu |
+| `liquid-blob-background` | Liquid Blob Background | surface | blob, organic, morph | Hero SaaS, công nghệ, y tế, giáo dục, sáng tạo | Nền chuyển động mềm mại bổ trợ cho các khối UI nổi |
+| `scroll-scrubbing-video` | Scroll-Scrubbing Video | viewer | video, scroll, scrubbing, pinned-section, cinematic | Hero section hoặc section giới thiệu sản phẩm — phong cách Apple | Video nguồn .mp4 (≤8s) từ `sdd-video-generator` hoặc frame sequence |
 
-Chi tiết kỹ thuật đầy đủ nằm trong file riêng của từng module, theo cấu trúc:
+---
+
+## Cấu trúc thư mục `_shared/`
+
 ```
 _shared/
-├── interactions/   # hành vi hover/scroll của user lên 1 vùng cụ thể
+├── interactions/   # Hành vi tương tác và chuyển động của người dùng
+│   ├── circular-badge-stamp.md
 │   ├── hand-drawn-annotation.md
 │   ├── magnetic-cursor.md
 │   └── scroll-velocity-marquee.md
-├── surfaces/        # xử lý hình ảnh/chất liệu cho card, nền, khung
+├── surfaces/        # Xử lý chất liệu, ánh sáng và hiệu ứng bề mặt
 │   ├── 3d-motion-frame.md
+│   ├── ambient-glow-cursor.md
 │   ├── glassmorphism.md
 │   ├── grain-noise-overlay.md
+│   ├── holographic-shimmer.md
 │   └── liquid-blob-background.md
-└── viewers/          # component tương tác độc lập, phức tạp hơn 1 hiệu ứng đơn
+└── viewers/          # Component độc lập, tương tác phức tạp
+    ├── interactive-split-slider.md
     ├── product-360-drag-rotate.md
     └── scroll-scrubbing-video.md
 ```
 
-## Quy trình chọn module (dùng trong `sdd-plan`)
+---
 
-1. Sau khi user đã chọn 1 template nền (từ `templates/template-index.md`),
-   đọc file `module-index.md` này.
-2. Đối chiếu `brainstorm.md`: loại sản phẩm (có phải vật thể cần "xem mọi
-   góc" không → ưu tiên `product-360-drag-rotate`?), mood/tone được nhắc tới,
-   có đối thủ/site tham chiếu nào user từng nhắc không.
-3. Tạo **2-3 tổ hợp module khác nhau** (mỗi tổ hợp 1-3 module, không trùng
-   nhau hoàn toàn giữa các tổ hợp), mỗi tổ hợp có một "cá tính" rõ ràng khác
-   biệt — không phải 3 biến thể nhỏ của cùng 1 ý tưởng. Ví dụ với brainstorm
-   là 1 startup bán giày thủ công:
-   - Tổ hợp A — "Tactile & premium": `3d-motion-frame` + `grain-noise-overlay`
-   - Tổ hợp B — "Xem trước khi mua": `product-360-drag-rotate` +
-     `magnetic-cursor`
-   - Tổ hợp C — "Hiện đại tối giản": `glassmorphism` + `scroll-velocity-marquee`
-4. Trình bày cả 2-3 tổ hợp cho user kèm lý do ngắn gọn mỗi tổ hợp phù hợp ở
-   điểm nào — **để user chọn**, hoặc user có thể tự trộn module khác đi nếu
-   muốn (không giới hạn trong 3 gợi ý).
-5. Sau khi chọn, đọc đầy đủ file từng module đã chọn, đưa spec vào phần
-   "Distinctive Modules" trong `plan.md` (xem `SKILL.md` để biết format).
+## Bộ Công Thức Phối Hợp Cá Tính (Combinatorial Personality Recipes)
 
-## Tương thích & xung đột cần lưu ý
-- `glassmorphism` + `grain-noise-overlay` chồng lên cùng 1 bề mặt sẽ làm mờ
-  cả hai hiệu ứng — nếu dùng cả hai, đặt ở 2 khu vực khác nhau của trang,
-  không chồng trực tiếp.
-- `3d-motion-frame` cần cursor thật — không hiệu quả trên mobile, luôn có
-  fallback tĩnh.
-- `product-360-drag-rotate` **chiếm vai trò trung tâm của 1 section** — không
-  nên nhồi thêm module khác (VD: `3d-motion-frame`) ngay trên chính viewer đó,
-  chỉ nên kết hợp ở các phần khác của trang (VD: `magnetic-cursor` cho nút "+"
-  cạnh viewer thì được, nhưng đừng tilt cả viewer).
-- `scroll-scrubbing-video` chiếm toàn bộ viewport (100vh pinned) trong khi cuộn
-  qua — không nên đặt chung section với `product-360-drag-rotate` (cả hai đều
-  chiếm vai trò "trung tâm"). Có thể kết hợp `grain-noise-overlay` lên phía
-  trên video. Cần video nguồn từ `sdd-video-generator` hoặc video có sẵn.
+Khi thực hiện `sdd-plan`, Agent **phải đối chiếu brainstorm của người dùng và đề xuất 2-3 tổ hợp mang cá tính đối lập**. Ví dụ cùng là một cửa hàng bán sản phẩm vật lý:
+
+### 🌟 Tổ hợp 1 — "Avant-Garde & Futuristic Tech"
+- **Modules**: `holographic-shimmer` + `ambient-glow-cursor` + `magnetic-cursor`
+- **Asset Sinh ra**: Ảnh 3D Liquid Chrome, chất liệu kim loại bóng lộn xám obsidian, ánh sáng tím neon.
+- **Phong cách**: Đậm chất công nghệ tương lai, huyền ảo và sắc sảo.
+
+### 🍃 Tổ hợp 2 — "Organic Heritage & Artisanal Craft"
+- **Modules**: `circular-badge-stamp` + `hand-drawn-annotation` + `grain-noise-overlay`
+- **Asset Sinh ra**: Ảnh chụp trên bục đá travertine, vải linen thô, ánh nắng ban mai rọi bóng lá cây.
+- **Phong cách**: Thủ công mỹ nghệ ấm áp, mộc mạc, đậm chất thơ và tin cậy.
+
+### 🎬 Tổ hợp 3 — "Cinematic & Interactive Discovery"
+- **Modules**: `interactive-split-slider` + `3d-motion-frame` + `scroll-velocity-marquee`
+- **Asset Sinh ra**: Cặp ảnh so sánh nguyên liệu vs thành phẩm, ảnh sản phẩm có chiều sâu Z-axis.
+- **Phong cách**: Hiện đại, giàu tính tương tác chạm vuốt, phô diễn trọn vẹn chất lượng sản phẩm.
+
+---
+
+## Tương thích & Xung đột Cần Lưu Ý
+- `glassmorphism` + `grain-noise-overlay` nếu chồng lên cùng 1 layer nhỏ sẽ làm mất độ trong suốt — hãy phân bổ ở các khu vực khác nhau.
+- `scroll-scrubbing-video` và `product-360-drag-rotate` đều chiếm vị trí trung tâm viewport — không nên đặt trong cùng một section.
+- `holographic-shimmer` và `ambient-glow-cursor` đạt hiệu quả thị giác đẹp nhất trên nền tối (Dark Mode / Charcoal / Obsidian).
