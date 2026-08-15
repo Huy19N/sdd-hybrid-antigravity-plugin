@@ -113,7 +113,7 @@ These skills are called automatically — you never need to trigger them manuall
 | Sub-skill | Called by | Purpose |
 |---|---|---|
 | `sdd-deep-research` | `sdd-brainstorm` | Market analysis, competitor landscape, UX trends, technical feasibility |
-| `sdd-asset-generator` | `sdd-build` | Generate product photos, hero banners, icons via `generate_image` tool |
+| `sdd-asset-generator` | `sdd-build` | Art Director Edition (v2): Curate and generate high-artistry images (3D liquid chrome, editorial photography, tactile still life) across 22 design templates via `generate_image` tool |
 | `sdd-bg-remover` | `sdd-build` | Remove image backgrounds using `rembg` with tiered model selection (isnet → birefnet), auto-escalation, and alpha cleanup |
 | `sdd-video-generator` | `sdd-build` | Generate video assets using Gemini API + Veo 3.1 (tiered: lite/fast/standard) |
 
