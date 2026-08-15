@@ -3,9 +3,7 @@
 Spec-driven development workflow for AI coding agents, built as an **Antigravity
 plugin**: `Brainstorm → Constitution → Plan → Build → Review → Security`.
 
-Now with **UI/UX design automation**: 22 design templates, 13 shared design
-modules, automatic asset generation (Art Director v2), video generation (Veo 3.1),
-background removal, and ReactBits component integration.
+Now with **Cross-Platform UI/UX & Mobile App Automation**: Web & Mobile (Android & iOS via React Native Expo, Flutter Dart, and Kotlin Compose), 22 design templates, 18 shared design modules (including 5 mobile-first modules), automatic asset generation (Art Director v2), video generation (Veo 3.1), background removal, and store-ready compliance.
 
 Combines:
 - **[obra/superpowers](https://github.com/obra/superpowers)**-style engineering
@@ -14,9 +12,7 @@ Combines:
   a project-wide, binding rule set every step must respect.
 - An **OWASP Top 10:2025** security gate that must pass before anything is
   pushed, PR'd, or sent to CI/CD.
-- **22 UI/UX design templates** with auto-selection, 13 mixable design modules,
-  asset generation (Art Director v2), video generation, and premium animated components from
-  [ReactBits](https://www.reactbits.dev/).
+- **22 UI/UX design templates & 18 shared modules** with auto-selection across Web, React Native, Flutter, and Kotlin Compose, asset generation (Art Director v2), video generation, and premium animated components.
 
 Install this plugin once, and every new project you start gets the same
 disciplined flow — no copy-pasting prompts between projects.
@@ -28,8 +24,9 @@ disciplined flow — no copy-pasting prompts between projects.
    └── sdd-deep-research   (auto: market/competitor/UX research)
 2. sdd-constitution     docs/sdd/constitution.md            (once per project)
 3. sdd-plan             docs/sdd/<feature>/plan.md
+   ├── Platform & Stack Selection (Web React / Mobile Expo / Flutter / Kotlin Compose)
    └── Design Template Selection (auto: 2-3 suggestions from 22 templates)
-       + Distinctive Module Selection (2-3 combos from 13 shared modules)
+       + Distinctive Module Selection (2-3 combos from 18 shared modules)
 4. sdd-build            code, plan.md tasks checked off
    ├── sdd-asset-generator  (auto: generate images via generate_image tool)
    ├── sdd-bg-remover       (auto: remove backgrounds if template requires)
@@ -89,13 +86,18 @@ no JS state needed. The `button-hover` variant from
 `_shared/interactions/hand-drawn-annotation.md` is compatible with **all**
 templates' CTA buttons.
 
-## Shared Design Modules (13 available)
+## Shared Design Modules (18 available)
 
-After picking a template, the agent suggests **2-3 module combos** from 13
-mixable design modules to differentiate your project visually:
+After picking a template, the agent suggests **2-3 module combos** from 18
+mixable design modules (13 Universal/Web + 5 Mobile-First) to differentiate your project visually:
 
-| Module | Type | Purpose |
+| Module | Category | Purpose |
 |---|---|---|
+| Mobile Bottom Sheet | mobile | Interactive snap-point modal sheet with backdrop blur |
+| Swipeable Card Stack | mobile | Gesture-driven Tinder/Bumble-style card deck |
+| Floating Haptic Tab Bar | mobile | Frosted pill bottom nav bar with haptic touch feedback |
+| Stories Avatar Tray | mobile | Instagram/TikTok gradient stories tray & 9:16 fullscreen viewer |
+| Pull-to-Refresh Mesh | mobile | Elastic spring physics & gradient mesh refresh indicator |
 | Hand-Drawn Annotation (v2) | interaction | Scene hotspots + button hover border |
 | 3D Motion Frame | surface | Tilt/parallax/glare on cards |
 | Holographic Shimmer | surface | Iridescent rainbow chromatic foil on cards |
@@ -214,8 +216,14 @@ sdd-hybrid/
 │   │   ├── SKILL.md                       # Step 3: brainstorm → plan.md
 │   │   └── templates/                     # 22 UI/UX design templates
 │   │       ├── template-index.md          # Quick-reference index
-│   │       ├── _shared/                   # Shared design modules
+│   │       ├── _shared/                   # Shared design modules (18 available)
 │   │       │   ├── module-index.md         # Module catalog & selection guide
+│   │       │   ├── mobile/                 # Mobile-first touch & gesture components
+│   │       │   │   ├── haptic-tab-bar.md
+│   │       │   │   ├── mobile-bottom-sheet.md
+│   │       │   │   ├── pull-to-refresh-mesh.md
+│   │       │   │   ├── stories-avatar-tray.md
+│   │       │   │   └── swipeable-card-stack.md
 │   │       │   ├── interactions/           # Hover/scroll behaviors
 │   │       │   │   ├── circular-badge-stamp.md   # Rotating kinetic SVG stamp
 │   │       │   │   ├── hand-drawn-annotation.md  # v2: scene-hotspot + button-hover

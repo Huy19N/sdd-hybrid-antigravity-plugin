@@ -191,6 +191,25 @@ Khi `plan.md` liệt kê các module đặc thù từ `_shared/`, áp dụng quy
 ### 4. Module `circular-badge-stamp` (BỐ CỤC THOÁNG CHỜ CON DẤU)
 - **Quy tắc**: Bố cục sản phẩm theo quy tắc 1/3 (lệch trái hoặc lệch phải), chừa khoảng trống âm tự nhiên (*negative space*) ở góc đối diện để con dấu xoay SVG ngự trị tự nhiên.
 
+### 5. Module `stories-avatar-tray` (ẢNH DỌC 9:16 & AVATAR TRÒN 1:1)
+- **Quy tắc**: Sinh ảnh chất lượng cao định dạng dọc 9:16 (`story-01.webp`, `story-02.webp`) và avatar tròn 1:1 (`avatar-01.webp`) có độ bão hòa màu cao, tương phản ấn tượng để hút mắt khi hiển thị trong khay story.
+
+---
+
+## Mobile & Store-Ready Asset Specifications (Dành cho App Android & iOS)
+
+Khi `plan.md` nhắm tới nền tảng Mobile App (Expo / Flutter / Kotlin), tự động tạo các asset sau:
+
+1. **App Icon 1:1 (`app-icon.webp` / `icon.png` 1024x1024)**:
+   - *"Minimalist luxury app icon for [App Name], sleek geometric emblem with subtle gold metallic sheen, isolated on dark matte obsidian background, vector clarity, iOS App Store & Google Play style, centered composition, 1:1 square."*
+2. **Android Adaptive Icon Foreground (`adaptive-icon-foreground.webp`)**:
+   - Biểu tượng chính độc lập trên nền trong suốt (hoặc nền trắng), an toàn trong vùng safe zone tròn 66dp.
+3. **Mobile Splash Screen 9:16 (`splash.webp`)**:
+   - Logo hoặc biểu tượng tối giản đặt chính giữa nền chuyển sắc êm dịu, không chứa text nhỏ, tỷ lệ chuẩn 9:16 (1242x2688 hoặc 1080x1920).
+4. **Mobile Hero Cards 4:5 & 9:16**:
+   - Ảnh sản phẩm và bối cảnh bố cục dọc, vùng nét tập trung ở 2/3 phần trên, 1/3 phần dưới tối dần để phủ text thông tin sản phẩm và nút bấm.
+
+
 
 ---
 

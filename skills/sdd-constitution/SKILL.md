@@ -55,6 +55,22 @@ Version: <semver> | Ratified: <date> | Last amended: <date>
 ### 2. ...
 
 ## Technology constraints
+- Platform Target: `<Web | Mobile (iOS & Android) | Cross-Platform>`
+- Core Framework: `<React (Vite) | React Native (Expo) | Flutter (Dart) | Kotlin (Jetpack Compose)>`
+- Styling & Design System: `<Tailwind CSS | NativeWind | Flutter ThemeData | Compose Material3>`
+
+## Mobile Architecture & Store-Ready Standards (bắt buộc với dự án Mobile)
+- **Clean Architecture Pattern**:
+  - Expo / React Native: `src/app/` (Expo Router), `src/features/` (Domain modules), `src/components/` (UI & Modules), `src/services/` (Storage/API).
+  - Flutter: `lib/features/` (Presentation/Domain/Data), `lib/core/` (Network/Storage), `lib/shared/` (Widgets).
+  - Kotlin Compose: `presentation/` (MVI/MVVM), `domain/` (UseCases), `data/` (Repository/Room), `ui/theme/`.
+- **Google Play & App Store Compliance Gates**:
+  - Safe Area handling trên 100% màn hình (`SafeAreaView` / `Scaffold` / `safeDrawingPadding`).
+  - Minimum touch target: tối thiểu 48x48dp (Android) / 44x44pt (iOS).
+  - Quyền truy cập (*Permissions*): Giải thích lý do rõ ràng trước khi hiển thị dialog hệ thống.
+  - An toàn dữ liệu: Token và khóa nhạy cảm bắt buộc lưu trong `SecureStore` / `FlutterSecureStorage` / `EncryptedSharedPreferences` (Keychain/Keystore).
+  - Offline & Error State: Ứng dụng phải có màn hình chờ mạng và fallback êm ái khi mất kết nối.
+
 ## Security requirements
 ## Testing standards
 ## Quality gates (what blocks a merge)

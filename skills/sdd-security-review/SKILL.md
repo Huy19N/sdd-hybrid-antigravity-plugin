@@ -33,7 +33,7 @@ does not re-litigate logic bugs that belong to `sdd-review-code`.
    specific file/line as evidence. Don't mark a category N/A without actually
    checking — most categories touch more code paths than expected.
 
-   | # | Category (OWASP Top 10:2025) | Look for |
+   | # | Category (OWASP Top 10:2025 - Web / Backend) | Look for |
    |---|---|---|
    | A01 | Broken Access Control (now includes SSRF) | Missing authorization checks, IDOR (object reference not scoped to the requesting user), server-side calls to attacker-influenced URLs |
    | A02 | Security Misconfiguration | Default credentials, verbose error/debug output on prod paths, overly permissive CORS/headers, unnecessary features left enabled |
@@ -45,6 +45,16 @@ does not re-litigate logic bugs that belong to `sdd-review-code`.
    | A08 | Software or Data Integrity Failures | Unsigned/unverified deserialization, auto-update or CI steps trusting unverified artifacts |
    | A09 | Security Logging & Alerting Failures | Security-relevant events not logged, logs containing secrets/PII, no alerting hook for events that matter |
    | A10 | Mishandling of Exceptional Conditions | Errors failing open instead of closed, stack traces or internal state leaked to the client, unhandled edge cases that crash into an insecure state |
+
+   **Nếu là dự án Mobile App (React Native / Flutter / Kotlin), kiểm tra thêm OWASP Mobile Top 10**:
+   | # | Mobile Category | Look for |
+   |---|---|---|
+   | M1 | Insecure Credential & Data Storage | Auth tokens / PII lưu trong plain `AsyncStorage` / `SharedPreferences` thay vì `SecureStore` (Keychain/Keystore) |
+   | M2 | Insecure Communication | Gọi API HTTP không mã hóa, thiếu Certificate Pinning cho giao dịch tài chính nhạy cảm |
+   | M3 | Insecure Authentication/Authorization | Xác thực sinh trắc học FaceID/Biometrics không có fallback an toàn hoặc xử lý client-side giả mạo |
+   | M4 | Insufficient Input/Output Validation | Deep links (URL schemes) không validate param, nguy cơ injection qua WebView / Intents |
+   | M5 | Insecure Code & Reverse Engineering | Thiếu obfuscation (ProGuard / R8 / Flutter obfuscate), lộ API key nhạy cảm trong client bundle |
+   | M8 | Security Misconfiguration | Quyền AndroidManifest.xml / iOS Info.plist quá rộng, `android:exported="true"` không an toàn |
 
 4. **Categorize every finding**: Critical (exploitable now, blocks push) / High
    (fix before merge) / Medium (track, fix soon) / Low (note for later).

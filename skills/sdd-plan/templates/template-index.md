@@ -21,9 +21,8 @@ frontmatter field and read the referenced file under `_shared/interactions/`
 
 ## Distinctive modules (optional, for visual differentiation)
 Beyond the mandatory shared interactions above, `_shared/` also contains a
-larger library of **13 optional, mixable design modules** (holographic shimmer, ambient glow spotlights, rotating badge stamps, interactive split sliders, 3D tilt frames, glass surfaces, a 360° product viewer, scroll-scrubbing video, magnetic cursors, and more) that can be
-layered onto **any** template to keep two projects on the same base template
-from looking identical. See `_shared/module-index.md` for the full catalog and
+larger library of **18 optional, mixable design modules** (5 mobile-first modules: bottom sheets, swipe card stacks, haptic tab bars, stories tray, pull-to-refresh + 13 universal modules: holographic shimmer, ambient glow, rotating stamps, split sliders, 3D tilt, glass surfaces, 360 viewer, etc.) that can be
+layered onto **any** template on Web, React Native, Flutter, or Kotlin Compose to keep projects from looking identical. See `_shared/module-index.md` for the full catalog and
 selection process — this is a required read during `sdd-plan`, not optional
 for the agent to skip.
 

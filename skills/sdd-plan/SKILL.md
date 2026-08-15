@@ -65,16 +65,14 @@ exact files, explicit verification) instead of loose task lists.
        for `hand-drawn-annotation`, or source video for `scroll-scrubbing-video`)
        are automatically added to the `Required Assets` manifest for
        `sdd-asset-generator` / `sdd-video-generator`.
-   g. **Tech stack check against constitution**:
-      - If `constitution.md` allows React + TypeScript + Vite + Tailwind CSS
-        → plan includes full code generation from the template prompt.
-      - If `constitution.md` requires a different stack (e.g., Next.js, Vue,
-        vanilla JS, or any non-React stack) → plan includes **design-only
-        output**: layout structure, color palette, typography, interactions, and
-        assets. The template prompt is provided as a reference but the actual
-        code tasks use the constitution's mandated stack.
-   h. If the project has **no UI component** (CLI tool, API, library, etc.)
-      → **skip this step entirely**.
+    g. **Platform & Tech stack adaptation**:
+       - **Web Application** (React + TypeScript + Vite + Tailwind CSS): Full code generation using template prompt & ReactBits components.
+       - **Mobile App — Expo / React Native** (TypeScript + NativeWind v4 + Expo Router): Adapt template into `src/app/` (Expo Router), `src/features/`, `src/components/` with `Safe Area`, `Gesture Handler`, `expo-haptics`.
+       - **Mobile App — Flutter** (Dart + Riverpod/BLoC): Adapt template into Clean Architecture `lib/features/`, `lib/core/`, `lib/shared/` with `ThemeData`, `Material 3`, and Mobile Shared Modules.
+       - **Mobile App — Kotlin** (Jetpack Compose): Adapt template into Android Clean Architecture (`presentation/`, `domain/`, `data/`, `ui/theme/`) with Compose `Material3` and StateFlow.
+       - **Design-only**: If the stack is outside the above frameworks, output complete design tokens, layout specifications, assets, and component architecture for the developer to implement.
+    h. If the project has **no UI component** (CLI tool, API, library, etc.)
+       → **skip this step entirely**.
 
 4. **Draft a short spec section** (what/why, not how): one short paragraph plus a
    bullet list of functional requirements and acceptance criteria. Keep it
@@ -116,6 +114,14 @@ Source: brainstorm.md (v?), constitution.md (v?)
 ### Functional requirements
 ### Acceptance criteria
 
+## Platform & Architecture
+- Platform Target: `<Web | Mobile (iOS & Android) | Cross-Platform>`
+- Core Framework: `<React (Vite) | React Native (Expo) | Flutter (Dart) | Kotlin (Jetpack Compose)>`
+- Clean Architecture Layout:
+  - Root: `<src/app | lib/features | app/src/main/java/...>`
+  - State Management: `<Zustand/React Query | Riverpod/BLoC | StateFlow/MVI>`
+  - Store Readiness: `<Google Play AAB & App Store IPA compliance enabled>`
+
 ## Design Template
 - Template: `<chosen template name>`
 - Source: `templates/<file>.md`
@@ -128,13 +134,13 @@ Source: brainstorm.md (v?), constitution.md (v?)
 - Fonts:
   - Display: `<font name>` — headings, hero text
   - Body: `<font name>` — paragraphs, labels
-- ReactBits Components:
-  - `<Component>` — `<url>` — `<where used>`
+- Mobile & UI Components:
+  - `<Component / Module>` — `<url or path>` — `<where used>`
 - Required Assets:
   - `<asset-name>` — `<description>` — `<needs bg removal?>`
   - `<video-name>.mp4` — `<description>` — `<tier: fast/standard>` (nếu cần sdd-video-generator)
-  - `<module-asset-name>` — `<description per module spec (e.g. split-before/after, holographic chrome, scene annotation)>` — `<needs bg removal?>`
-- Stack Note: `<"Full code generation" or "Design-only (stack outside React/TS/Vite/Tailwind)">`
+  - `<module-asset-name>` — `<description per module spec (e.g. 9:16 story, split pair, icon 1:1, app icon)>` — `<needs bg removal?>`
+- Stack Note: `<"Full code generation for [Platform/Framework]" or "Design-only">`
 
 ## Distinctive Modules (optional)
 - Combination presented: `<A / B / C>` — chosen: `<which one, or "custom mix", or "none">`

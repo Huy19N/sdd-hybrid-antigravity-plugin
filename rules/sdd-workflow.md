@@ -14,22 +14,22 @@ step applies, use it. This is not optional.
 2. **sdd-constitution** — project-wide binding rules in `docs/sdd/constitution.md`
    (created once, amended over time — not per feature).
 3. **sdd-plan** — turn an approved brainstorm into `docs/sdd/<feature-slug>/plan.md`
-   (spec + constitution compliance check + bite-sized tasks).
-   - Includes: **Design Template Selection** — scans brainstorm.md, scores against
-     22 UI/UX templates, presents top 2-3 for user to choose. Skipped for non-UI
+   (spec + platform/architecture selection + constitution compliance check + bite-sized tasks).
+   - Includes: **Platform & Stack Selection** (Web React, Mobile Expo/React Native, Mobile Flutter, Mobile Kotlin Compose).
+   - Includes: **Design Template & Module Selection** — scans brainstorm.md, scores against
+     22 UI/UX templates + 18 shared modules (universal & mobile-specific), presents top 2-3 for user to choose. Skipped for non-UI
      projects.
 4. **sdd-build** — execute the plan task-by-task under TDD, gated by the constitution.
    - Auto-invokes (when plan.md has `## Design Template` section):
-     → **sdd-asset-generator** — creates visual assets via `generate_image` tool.
+     → **sdd-asset-generator** — creates visual assets (Web & Mobile icons/splash) via `generate_image` tool.
      → **sdd-bg-remover** — removes image backgrounds (only when template requires
        `requires_transparent_images: true`).
      → **sdd-video-generator** — generates video assets via Gemini API + Veo 3.1
        (only when plan.md has video asset requirements).
-     → **ReactBits component copy** — visits reactbits.dev, copies component code,
-       configures in project.
+     → **ReactBits / Mobile Component copy** — copies and configures UI components in project.
 5. **sdd-review-code** — full correctness/logic review after all tasks are done.
-6. **sdd-security-review** — OWASP Top 10:2025 gate. **Nothing gets pushed, PR'd,
-   or sent to CI/CD before this step returns a "Cleared" verdict.**
+6. **sdd-security-review** — OWASP Top 10:2025 (Web) & OWASP Mobile Top 10 gate. **Nothing gets pushed, PR'd,
+   or sent to CI/CD/Store before this step returns a "Cleared" verdict.**
 
 ## Sub-skills (auto-invoked, never trigger manually)
 
