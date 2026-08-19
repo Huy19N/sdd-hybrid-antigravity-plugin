@@ -3,7 +3,7 @@
 Spec-driven development workflow for AI coding agents, built as an **Antigravity
 plugin**: `Brainstorm → Constitution → Plan → Build → Review → Security`.
 
-Now with **Cross-Platform UI/UX & Mobile App Automation**: Web & Mobile (Android & iOS via React Native Expo, Flutter Dart, and Kotlin Compose), 22 design templates, 18 shared design modules (including 5 mobile-first modules), automatic asset generation (Art Director v2), video generation (Veo 3.1), background removal, and store-ready compliance.
+Now with **Cross-Platform UI/UX, Mobile App & 2D/2.5D Game Asset Automation**: Web, Mobile (Android & iOS via React Native Expo, Flutter Dart, and Kotlin Compose), and 2D/2.5D Games, 22 design templates, 18 shared design modules (including 5 mobile-first modules), automatic asset generation (Art Director v3 with Game Mode), multi-layer parallax scene decomposition (CLIPSeg), seamless texture tiling, video generation (Veo 3.1), background removal, and store-ready compliance.
 
 Combines:
 - **[obra/superpowers](https://github.com/obra/superpowers)**-style engineering
@@ -24,14 +24,15 @@ disciplined flow — no copy-pasting prompts between projects.
    └── sdd-deep-research   (auto: market/competitor/UX research)
 2. sdd-constitution     docs/sdd/constitution.md            (once per project)
 3. sdd-plan             docs/sdd/<feature>/plan.md
-   ├── Platform & Stack Selection (Web React / Mobile Expo / Flutter / Kotlin Compose)
-   └── Design Template Selection (auto: 2-3 suggestions from 22 templates)
-       + Distinctive Module Selection (2-3 combos from 18 shared modules)
+   ├── Platform & Stack Selection (Web React / Mobile Expo / Flutter / Kotlin / 2D-2.5D Game)
+   └── Design Template Selection (auto: 2-3 suggestions from 22 templates + 18 shared modules)
+       OR Game Asset Requirements (parallax scenes + decomposition labels, sprites, textures)
 4. sdd-build            code, plan.md tasks checked off
-   ├── sdd-asset-generator  (auto: generate images via generate_image tool)
-   ├── sdd-bg-remover       (auto: remove backgrounds if template requires)
+   ├── sdd-asset-generator  (auto: generate UI assets or Game parallax/sprites/textures)
+   ├── sdd-bg-remover       (auto: remove backgrounds OR multi-layer CLIPSeg segmentation)
+   ├── make_tileable        (auto: seamless texture offset-feather processing)
    ├── sdd-video-generator  (auto: generate video via Veo 3.1 if plan requires)
-   └── ReactBits copy       (auto: copy components from reactbits.dev)
+   └── UI / Mobile / Game components configuration
 5. sdd-review-code      docs/sdd/<feature>/review-report.md   (correctness)
 6. sdd-security-review  docs/sdd/<feature>/security-report.md (OWASP Top 10:2025)
                          -> only a "Cleared" verdict here unlocks push/PR/CI-CD
@@ -119,8 +120,8 @@ These skills are called automatically — you never need to trigger them manuall
 | Sub-skill | Called by | Purpose |
 |---|---|---|
 | `sdd-deep-research` | `sdd-brainstorm` | Market analysis, competitor landscape, UX trends, technical feasibility |
-| `sdd-asset-generator` | `sdd-build` | Art Director Edition (v2): Curate and generate high-artistry images (3D liquid chrome, editorial photography, tactile still life) across 22 design templates via `generate_image` tool |
-| `sdd-bg-remover` | `sdd-build` | Remove image backgrounds using `rembg` with tiered model selection (isnet → birefnet), auto-escalation, and alpha cleanup |
+| `sdd-asset-generator` | `sdd-build` | Art Director Edition (v3): Curate and generate high-artistry images (Web/Mobile UI assets OR 2D/2.5D Game parallax composite scenes, character sprites with consistency sheets, and tileable textures) via `generate_image` tool |
+| `sdd-bg-remover` | `sdd-build` | Mode 1 (`remove_bg.py`): Tiered background removal (`rembg`). Mode 2 (`segment_layers.py`): Multi-layer zero-shot scene decomposition using CLIPSeg for 2D/2.5D game parallax backgrounds |
 | `sdd-video-generator` | `sdd-build` | Generate video assets using Gemini API + Veo 3.1 (tiered: lite/fast/standard) |
 
 ## Install
@@ -160,22 +161,24 @@ git clone https://github.com/Huy19N/sdd-hybrid-antigravity-plugin ~/.gemini/conf
 > `agy plugin install`). Pick the one matching whichever you actually use — if
 > you use both, install both ways.
 
-### Optional: Background removal dependency
+### Optional: Background removal & Multi-layer game segmentation dependency
 
-If you plan to use templates that require transparent images (product stores,
-food, fashion, automotive, pet care), install the Python dependencies:
+If you plan to use templates that require transparent cutouts or 2D/2.5D game parallax layer decomposition:
 
+For single-subject cutout (`remove_bg.py`):
 ```bash
 pip install rembg Pillow numpy scipy
 ```
 
-For GPU-accelerated processing:
+For multi-layer game scene decomposition (`segment_layers.py` via CLIPSeg):
 ```bash
-pip install rembg[gpu] Pillow numpy scipy
+pip install torch transformers Pillow numpy scipy
 ```
 
-> `numpy` is required; `scipy` is optional but strongly recommended — it enables
-> connected-component alpha cleanup for cleaner edges.
+For tileable seamless texture processing (`make_tileable.py`):
+```bash
+pip install Pillow numpy
+```
 
 ### Optional: Video generation dependency
 
@@ -249,11 +252,15 @@ sdd-hybrid/
 │   ├── sdd-review-code/SKILL.md           # Step 5: correctness review
 │   ├── sdd-security-review/SKILL.md       # Step 6: OWASP security gate
 │   ├── sdd-deep-research/SKILL.md         # Sub-skill: market/UX research
-│   ├── sdd-asset-generator/SKILL.md       # Sub-skill: image generation
-│   ├── sdd-bg-remover/                    # Sub-skill: background removal
+│   ├── sdd-asset-generator/               # Sub-skill: image & game asset generation (v3)
 │   │   ├── SKILL.md
 │   │   └── scripts/
-│   │       └── remove_bg.py
+│   │       └── make_tileable.py           # Seamless texture seam-offset processing
+│   ├── sdd-bg-remover/                    # Sub-skill: background removal & layer segmentation (v3)
+│   │   ├── SKILL.md
+│   │   └── scripts/
+│   │       ├── remove_bg.py               # Mode 1: single-subject rembg cutout
+│   │       └── segment_layers.py          # Mode 2: multi-layer CLIPSeg scene decomposition
 │   └── sdd-video-generator/               # Sub-skill: video generation
 │       ├── SKILL.md
 │       └── scripts/

@@ -24,54 +24,61 @@ If either is missing, stop and point the user to `sdd-plan` / `sdd-constitution`
    use it here.)
 2. Read `plan.md` and `constitution.md` fully before starting task 1.
 
-3. **Asset Preparation (auto, if UI design exists).**
-   If `plan.md` contains a `## Design Template` section:
+3. **Asset Preparation (auto, if UI design or Game assets exist).**
 
-   a. **Auto-invoke `sdd-asset-generator`**: Read the `Required Assets` list from
+   **Trường hợp A: Dự án Web / Mobile UI (`plan.md` có `## Design Template`)**:
+   a. **Auto-invoke `sdd-asset-generator` (Web mode)**: Read the `Required Assets` list from
       the Design Template section. Generate all images using the `generate_image`
       tool, following the template's color palette and style specifications.
       Output to `public/assets/generated/`.
 
-   b. **Auto-invoke `sdd-bg-remover`** (conditional): Check if the chosen template
+   b. **Auto-invoke `sdd-bg-remover` Mode 1** (`remove_bg.py`, conditional): Check if the chosen template
       has `requires_transparent_images: true` in its frontmatter. If yes:
       - Read each asset's description from the `sdd-asset-generator` inventory to
-        choose the starting `--tier` (see `sdd-bg-remover` SKILL.md step 3 for
-        the tier selection table: `standard` for smooth/simple edges, `high` for
-        multi-object scenes, `fine-detail` for spiky/furry/lacy subjects). Default
-        to `standard` if unsure — auto-escalation will handle the rest.
-      - Run `remove_bg.py` using `--files` to target **only** those listed as
-        `Needs BG Removal? = Yes` in the asset inventory — do not process hero
-        banners, icons, scene photos, or background textures.
-      - Handle exit codes:
-        - `0` → all clean, proceed to next step.
-        - `2` → some files flagged "NEEDS REVIEW" after max escalation — log them,
-          surface to user, but continue the build (note files may need manual
-          touch-up later).
-        - `1` → hard failure — surface error to user, ask how to proceed.
+        choose the starting `--tier` (`standard`, `high`, `fine-detail`).
+      - Run `remove_bg.py` on items marked `Needs BG Removal? = Yes`.
       - Output to `public/assets/no-bg/`.
 
-   c. **Copy ReactBits components**: If the template lists ReactBits components:
-      - Visit each component's URL on `reactbits.dev`.
-      - Copy the component source code (TypeScript + Tailwind CSS version).
-      - Save to `src/components/reactbits/` (or similar).
-      - Install any peer dependencies required.
-      - Configure the component with the template's color palette.
+   c. **Copy ReactBits / Mobile components**: If the template lists ReactBits or Mobile shared modules,
+      copy and configure component source code into project design system.
 
    c2. **Auto-invoke `sdd-video-generator`** (conditional): Check if `plan.md`
-       contains a video asset requirement — either from the template's
-       `Required Assets` listing `.mp4` files, or from a selected module like
-       `scroll-scrubbing-video` that needs a source video. If yes:
-       - Read the asset description to compose the Veo prompt (following
-         `sdd-video-generator` SKILL.md step 3 prompt framework, using
-         `brainstorm.md` + `constitution.md` for tone/palette context).
-       - Choose `--tier` based on importance: `fast` for most cases,
-         `standard` for hero/key cinematic video.
-       - If the module `scroll-scrubbing-video` was selected with canvas
-         frame-sequence approach (Cách B), also run `extract_frames.py`
-         after the video is generated to produce WebP frame sequence.
-       - Output to `public/assets/video/`.
+       contains a video asset requirement. If yes, generate video via Veo 3.1
+       and output to `public/assets/video/`.
 
-   d. Only after all assets (images, backgrounds, **videos**) and components
+   **Trường hợp B: Dự án Game 2D / 2.5D (`plan.md` có `## Game Asset Requirements`)**:
+   a. **Auto-invoke `sdd-asset-generator` (Game mode)**: Read the Game Asset manifest
+      (Parallax Composite Scenes, Character Sprites, Tileable Textures). Generate all assets
+      with clean silhouettes, character consistency sheets, and depth cues.
+      Output to `public/assets/generated/`.
+
+   b. **Auto-invoke `sdd-bg-remover` Mode 2** (`segment_layers.py`, cho Parallax Composite Scenes):
+      - For each asset with type `parallax-composite`:
+        - Extract its `Decomposition Labels` from the manifest.
+        - Run:
+          ```bash
+          python skills/sdd-bg-remover/scripts/segment_layers.py \
+            --input public/assets/generated/<scene-file>.webp \
+            --output public/assets/game-layers/<scene-name>/ \
+            --labels <labels from manifest>
+          ```
+        - Verifies that layer area percentages are valid and transparent PNG layers are created.
+
+   c. **Auto-run `make_tileable.py`** (cho Tileable Textures):
+      - For each asset with type `tileable-texture`:
+        - Run:
+          ```bash
+          python skills/sdd-asset-generator/scripts/make_tileable.py \
+            --input public/assets/generated/<texture-file>-raw.webp \
+            --output public/assets/game-textures/<texture-file>.png \
+            --blend-width 48
+          ```
+
+   d. **Auto-invoke `sdd-bg-remover` Mode 1** (`remove_bg.py`, cho Character Sprites):
+      - Run `remove_bg.py` on any character sprites needing isolated transparent backgrounds.
+      - Output to `public/assets/game-sprites/`.
+
+   e. Only after all assets (UI/Game images, layers, textures, **videos**) and components
       are ready, proceed to build tasks.
 
 4. **For every task, in order:**

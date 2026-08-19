@@ -1,17 +1,28 @@
 ---
 name: sdd-bg-remover
-version: 2
+version: 3
 changelog:
+  - "v3: added a second mode — multi-layer segmentation (scripts/segment_layers.py) for splitting ONE composite scene into several separately-labeled transparent layers (e.g. sky/cloud/tree/fence-post), for 2D/2.5D game parallax backgrounds. Uses CLIPSeg (text-prompted zero-shot segmentation), a different technique from remove_bg.py's single-subject rembg pipeline — see 'Two modes' below."
   - "v2: replaced single default u2net model with tiered model selection (isnet-general-use / birefnet-general / birefnet-dis), enabled alpha matting, added connected-component alpha cleanup to remove leftover semi-transparent background noise, and added automated edge-quality checking with auto-escalation to a stronger tier when needed."
-description: "Sub-skill automatically invoked by sdd-build after sdd-asset-generator completes, only when the chosen template requires transparent/cutout images (requires_transparent_images: true in template frontmatter). Do NOT trigger manually. Removes backgrounds from product images using the rembg Python library with tiered model quality and automated cleanup, producing clean transparent PNGs ready for overlay-style layouts."
+description: "Sub-skill automatically invoked by sdd-build after sdd-asset-generator completes, when the chosen template/game asset requires transparent/cutout images. Has two modes: single-subject background removal (remove_bg.py, requires_transparent_images: true) and multi-layer scene decomposition for game parallax layers (segment_layers.py, used when sdd-asset-generator produces a 'Parallax Composite Scene' asset with Decomposition Labels). Do NOT trigger manually."
 ---
 
 # SDD Background Remover (sub-skill of sdd-build)
 
-## Purpose
-Remove backgrounds from product/item images so they can be used in overlay-style
-layouts where the product appears to float on a colored background — a common
-pattern in e-commerce, product showcase, and food/beverage templates.
+## Hai chế độ — chọn đúng chế độ trước khi dùng
+
+| | `remove_bg.py` (v1-v2, không đổi) | `segment_layers.py` (mới, v3) |
+|---|---|---|
+| Bài toán | 1 vật thể chính vs. nền — tách nhị phân | N vùng có tên trong CÙNG 1 ảnh — tách đa nhãn |
+| Kỹ thuật | rembg (u2net/isnet/birefnet) | CLIPSeg (segmentation theo text prompt, zero-shot) |
+| Input | 1 ảnh sản phẩm | 1 ảnh scene + danh sách nhãn text (VD: "sky", "cloud", "tree") |
+| Output | 1 file PNG trong suốt | N file PNG, mỗi file 1 layer, loại trừ lẫn nhau |
+| Dùng khi | Ảnh sản phẩm e-commerce, item overlay trên web | Background game 2D/2.5D cần tách layer để parallax |
+| Dependency | `rembg`, nhẹ | `torch` + `transformers`, nặng hơn đáng kể — tách riêng script để không bắt buộc mọi người dùng `remove_bg.py` phải cài thêm |
+
+Nếu chỉ cần tách 1 vật thể ra khỏi nền đơn giản → dùng `remove_bg.py` như
+trước, không đổi gì. Nếu cần tách 1 ảnh cảnh thành nhiều lớp riêng để dùng
+làm parallax background cho game → dùng `segment_layers.py`.
 
 ## Vì sao v1 để sót điểm ảnh nền
 v1 luôn dùng model mặc định `u2net` của rembg, không alpha matting, không hậu
@@ -112,6 +123,58 @@ trạng thái review:
 product-01.webp → public/assets/no-bg/product-01.png  ✅ (tier: standard)
 product-02.webp → public/assets/no-bg/product-02.png  ⚠️  NEEDS REVIEW (tried up to: fine-detail)
 ```
+
+## Chế độ 2: Multi-Layer Segmentation (Game Assets) — `segment_layers.py`
+
+### Khi nào dùng
+`sdd-asset-generator` tạo ra 1 asset loại "Parallax Composite Scene" (xem
+SKILL.md của skill đó) — 1 ảnh cảnh game 2D/2.5D với nhiều vùng ngữ nghĩa rõ
+ràng (bầu trời, mây, cây, hàng rào...) cần tách thành từng layer riêng để mỗi
+layer di chuyển với tốc độ khác nhau khi cuộn (parallax).
+
+### 1. Check dependencies (nặng hơn `remove_bg.py`)
+```bash
+pip show torch transformers
+```
+Nếu thiếu:
+```bash
+pip install torch transformers Pillow numpy scipy
+```
+Lần chạy đầu tiên sẽ tải model CLIPSeg (~600MB), cache lại cho các lần sau.
+
+### 2. Lấy danh sách nhãn từ `sdd-asset-generator`
+`plan.md`/asset inventory sẽ liệt kê "Decomposition Labels" cho asset loại
+composite scene, VD: `["sky", "cloud", "distant mountain", "tree", "wooden
+fence post", "ground"]`. Thứ tự nhãn **quan trọng** — đây cũng là thứ tự
+stack layer từ xa tới gần khi ghép lại trong game.
+
+### 3. Run segmentation
+```bash
+python skills/sdd-bg-remover/scripts/segment_layers.py \
+  --input public/assets/generated/forest-scene.webp \
+  --output public/assets/game-layers/forest-scene/ \
+  --labels "sky" "cloud" "distant mountain" "tree" "wooden fence post" "ground"
+```
+
+### 4. Kiểm tra output
+Script tự báo % diện tích khung hình mỗi layer chiếm — nếu một layer gần 0%,
+nhãn đó khả năng không khớp với gì trong ảnh (VD: gõ "cloud" nhưng ảnh không
+có mây rõ ràng) → cần sửa lại nhãn hoặc yêu cầu `sdd-asset-generator` tạo lại
+ảnh có đủ chi tiết cho nhãn đó.
+
+### 5. Giới hạn cần biết — không phải phép màu
+- CLIPSeg là model zero-shot nhẹ — **không** chính xác bằng segmentation
+  chuyên dụng train riêng cho 1 domain. Biên layer có thể hơi "nhòe"/không
+  sát pixel-perfect như tách sản phẩm bằng `remove_bg.py`. Với game pixel-art
+  độ chi tiết cao, luôn xem output trước khi dùng, không mặc định là đúng.
+- Nhãn mơ hồ (VD: "background" chung chung) cho kết quả kém hơn nhãn cụ thể
+  (VD: "distant blue mountain range"). Viết nhãn càng mô tả cụ thể, kết quả
+  càng chính xác — áp dụng nguyên tắc này khi `sdd-asset-generator` soạn danh
+  sách nhãn.
+- Các layer được resolve **loại trừ lẫn nhau** (mỗi pixel chỉ thuộc về 1 layer
+  duy nhất, layer nào có confidence cao nhất thắng) — nếu 2 vùng thật sự chồng
+  lấn trong ảnh gốc (VD: cây che một phần bầu trời), việc này là đúng và cần
+  thiết, không phải lỗi.
 
 ## Fallback: remove.bg API
 If `rembg` installation fails (e.g., missing system dependencies on Windows),

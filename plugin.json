@@ -1,5 +1,5 @@
 {
   "$schema": "https://antigravity.google/schemas/v1/plugin.json",
   "name": "sdd-hybrid",
-  "description": "Spec-driven development workflow for Web & Mobile Apps (Android & iOS via React Native Expo, Flutter Dart, and Kotlin Compose): Brainstorm -> Constitution -> Plan (with 22 design templates & 18 shared modules) -> Build (with auto asset/video generation, background removal, and ReactBits integration) -> Review -> Security (OWASP Web & Mobile Top 10)."
+  "description": "Spec-driven development workflow for Web, Mobile Apps (iOS & Android via Expo, Flutter, Kotlin), and 2D/2.5D Games: Brainstorm -> Constitution -> Plan (with 22 design templates, 18 shared modules, or Game Asset Requirements) -> Build (with auto asset/video generation, multi-layer parallax segmentation, texture tiling, background removal, and UI integration) -> Review -> Security (OWASP Web & Mobile Top 10)."
 }

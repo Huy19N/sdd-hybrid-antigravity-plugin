@@ -28,10 +28,15 @@ being solved and *why* — before anything gets constrained (constitution) or pl
      dedicated `## Research Findings` section.
 2. **Do not propose solutions yet.** Using insights from the research, ask about
    one topic at a time (don't dump all questions at once):
+   - **Domain & Platform**: Web App, Mobile App (iOS/Android), or 2D/2.5D Game (WebGL/Canvas, Phaser, PixiJS, Godot/Unity assets)?
    - What problem/pain does this solve, and for whom?
    - What does success look like? How will we know it worked?
    - What's explicitly OUT of scope for this iteration?
-   - What constraints already exist (deadline, existing systems, data, users)?
+   - What constraints already exist (deadline, existing systems, target FPS/devices, data, users)?
+   - If this is a **Game Project**:
+     - Gameplay mechanics & camera perspective (side-scroller, isometric, top-down, fixed scene).
+     - Art style archetype (pixel art, flat vector, painterly with silhouettes).
+     - Environmental depth (parallax composite layers, tileable ground/walls, character animation states).
    - What alternatives or prior art did the user already consider or reject, and why?
    - (Reference specific competitors or trends from the research to prompt deeper
      thinking, e.g., "Competitor X does this differently — is that relevant?")

@@ -55,9 +55,17 @@ Version: <semver> | Ratified: <date> | Last amended: <date>
 ### 2. ...
 
 ## Technology constraints
-- Platform Target: `<Web | Mobile (iOS & Android) | Cross-Platform>`
-- Core Framework: `<React (Vite) | React Native (Expo) | Flutter (Dart) | Kotlin (Jetpack Compose)>`
-- Styling & Design System: `<Tailwind CSS | NativeWind | Flutter ThemeData | Compose Material3>`
+- Platform Target: `<Web | Mobile (iOS & Android) | 2D/2.5D Game | Cross-Platform>`
+- Core Framework / Engine: `<React (Vite) | React Native (Expo) | Flutter (Dart) | Kotlin (Jetpack Compose) | Canvas/WebGL (Phaser/PixiJS/ThreeJS)>`
+- Styling / Art Direction: `<Tailwind CSS | NativeWind | Flutter ThemeData | Compose Material3 | Pixel-Art/Vector/Painterly Game Art>`
+
+## Game Architecture & Asset Pipeline Standards (bắt buộc với dự án Game)
+- **Target Framerate & Performance**: Đảm bảo 60fps ổn định (≤16.6ms render budget), tránh memory leaks khi load sprite sheets/textures.
+- **Asset Pipeline Standards**:
+  - Parallax layers: Tách riêng bằng `segment_layers.py` theo độ sâu Z-index, parallax factor từ 0.1x (trời/mây xa) đến 1.0x+ (tiền cảnh).
+  - Character sprites: Đảm bảo character sheet nhất quán, transparent background.
+  - Textures: Chạy `make_tileable.py` để xử lý mép lặp liền mạch (seamless tiling).
+- **Audio & Input**: Quản lý State Controller tách biệt với Render Loop, xử lý touch/keyboard mapping chuẩn xác.
 
 ## Mobile Architecture & Store-Ready Standards (bắt buộc với dự án Mobile)
 - **Clean Architecture Pattern**:

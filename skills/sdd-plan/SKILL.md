@@ -70,8 +70,9 @@ exact files, explicit verification) instead of loose task lists.
        - **Mobile App — Expo / React Native** (TypeScript + NativeWind v4 + Expo Router): Adapt template into `src/app/` (Expo Router), `src/features/`, `src/components/` with `Safe Area`, `Gesture Handler`, `expo-haptics`.
        - **Mobile App — Flutter** (Dart + Riverpod/BLoC): Adapt template into Clean Architecture `lib/features/`, `lib/core/`, `lib/shared/` with `ThemeData`, `Material 3`, and Mobile Shared Modules.
        - **Mobile App — Kotlin** (Jetpack Compose): Adapt template into Android Clean Architecture (`presentation/`, `domain/`, `data/`, `ui/theme/`) with Compose `Material3` and StateFlow.
+       - **2D / 2.5D Game** (Canvas/WebGL, Phaser, PixiJS, Godot/Unity): Output `## Game Asset Requirements` manifest with parallax composite scenes (+ decomposition labels), character sprites (+ consistency sheets), and tileable textures.
        - **Design-only**: If the stack is outside the above frameworks, output complete design tokens, layout specifications, assets, and component architecture for the developer to implement.
-    h. If the project has **no UI component** (CLI tool, API, library, etc.)
+    h. If the project has **no UI/Game component** (CLI tool, API, backend library, etc.)
        → **skip this step entirely**.
 
 4. **Draft a short spec section** (what/why, not how): one short paragraph plus a
@@ -122,7 +123,7 @@ Source: brainstorm.md (v?), constitution.md (v?)
   - State Management: `<Zustand/React Query | Riverpod/BLoC | StateFlow/MVI>`
   - Store Readiness: `<Google Play AAB & App Store IPA compliance enabled>`
 
-## Design Template
+## Design Template (dành cho Web / Mobile UI)
 - Template: `<chosen template name>`
 - Source: `templates/<file>.md`
 - Color Palette:
@@ -142,7 +143,19 @@ Source: brainstorm.md (v?), constitution.md (v?)
   - `<module-asset-name>` — `<description per module spec (e.g. 9:16 story, split pair, icon 1:1, app icon)>` — `<needs bg removal?>`
 - Stack Note: `<"Full code generation for [Platform/Framework]" or "Design-only">`
 
-## Distinctive Modules (optional)
+## Game Asset Requirements (dành cho Game 2D / 2.5D)
+- Game Type: `<2D side-scroller | 2.5D platformer | top-down | isometric>`
+- Art Style Archetype: `<pixel art | flat vector | painterly with clean silhouettes>`
+- Color Palette & Lighting Mood: `<e.g. warm sunset, cyberpunk neon, eerie dark forest>`
+- Parallax Composite Scenes:
+  - `<scene-name.webp>` — `<scene description>` — Decomposition Labels: `["sky", "cloud", "distant mountain", "tree", "ground"]`
+- Character Sprites:
+  - `<char-name-action-frame.webp>` — Character Sheet: `[CHARACTER SHEET: ...]` — Pose: `<frame X of Y>` — Needs BG Removal: `Yes`
+- Tileable Textures:
+  - `<texture-name-raw.webp>` — Description: `<seamless ground/wall texture>` — Process with: `make_tileable.py`
+- Target Engine / Pipeline: `<Phaser / PixiJS / Custom Canvas / WebGL / Export to Engine>`
+
+## Distinctive Modules (optional, dành cho UI)
 - Combination presented: `<A / B / C>` — chosen: `<which one, or "custom mix", or "none">`
 - Modules:
   - `<module id>` — `templates/_shared/<category>/<file>.md` — `<where applied in this project>`

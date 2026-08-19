@@ -1,10 +1,12 @@
 ---
 name: sdd-asset-generator
-version: 2
-description: "Sub-skill automatically invoked by sdd-build when plan.md contains a Design Template section. Do NOT trigger manually. Functions as an elite Art Director & Visual Concept Designer using the generate_image tool to produce high-artistry, curated visual assets (editorial photography, 3D liquid chrome surrealism, tactile still lifes, cinematic scenes, textures) tailored precisely to the chosen template's mood and theme."
+version: 3
+changelog:
+  - "v3: added Game Asset Generation Mode (2D/2.5D) — parallax composite scenes (paired with sdd-bg-remover's new segment_layers.py for layer decomposition), character sprites with pose/frame consistency guidance, and tileable textures (paired with the new scripts/make_tileable.py seam-fixing script)."
+description: "Sub-skill automatically invoked by sdd-build when plan.md contains a Design Template section (web) OR a Game Asset Requirements section (2D/2.5D game). Do NOT trigger manually. Functions as an elite Art Director & Visual Concept Designer using the generate_image tool to produce high-artistry, curated visual assets tailored to the chosen template's mood/theme, or to a game project's parallax layers, sprites, and textures."
 ---
 
-# SDD Asset Generator (Art Director Edition v2)
+# SDD Asset Generator (Art Director Edition v3)
 
 ## Purpose & Philosophy: The Art Director Manifesto
 Visual assets are not mere "placeholders" or generic stock photos — they define the **soul, credibility, and visual hierarchy** of the entire user interface.
@@ -21,16 +23,37 @@ As an AI Art Director inspired by high-end curation (Pinterest moodboards, avant
 ---
 
 ## Invocation
-This skill is **automatically called** by `sdd-build` when `plan.md` contains a `## Design Template` section. It runs **before** the first UI-related task in the plan. Never trigger this skill directly — `sdd-build` handles the orchestration.
+This skill is **automatically called** by `sdd-build` in one of two modes:
+- **Web mode**: when `plan.md` contains a `## Design Template` section. Runs
+  before the first UI-related task in the plan.
+- **Game mode** (mới, v3): when `plan.md` contains a `## Game Asset
+  Requirements` section. Runs before the first scene/sprite integration task.
+
+Never trigger this skill directly — `sdd-build` handles the orchestration.
 
 ## Preconditions
+
+**Web mode:**
 - `docs/sdd/<feature-slug>/plan.md` exists with a `## Design Template` section.
 - The Design Template section includes a `Required Assets` list.
 - The template's color palette is specified.
 
+**Game mode:**
+- `docs/sdd/<feature-slug>/plan.md` exists with a `## Game Asset Requirements`
+  section listing: game type (2D side-scroller / 2.5D / top-down...), art
+  style (pixel art / painterly / flat vector...), and a list of needed scenes/
+  sprites/textures.
+- If any asset needs tileable-texture post-processing, Python 3.10+ and
+  `Pillow`/`numpy` available (for `scripts/make_tileable.py`).
+- If any asset is a Parallax Composite Scene requiring layer decomposition,
+  `sdd-bg-remover`'s `segment_layers.py` dependencies must be installable
+  later in the pipeline (not required at this skill's own run time — this
+  skill only produces the composite image + label list; decomposition is
+  `sdd-bg-remover`'s job).
+
 ---
 
-## The 7-Pillar Master Prompt Architecture
+## The 7-Pillar Master Prompt Architecture (Web Mode)
 
 When generating any image, construct the prompt using this 7-pillar formula:
 
@@ -213,7 +236,126 @@ Khi `plan.md` nhắm tới nền tảng Mobile App (Expo / Flutter / Kotlin), t�
 
 ---
 
-## Asset Inventory Specification
+## Game Asset Generation Mode (2D / 2.5D) — mới, v3
+
+Khi `plan.md` có section `## Game Asset Requirements`, chuyển hẳn sang bộ quy
+tắc này thay vì 7-Pillar Formula ở trên (dành cho web UI). Có 3 loại asset
+chính, mỗi loại có yêu cầu prompt khác hẳn nhau.
+
+### Loại 1 — Parallax Composite Scene
+Một ảnh cảnh DUY NHẤT, chứa nhiều vùng ngữ nghĩa rõ ràng để sau này
+`sdd-bg-remover` (`segment_layers.py`) tách thành các layer riêng cho hiệu
+ứng parallax (nền xa cuộn chậm, tiền cảnh cuộn nhanh).
+
+**Nguyên tắc prompt bắt buộc — quyết định segmentation có chính xác hay
+không:**
+- Vẽ theo phong cách **phẳng/hoạt hình có đường viền rõ** (flat illustration,
+  painterly with clear silhouettes) thay vì photoreal có gradient mờ hoà lẫn
+  giữa các vùng — CLIPSeg tách vùng có ranh giới rõ tốt hơn nhiều so với ảnh
+  mọi thứ hoà vào nhau (VD: sương mù làm mây và trời dính liền).
+- Liệt kê **rõ ràng từng vùng cần tách được** ngay trong prompt, dùng đúng từ
+  sẽ dùng làm nhãn sau này (không đổi từ giữa chừng — "cloud" trong prompt
+  phải khớp đúng nhãn "cloud" đưa cho `segment_layers.py`).
+- Composition theo lớp độ sâu rõ ràng: bầu trời/nền xa ở trên/phía sau, tiền
+  cảnh ở dưới/phía trước — layer xa nên đơn giản/ít chi tiết hơn (vì sẽ cuộn
+  chậm, ít bị soi kỹ), layer gần chi tiết hơn (cuộn nhanh, ở gần mắt người
+  chơi).
+
+**Prompt mẫu:**
+```
+"2D side-scroller game background, flat painterly illustration style with
+clean silhouettes and clear color separation between elements. Layered scene
+from back to front: pale gradient sky, 3 distinct puffy white clouds with
+crisp edges, a row of soft blue-gray distant mountains, a cluster of green
+pine trees with clear trunk silhouettes, a weathered wooden fence post in the
+foreground, and a grassy ground plane. Warm afternoon lighting, cohesive
+color palette, no photorealistic blending between elements — each element
+must read as a distinct clean shape."
+```
+
+**Output đi kèm bắt buộc**: danh sách "Decomposition Labels" theo đúng thứ tự
+từ xa tới gần, khớp chính xác với các vùng đã mô tả trong prompt — đây là
+input trực tiếp cho `segment_layers.py --labels`.
+
+### Loại 2 — 2D Character Sprite
+Nhân vật/vật thể động, luôn cần nền trong suốt, và **nhất quán qua nhiều
+frame** (idle, walk, run...) — đây là điểm khó nhất vì `generate_image` không
+có trí nhớ nhân vật giữa các lần gọi độc lập.
+
+**Kỹ thuật giữ nhất quán (bắt buộc áp dụng):**
+- Viết 1 đoạn "character sheet" mô tả cực chi tiết (màu sắc chính xác, tỷ lệ,
+  trang phục, kiểu tóc/đặc điểm riêng) — **copy nguyên văn đoạn này vào đầu
+  mọi prompt frame khác nhau** của cùng nhân vật, không diễn đạt lại bằng từ
+  khác mỗi lần (dù chỉ đổi 1 từ cũng có thể làm model vẽ ra người khác).
+- Nếu tool `generate_image` hỗ trợ ảnh tham chiếu (image-to-image/reference
+  image) — dùng frame đầu tiên làm ảnh tham chiếu cho các frame sau, đáng tin
+  cậy hơn nhiều so với chỉ dựa vào text. Kiểm tra khả năng này của tool trước
+  khi cần nhất quán nhiều frame.
+- Luôn có "single frame, transparent background, consistent [X]px pixel grid"
+  (nếu pixel art) hoặc "consistent line weight and color palette" (nếu vector/
+  painterly) trong mọi prompt.
+
+**Prompt mẫu (character sheet + 1 frame):**
+```
+"[CHARACTER SHEET: A small fox knight, orange fur with white chest patch,
+wearing a dented bronze breastplate and a tiny red cape, round black eyes,
+holding a wooden sword. Flat 2D game art style, thick 3px black outline,
+cel-shaded flat colors, no gradients.]
+Pose: mid-stride walk cycle frame 2 of 8, facing right, front-left leg raised.
+Transparent background, isolated character only, consistent proportions with
+reference."
+```
+
+### Loại 3 — Tileable/Seamless Texture
+Texture nền lặp lại (đất, tường, sàn platform) — cần khớp mép khi tile liên
+tục.
+
+**Nguyên tắc prompt:**
+- Thêm rõ "seamless tileable texture, repeating pattern, no focal point, edge
+  content matches opposite edge" vào prompt.
+- Tránh yêu cầu chi tiết lớn/độc nhất gần rìa ảnh (VD: "một tảng đá lớn ở góc")
+  — chi tiết lớn gần biên gần như luôn lộ rõ khi tile.
+
+**Hậu kỳ bắt buộc sau khi generate** (image-gen hiếm khi seamless hoàn hảo
+ngay lần đầu):
+```bash
+python skills/sdd-asset-generator/scripts/make_tileable.py \
+  --input public/assets/generated/ground-tile-raw.webp \
+  --output public/assets/generated/ground-tile.png \
+  --blend-width 48
+```
+Script này dùng kỹ thuật offset+feather chuẩn (dời ảnh nửa chu kỳ rồi làm mờ
+có kiểm soát đúng vùng mép) — không phải phép màu, chỉ là xấp xỉ tự động của
+thao tác retouch thủ công. Với texture cần nhìn cận cảnh/hero, vẫn nên chỉnh
+tay thêm sau bước này. Script tự báo điểm "edge-mismatch" trước/sau để biết
+có cần chỉnh tay tiếp không.
+
+### Depth cue cho cảm giác 2.5D (áp dụng cho mọi loại asset trên)
+- Layer càng xa: màu nhạt hơn/lạnh hơn (aerial perspective), ít chi tiết hơn,
+  contrast thấp hơn.
+- Layer càng gần: màu đậm/ấm hơn, nhiều chi tiết hơn, contrast cao hơn.
+- Gợi ý tốc độ parallax tương đối theo độ sâu, ghi vào Asset Inventory (xem
+  bảng mới bên dưới): trời/mây xa nhất ≈ 0.1-0.2x tốc độ cuộn chính, núi xa
+  ≈ 0.3-0.4x, cây/tiền cảnh giữa ≈ 0.6-0.8x, tiền cảnh sát nhất ≈ 1.0x+ (có
+  thể nhanh hơn tốc độ cuộn chính để tăng cảm giác chiều sâu).
+
+---
+
+## Asset Inventory Specification — Game Mode
+
+```markdown
+## Generated Game Assets Manifest
+
+| File | Type | Description | Decomposition Labels | Layer Order | Parallax Speed |
+|---|---|---|---|---|---|
+| forest-scene.webp | parallax-composite | Layered forest background, 6 regions | sky, cloud, distant mountain, tree, wooden fence post, ground | 1 (composite, cần tách) | — |
+| fox-knight-walk-01.webp | character-sprite | Fox knight walk frame 1/8 | — | — | — |
+| ground-tile.png | tileable-texture | Grass/dirt ground tile, đã qua make_tileable.py | — | — | 1.0x (tiền cảnh) |
+```
+
+---
+
+## Asset Inventory Specification — Web Mode
 
 After all assets are generated in `public/assets/generated/`, output the structured table:
 
