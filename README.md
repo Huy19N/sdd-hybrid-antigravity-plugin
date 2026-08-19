@@ -3,7 +3,7 @@
 Spec-driven development workflow for AI coding agents, built as an **Antigravity
 plugin**: `Brainstorm → Constitution → Plan → Build → Review → Security`.
 
-Now with **Cross-Platform UI/UX, Mobile App & 2D/2.5D Game Asset Automation**: Web, Mobile (Android & iOS via React Native Expo, Flutter Dart, and Kotlin Compose), and 2D/2.5D Games, 22 design templates, 18 shared design modules (including 5 mobile-first modules), automatic asset generation (Art Director v3 with Game Mode), multi-layer parallax scene decomposition (CLIPSeg), seamless texture tiling, video generation (Veo 3.1), background removal, and store-ready compliance.
+Now with **Cross-Platform UI/UX, Mobile App & 2D/2.5D Game Asset Automation**: Web, Mobile (Android & iOS via React Native Expo, Flutter Dart, and Kotlin Compose), and 2D/2.5D Games, 22 design templates, 19 shared design modules (including 5 mobile-first modules and kinetic splash layering), automatic asset generation (Art Director v3 with Game Mode), multi-layer parallax scene decomposition (CLIPSeg), seamless texture tiling, video generation (Veo 3.1), background removal, and store-ready compliance.
 
 Combines:
 - **[obra/superpowers](https://github.com/obra/superpowers)**-style engineering
@@ -12,7 +12,7 @@ Combines:
   a project-wide, binding rule set every step must respect.
 - An **OWASP Top 10:2025** security gate that must pass before anything is
   pushed, PR'd, or sent to CI/CD.
-- **22 UI/UX design templates & 18 shared modules** with auto-selection across Web, React Native, Flutter, and Kotlin Compose, asset generation (Art Director v2), video generation, and premium animated components.
+- **22 UI/UX design templates & 19 shared modules** with auto-selection across Web, React Native, Flutter, and Kotlin Compose, asset generation (Art Director v3), video generation, and premium animated components.
 
 Install this plugin once, and every new project you start gets the same
 disciplined flow — no copy-pasting prompts between projects.
@@ -25,7 +25,7 @@ disciplined flow — no copy-pasting prompts between projects.
 2. sdd-constitution     docs/sdd/constitution.md            (once per project)
 3. sdd-plan             docs/sdd/<feature>/plan.md
    ├── Platform & Stack Selection (Web React / Mobile Expo / Flutter / Kotlin / 2D-2.5D Game)
-   └── Design Template Selection (auto: 2-3 suggestions from 22 templates + 18 shared modules)
+   └── Design Template Selection (auto: 2-3 suggestions from 22 templates + 19 shared modules)
        OR Game Asset Requirements (parallax scenes + decomposition labels, sprites, textures)
 4. sdd-build            code, plan.md tasks checked off
    ├── sdd-asset-generator  (auto: generate UI assets or Game parallax/sprites/textures)
@@ -87,13 +87,14 @@ no JS state needed. The `button-hover` variant from
 `_shared/interactions/hand-drawn-annotation.md` is compatible with **all**
 templates' CTA buttons.
 
-## Shared Design Modules (18 available)
+## Shared Design Modules (19 available)
 
-After picking a template, the agent suggests **2-3 module combos** from 18
-mixable design modules (13 Universal/Web + 5 Mobile-First) to differentiate your project visually:
+After picking a template, the agent suggests **2-3 module combos** from 19
+mixable design modules (14 Universal/Web + 5 Mobile-First) to differentiate your project visually:
 
 | Module | Category | Purpose |
 |---|---|---|
+| Kinetic Liquid Splash Layering | surface | Sandwich Z-index depth layering with high-speed freeze splash & floating droplets |
 | Mobile Bottom Sheet | mobile | Interactive snap-point modal sheet with backdrop blur |
 | Swipeable Card Stack | mobile | Gesture-driven Tinder/Bumble-style card deck |
 | Floating Haptic Tab Bar | mobile | Frosted pill bottom nav bar with haptic touch feedback |
@@ -238,6 +239,7 @@ sdd-hybrid/
 │   │       │   │   ├── glassmorphism.md
 │   │       │   │   ├── grain-noise-overlay.md
 │   │       │   │   ├── holographic-shimmer.md    # Iridescent chromatic foil
+│   │       │   │   ├── kinetic-splash-layering.md # High-speed liquid splash sandwich
 │   │       │   │   └── liquid-blob-background.md
 │   │       │   └── viewers/               # Complex interactive components
 │   │       │       ├── interactive-split-slider.md # Dual-state comparison slider

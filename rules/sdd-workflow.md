@@ -16,7 +16,7 @@ step applies, use it. This is not optional.
 3. **sdd-plan** — turn an approved brainstorm into `docs/sdd/<feature-slug>/plan.md`
    (spec + platform/architecture selection + constitution compliance check + bite-sized tasks).
    - Includes: **Platform & Stack Selection** (Web React, Mobile Expo/Flutter/Kotlin, or 2D/2.5D Game).
-   - Includes: **Design Template & Module Selection** (22 UI/UX templates + 18 shared modules for UI projects) OR **Game Asset Requirements** (parallax composite scenes, character sprites, tileable textures for game projects).
+   - Includes: **Design Template & Module Selection** (22 UI/UX templates + 19 shared modules for UI projects) OR **Game Asset Requirements** (parallax composite scenes, character sprites, tileable textures for game projects).
 4. **sdd-build** — execute the plan task-by-task under TDD, gated by the constitution.
    - Auto-invokes (when plan.md has `## Design Template` or `## Game Asset Requirements`):
      → **sdd-asset-generator** — creates visual assets (Web/Mobile UI assets OR Game parallax scenes, sprites, textures) via `generate_image` tool.

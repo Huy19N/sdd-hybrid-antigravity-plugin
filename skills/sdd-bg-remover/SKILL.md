@@ -75,7 +75,7 @@ thấp mà chưa đủ sạch:
 |---|---|---|---|
 | Sản phẩm thông thường, biên rõ, ít chi tiết nhỏ | `standard` (mặc định) | `isnet-general-use` | Hộp bánh, chai lọ, đồ nội thất đơn giản |
 | Cảnh nhiều vật thể / bối cảnh phức tạp | `high` | `birefnet-general` | Sản phẩm đặt trong hộp/khay có nhiều lớp (VD: hộp quà mở nắp) |
-| Biên có gai/lông/chi tiết mảnh, nhiều răng cưa nhỏ | `fine-detail` | `birefnet-dis` | Sầu riêng nguyên vỏ (gai), thú nhồi bông (lông), ren/vải có tua |
+| Biên có gai/lông/chi tiết mảnh, nhiều răng cưa nhỏ, hoặc giọt nước bắn li ti | `fine-detail` | `birefnet-dis` | Giọt nước trà sữa bắn tung tóe (liquid splash corona), bọt khí, sầu riêng nguyên vỏ (gai), thú nhồi bông (lông), ren/vải có tua |
 
 Nếu không chắc, cứ để mặc định `standard` — auto-escalation sẽ tự xử lý các
 trường hợp khó hơn dự kiến.

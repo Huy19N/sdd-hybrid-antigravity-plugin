@@ -217,6 +217,11 @@ Khi `plan.md` liệt kê các module đặc thù từ `_shared/`, áp dụng quy
 ### 5. Module `stories-avatar-tray` (ẢNH DỌC 9:16 & AVATAR TRÒN 1:1)
 - **Quy tắc**: Sinh ảnh chất lượng cao định dạng dọc 9:16 (`story-01.webp`, `story-02.webp`) và avatar tròn 1:1 (`avatar-01.webp`) có độ bão hòa màu cao, tương phản ấn tượng để hút mắt khi hiển thị trong khay story.
 
+### 6. Module `kinetic-splash-layering` (CHẤT LỎNG TỐC ĐỘ CAO & VỆT BẮN LI TI HIGH-SPEED 1/8000s)
+- **Quy tắc**: Yêu cầu chụp tốc độ cực cao (*ultra-high-speed freeze motion at 1/8000s shutter speed*) để bắt trọn từng giọt nước, vệt trà sữa văng trong không trung, bọt khí và khúc xạ ánh sáng caustics sắc như dao.
+- **Background**: Đặt trên nền tối tuyền (*solid matte obsidian/black background*) hoặc nền tương phản đơn sắc với ánh sáng viền (*volumetric rim light*) để `sdd-bg-remover` (tier `fine-detail` / `birefnet-dis`) bóc tách viền giọt nước siêu mảnh mà không bị viền lem.
+- **Decomposition Labels (nếu dùng segment_layers.py)**: `["back liquid splash corona", "main glass cup with beverage", "flying toppings and front droplets"]`.
+
 ---
 
 ## Mobile & Store-Ready Asset Specifications (Dành cho App Android & iOS)

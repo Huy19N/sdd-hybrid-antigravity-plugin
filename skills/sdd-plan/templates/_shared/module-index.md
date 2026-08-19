@@ -8,19 +8,21 @@ khác biệt, tránh việc 2 project cùng chọn 1 template ra kết quả gi�
 ## Nguyên tắc cốt lõi — Cross-Platform Haute-Design & Tương thích Asset
 
 **Một template + 2-3 module khác nhau = 2-3 tác phẩm giao diện độc bản hoàn toàn.**
-Thư viện hiện có **18 module sáng tạo cao cấp** (13 module Universal/Web và 5
+Thư viện hiện có **19 module sáng tạo cao cấp** (14 module Universal/Web và 5
 module Mobile-First chuyên sâu).
 
-**Đồng bộ hóa 100% với `sdd-asset-generator`**: Tự động sinh asset chuyên biệt theo
-yêu cầu của từng module (cặp ảnh Dual-State cho split-slider, 3D chrome cho
+**Đồng bộ hóa 100% với `sdd-asset-generator` & `sdd-bg-remover`**: Tự động sinh asset
+chuyên biệt theo yêu cầu của từng module (bộ ảnh chất lỏng tốc độ cao cho
+`kinetic-splash-layering`, cặp ảnh Dual-State cho split-slider, 3D chrome cho
 hologram, đại cảnh cho scene annotation, khay ảnh dọc 9:16 cho mobile stories).
 
 ---
 
-## Danh mục 18 Module Sáng Tạo (Universal, Web & Mobile)
+## Danh mục 19 Module Sáng Tạo (Universal, Web & Mobile)
 
 | id | Tên | Loại | Nền tảng | Hợp với | Yêu cầu Asset từ `sdd-asset-generator` |
 |---|---|---|---|---|---|
+| `kinetic-splash-layering` | Kinetic Liquid Splash & Sandwich Depth Layering | surface | Universal | Trà sữa/cafe, cocktail bar, nước hoa, nước giải khát, đồng hồ thể thao | Bộ ảnh chụp chất lỏng tốc độ cao 1/8000s bóc tách 3 lớp: Back Splash, Main Cup, Front Droplets |
 | `mobile-bottom-sheet` | Mobile Interactive Bottom Sheet | mobile | Mobile / Responsive | Lọc sản phẩm, size/color picker, checkout, mini player | Thumbnail hoặc icon vuông 1:1 trong header sheet |
 | `swipeable-card-stack` | Swipeable Gesture Card Stack | mobile | Mobile / Touch | Khám phá sản phẩm (Shop-by-Swipe), tin ngắn, lookbook | Danh sách 3-5 ảnh tỷ lệ dọc 4:5 hoặc 9:16 |
 | `haptic-tab-bar` | Floating Haptic Frosted Tab Bar | mobile | Mobile / Touch | Thanh điều hướng chính app di động (Home/Shop/Cart/Profile) | Bộ icon 1:1 cho từng tab |
@@ -63,6 +65,7 @@ _shared/
 │   ├── glassmorphism.md
 │   ├── grain-noise-overlay.md
 │   ├── holographic-shimmer.md
+│   ├── kinetic-splash-layering.md   # Phân lớp giọt nước & chất lỏng tốc độ cao
 │   └── liquid-blob-background.md
 └── viewers/          # Component độc lập, tương tác phức tạp
     ├── interactive-split-slider.md
@@ -72,18 +75,23 @@ _shared/
 
 ---
 
-## Bộ Công Thức Phối Hợp Cho Mobile App (Mobile Personality Recipes)
+## Bộ Công Thức Phối Hợp Đỉnh Cao (Haute-Design Personality Recipes)
 
-Khi thiết kế ứng dụng cho điện thoại (React Native / Flutter / Kotlin), Agent **phải đề xuất 2-3 tổ hợp di động khác biệt**:
+### 🌊 Tổ hợp 1 — "Kinetic Gastronomy & Splash Fluid Dynamics" (Quán Trà Sữa / Cocktail Bar)
+- **Modules**: `kinetic-splash-layering` + `ambient-glow-cursor` + `3d-motion-frame`
+- **Asset Sinh ra**: Ảnh ly trà sữa/cocktail với vệt nước bắn tung tóe tốc độ cao 1/8000s, tách 3 lớp (Back splash corona, Main glass, Foreground droplets & flying boba).
+- **Trải nghiệm**: Bố cục Sandwich kẹp chữ tiêu đề ở giữa, giọt nước bay lơ lửng phản hồi theo di chuột/con quay hồi chuyển tạo chiều sâu 3D điện ảnh.
 
-### 📱 Tổ hợp Mobile A — "Social Discovery & Engagement"
+### 🌟 Tổ hợp 2 — "Avant-Garde & Futuristic Tech"
+- **Modules**: `holographic-shimmer` + `ambient-glow-cursor` + `magnetic-cursor`
+- **Asset Sinh ra**: Ảnh 3D Liquid Chrome, chất liệu kim loại bóng lộn xám obsidian, ánh sáng tím neon.
+- **Phong cách**: Đậm chất công nghệ tương lai, huyền ảo và sắc sảo.
+
+### 🍃 Tổ hợp 3 — "Organic Heritage & Artisanal Craft"
+- **Modules**: `circular-badge-stamp` + `hand-drawn-annotation` + `grain-noise-overlay`
+- **Asset Sinh ra**: Ảnh chụp trên bục đá travertine, vải linen thô, ánh nắng ban mai rọi bóng lá cây.
+- **Phong cách**: Thủ công mỹ nghệ ấm áp, mộc mạc, đậm chất thơ và tin cậy.
+
+### 📱 Tổ hợp 4 (Mobile App) — "Social Discovery & Engagement"
 - **Modules**: `stories-avatar-tray` + `swipeable-card-stack` + `haptic-tab-bar`
-- **Phong cách**: Khám phá trực quan sinh động như Instagram/TikTok, vuốt chạm mượt mà, phù hợp thời trang và F&B.
-
-### 💼 Tổ hợp Mobile B — "Haute-Commerce & Seamless Checkout"
-- **Modules**: `mobile-bottom-sheet` + `haptic-tab-bar` + `holographic-shimmer`
-- **Phong cách**: Sang trọng, mua sắm nhanh chóng với Bottom Sheet chọn size/color mà không rời màn hình chính.
-
-### 🌟 Tổ hợp Mobile C — "Artisanal Craft & Visual Inspection"
-- **Modules**: `circular-badge-stamp` + `interactive-split-slider` + `pull-to-refresh-mesh`
-- **Phong cách**: Thủ công mỹ nghệ, so sánh chi tiết chất liệu bằng thanh trượt chạm vuốt.
+- **Phong cách**: Khám phá trực quan sinh động như Instagram/TikTok, vuốt chạm mượt mà.
