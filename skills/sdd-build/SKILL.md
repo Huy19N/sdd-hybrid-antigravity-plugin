@@ -29,7 +29,8 @@ If either is missing, stop and point the user to `sdd-plan` / `sdd-constitution`
    **Trường hợp A: Dự án Web / Mobile UI (`plan.md` có `## Design Template`)**:
    a. **Auto-invoke `sdd-asset-generator` (Web mode)**: Read the `Required Assets` list from
       the Design Template section. Generate all images using the `generate_image`
-      tool, following the template's color palette and style specifications.
+      tool (Antigravity IDE native quota). If quota is exhausted (429), automatically
+      run `python skills/sdd-asset-generator/scripts/generate_image_fallback.py` to seamlessly fallback.
       Output to `public/assets/generated/`.
 
    b. **Auto-invoke `sdd-bg-remover` Mode 1** (`remove_bg.py`, conditional): Check if the chosen template

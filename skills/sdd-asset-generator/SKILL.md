@@ -159,6 +159,34 @@ Prompt Recipe:
 
 ---
 
+---
+
+## Multi-Tier Cascade Generation Engine (Cơ Chế Chống Tràn Quota Đa Tầng)
+
+Để đảm bảo việc sinh ảnh **không bao giờ bị dừng hay báo lỗi hết quota**, skill sử dụng cơ chế thác đổ đa tầng (*Cascade Fallback Engine*):
+
+| Tầng (Tier) | Engine / Nguồn | Chi phí / Quota | Khi nào kích hoạt |
+|---|---|---|---|
+| **Tier 1 (Default Native)** | Antigravity IDE `generate_image` Tool (Google Nano Banana / Imagen 3) | Sử dụng trực tiếp Quota của Antigravity IDE Session | Luôn được ưu tiên gọi đầu tiên khi chạy trên Antigravity IDE (Không cần API key) |
+| **Tier 2 (API Key)** | Google GenAI SDK (`imagen-3.0-generate-002`) | Sử dụng quota `GEMINI_API_KEY` của người dùng | Khi `generate_image` báo lỗi hoặc chạy ngoài IDE và có sẵn `GEMINI_API_KEY` |
+| **Tier 3 (Free Zero-Quota)** | Pollinations.ai FLUX.1 / SDXL Engine | **Miễn phí 100%, không giới hạn lượt, không cần API Key** | Tự động kích hoạt khi Tier 1 & Tier 2 hết quota hoặc gặp lỗi 429 Rate Limit |
+| **Tier 4 (Custom Provider)** | OpenAI DALL-E 3 / Stability AI / MCP Server | Quota theo key `OPENAI_API_KEY` | Khi người dùng cấu hình key OpenAI hoặc MCP server tùy biến |
+
+### Quy tắc thực thi tự động của Agent:
+1. **Bước 1**: Agent gọi tool `generate_image` với prompt đã chuẩn hóa theo 7-Pillar Formula.
+2. **Bước 2**: Nếu tool `generate_image` thành công → Tiến hành bước tiếp theo.
+3. **Bước 3**: Nếu tool `generate_image` trả về lỗi Quota Exhausted / Rate Limit (429) hoặc không khả dụng:
+   - Agent **ngay lập tức chạy script fallback tự động**:
+     ```bash
+     python skills/sdd-asset-generator/scripts/generate_image_fallback.py \
+       --prompt "<7-pillar prompt>" \
+       --output public/assets/generated/<file-name>.webp \
+       --aspect-ratio <16:9 | 1:1 | 9:16>
+     ```
+   - Script sẽ tự động luân chuyển qua các provider khả dụng để sinh ảnh thành công mà không làm gián đoạn tiến trình build!
+
+---
+
 ## Execution Workflow
 
 ```
@@ -166,8 +194,9 @@ Prompt Recipe:
    └── Extract Asset Type, Description, Aspect Ratio, Template Context & Palette
 2. Apply 7-Pillar Formula
    └── Blend Subject with Template's Art Direction Archetype & Trend Styling
-3. Call `generate_image`
-   └── High-fidelity generation, descriptive filenames (hero-banner.webp, product-01.webp)
+3. Generate Asset via Cascade Engine
+   ├── Try 1: Call `generate_image` tool (Antigravity IDE Native Quota)
+   └── If Quota Limit: Run `scripts/generate_image_fallback.py` (FLUX.1 Zero-Quota Fallback)
 4. Build Asset Inventory
    └── Classify Needs BG Removal? (Yes/No) and Suggested Tier (standard/high/fine-detail)
 5. Handoff to `sdd-build` / `sdd-bg-remover`
