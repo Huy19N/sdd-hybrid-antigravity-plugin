@@ -29,8 +29,10 @@ If either is missing, stop and point the user to `sdd-plan` / `sdd-constitution`
    **Trường hợp A: Dự án Web / Mobile UI (`plan.md` có `## Design Template`)**:
    a. **Auto-invoke `sdd-asset-generator` (Web mode)**: Read the `Required Assets` list from
       the Design Template section. Generate all images using the `generate_image`
-      tool (Antigravity IDE native quota). If quota is exhausted (429), automatically
-      run `python skills/sdd-asset-generator/scripts/generate_image_fallback.py` to seamlessly fallback.
+      tool (Antigravity IDE native quota).
+      - Nếu gặp lỗi hết quota (429): Kiểm tra `GEMINI_API_KEY`. Nếu chưa có, hỏi người dùng: *"Bạn có muốn cung cấp GEMINI_API_KEY để dùng Tier 2 Google Imagen 3 không? Nếu trả lời 'Không', hệ thống sẽ tự động dùng Tier 3 FLUX.1 miễn phí."*
+      - Nếu người dùng cung cấp key → chạy `generate_image_fallback.py --provider gemini`.
+      - Nếu người dùng không có/từ chối → tự động chạy `generate_image_fallback.py --provider pollinations` (Tier 3 FLUX.1 miễn phí) và tiếp tục build.
       Output to `public/assets/generated/`.
 
    b. **Auto-invoke `sdd-bg-remover` Mode 1** (`remove_bg.py`, conditional): Check if the chosen template

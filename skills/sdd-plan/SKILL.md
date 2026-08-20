@@ -141,6 +141,7 @@ Source: brainstorm.md (v?), constitution.md (v?)
   - `<asset-name>` — `<description>` — `<needs bg removal?>`
   - `<video-name>.mp4` — `<description>` — `<tier: fast/standard>` (nếu cần sdd-video-generator)
   - `<module-asset-name>` — `<description per module spec (e.g. 9:16 story, split pair, icon 1:1, app icon)>` — `<needs bg removal?>`
+- Asset Generation Strategy: `<Tier 1: Antigravity IDE Native Quota -> Tier 2: Gemini API Key (hỏi người dùng nếu thiếu) -> Tier 3: FLUX.1 Free Zero-Quota Fallback>`
 - Stack Note: `<"Full code generation for [Platform/Framework]" or "Design-only">`
 
 ## Game Asset Requirements (dành cho Game 2D / 2.5D)
